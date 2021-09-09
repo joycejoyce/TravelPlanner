@@ -6,6 +6,7 @@ import { pageBackground,
   secondary as secondaryColor,
   text as textColor
  } from "./colors.json";
+import { primary as primaryFont } from "./fonts.json";
 
 // MUI
 import { Paper } from '@material-ui/core';
@@ -35,7 +36,7 @@ const palette = {
 };
 
 const typography = {
-  fontFamily: "PT Sans",
+  fontFamily: primaryFont,
   h5: {
     letterSpacing: ".5px"
   },

@@ -1,7 +1,7 @@
 // my components
 import Loading from "./components/page/Loading.js";
 import InnerApp from "./InnerApp.js";
-import { pageBackground } from "./colors.json";
+import { pageBackground, primary as primaryColor, secondary as secondaryColor } from "./colors.json";
 
 // MUI
 import { Paper } from '@material-ui/core';
@@ -18,9 +18,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const palette = {
+  primary: {
+    main: primaryColor
+  },
+  secondary: {
+    main: secondaryColor
+  }
+};
+
 const darkTheme = createTheme({
   palette: {
-    type: 'dark'
+    type: 'dark',
+    ...palette
   }
 });
 
@@ -29,7 +39,8 @@ const lightTheme = createTheme({
     type: 'light',
     background: {
       paper: pageBackground
-    }
+    },
+    ...palette
   }
 });
 

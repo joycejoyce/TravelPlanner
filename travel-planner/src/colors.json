@@ -1,3 +1,5 @@
 {
-    "pageBackground": "#FFFCF3"
+    "pageBackground": "#FFFCF3",
+    "primary": "#023AFF",
+    "secondary": "#FFB802"
 }

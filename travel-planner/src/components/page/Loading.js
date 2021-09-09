@@ -1,8 +1,14 @@
 import styled, { keyframes } from "styled-components";
+import { pageBackground } from "../../colors.json";
 
 const LoaderWrapper = styled.div`
     height: 100vh;
-    widht: 100vw;
+    width: 100vw;
+    background: pink;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
 `;
 
 const Container = styled.div`

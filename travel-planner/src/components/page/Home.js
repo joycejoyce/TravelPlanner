@@ -23,7 +23,10 @@ const useStyles = makeStyles((theme) => ({
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
+        [theme.breakpoints.up('md')]: {
+            width: "478px"
+        }
     },
     highlightText: {
         color: textHightlightColor,
@@ -31,7 +34,16 @@ const useStyles = makeStyles((theme) => ({
     },
     paragraph: {
         marginTop: theme.spacing(8),
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        [theme.breakpoints.up('md')]: {
+            marginTop: theme.spacing(12),
+            "& h5": {
+                fontSize: "36px"
+            },
+            "& h3": {
+                fontSize: "75px"
+            }
+        }
     },
     techLink: {
         position: "absolute",
@@ -39,7 +51,10 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.typography.fontFamily,
         letterSpacing: ".5px",
         fontSize: "14px",
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        [theme.breakpoints.up('md')]: {
+            fontSize: "16px"
+        }
     },
     btn: {
         width: "127px",
@@ -51,7 +66,8 @@ const useStyles = makeStyles((theme) => ({
             fontSize: "24px"
         },
         marginTop: theme.spacing(12),
-        textTransform: "none"
+        textTransform: "none",
+        letterSpacing: "1px"
     }
 }));
 

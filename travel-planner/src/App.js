@@ -1,11 +1,12 @@
 // my components
 import Loading from "./components/page/Loading.js";
 import InnerApp from "./InnerApp.js";
-import { pageBackground,
+import {
+  pageBackground,
   primary as primaryColor,
   secondary as secondaryColor,
   text as textColor
- } from "./colors.json";
+} from "./colors.json";
 import { primary as primaryFont } from "./fonts.json";
 
 // MUI
@@ -45,12 +46,21 @@ const typography = {
   }
 }
 
+const breakpoints = {
+  values: {
+    sm: 414,
+    md: 834,
+    lg: 1440
+  }
+}
+
 const darkTheme = createTheme({
   palette: {
     type: 'dark',
     ...palette
   },
-  typography
+  typography,
+  breakpoints
 });
 
 const lightTheme = createTheme({
@@ -61,7 +71,8 @@ const lightTheme = createTheme({
     },
     ...palette
   },
-  typography
+  typography,
+  breakpoints
 });
 
 function App() {
@@ -69,7 +80,7 @@ function App() {
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   const classes = useStyles(theme);
-  
+
   return (
     <ThemeProvider theme={theme}>
       <Paper className={"app " + classes.root}>

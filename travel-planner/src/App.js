@@ -1,7 +1,11 @@
 // my components
 import Loading from "./components/page/Loading.js";
 import InnerApp from "./InnerApp.js";
-import { pageBackground, primary as primaryColor, secondary as secondaryColor } from "./colors.json";
+import { pageBackground,
+  primary as primaryColor,
+  secondary as secondaryColor,
+  text as textColor
+ } from "./colors.json";
 
 // MUI
 import { Paper } from '@material-ui/core';
@@ -24,14 +28,28 @@ const palette = {
   },
   secondary: {
     main: secondaryColor
+  },
+  text: {
+    primary: textColor
   }
 };
+
+const typography = {
+  fontFamily: "PT Sans",
+  h5: {
+    letterSpacing: ".5px"
+  },
+  body2: {
+    // letterSpacing: "1px"
+  }
+}
 
 const darkTheme = createTheme({
   palette: {
     type: 'dark',
     ...palette
-  }
+  },
+  typography
 });
 
 const lightTheme = createTheme({
@@ -41,7 +59,8 @@ const lightTheme = createTheme({
       paper: pageBackground
     },
     ...palette
-  }
+  },
+  typography
 });
 
 function App() {

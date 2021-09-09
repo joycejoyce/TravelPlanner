@@ -1,5 +1,7 @@
 {
     "pageBackground": "#FFFCF3",
     "primary": "#023AFF",
-    "secondary": "#FFB802"
+    "secondary": "#FFB802",
+    "text": "#3D414F",
+    "textHightlight": "#F4B104"
 }

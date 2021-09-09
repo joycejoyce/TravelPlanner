@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export default function GetLogo({scale}) {
-    console.log("scale", scale);
-    scale = scale ? scale : "15%";
+export default function GetLogo({width, margin}) {
+    margin = margin ? margin : "0";
     const Logo = (styled.img`
-        height: ${scale};
-        width: ${scale};
+        width: ${width};
+        display: block;
+        margin: ${margin};
     `);
 
     Logo.defaultProps = {

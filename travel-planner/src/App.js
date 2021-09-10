@@ -75,7 +75,7 @@ const lightTheme = createTheme({
 });
 
 function App() {
-  let isDarkMode = false;
+  let isDarkMode = true;
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   const classes = useStyles(theme);

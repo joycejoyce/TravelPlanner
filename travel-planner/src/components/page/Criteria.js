@@ -18,8 +18,14 @@ const useStyles = makeStyles((theme) => {
     isDarkMode = theme.palette.type === "dark";
 
     return ({
+        accordions: {
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            alignItems: "center"
+        },
         accordion: {
-
+            width: "385px"
         },
         summary: {
             display: "flex",
@@ -40,7 +46,7 @@ const useStyles = makeStyles((theme) => {
                 width: "40px",
                 height: "40px"
             },
-            fontSize: "1.5rem"
+            fontSize: "1.2rem"
         },
         nonActive: {
             "& .circle": {
@@ -111,35 +117,37 @@ export default function Criteria() {
 
     return (
         <div className="criteria">
-            {
-                Object.keys(criteria).map(key => {
-                    const critirion = criteria[key];
+            <div className={"accordions " + classes.accordions}>
+                {
+                    Object.keys(criteria).map(key => {
+                        const critirion = criteria[key];
 
-                    return (
-                        <Accordion
-                            key={key}
-                            className={classes.accordion}
-                            disabled={!critirion.isUnlock}
-                            expanded={critirion.isExpanded}
-                            onChange={(e) => handleOnChangeAccordion(e, key, critirion.isExpanded)}
-                        >
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                id={critirion.id}
+                        return (
+                            <Accordion
+                                key={key}
+                                className={classes.accordion}
+                                disabled={!critirion.isUnlock}
+                                expanded={critirion.isExpanded}
+                                onChange={(e) => handleOnChangeAccordion(e, key, critirion.isExpanded)}
                             >
-                                <Summary
-                                    num={critirion.num}
-                                    text={critirion.summary}
-                                    isActive={critirion.isActive}
-                                />
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                {critirion.detail}
-                            </AccordionDetails>
-                        </Accordion>
-                    );
-                })
-            }
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    id={critirion.id}
+                                >
+                                    <Summary
+                                        num={critirion.num}
+                                        text={critirion.summary}
+                                        isActive={critirion.isActive}
+                                    />
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    {critirion.detail}
+                                </AccordionDetails>
+                            </Accordion>
+                        );
+                    })
+                }
+            </div>
         </div>
     );
 }

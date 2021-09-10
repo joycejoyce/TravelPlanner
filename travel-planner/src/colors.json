@@ -3,11 +3,13 @@
         "background": "#FFFCF3",
         "primary": "#023AFF",
         "secondary": "#FFB802",
-        "text": "#3D414F"
+        "text": "#3D414F",
+        "primaryBK": "#D0D7F1"
     },
     "darkColors": {
         "primary": "#4DBCEB",
         "secondary": "#EDC55E",
-        "text": "#F2F2F2"
+        "text": "#F2F2F2",
+        "primaryBK": "#0E5E81"
     }
 }

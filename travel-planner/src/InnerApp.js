@@ -31,7 +31,7 @@ function AnimationPart() {
                     <Route path="/home" component={Home} />
                     <Route path="/criteria" component={Criteria} />
                     <Route path="/tech" component={Tech} />
-                    <Route path="/" component={Home} />
+                    <Route path="/" component={Criteria} />
                 </Switch>
             </CSSTransition>
         </TransitionGroup>

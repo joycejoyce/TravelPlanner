@@ -1,17 +1,12 @@
 // my components
 import Loading from "./components/page/Loading.js";
 import InnerApp from "./InnerApp.js";
-import {
-  pageBackground,
-  primary as primaryColor,
-  secondary as secondaryColor,
-  text as textColor
-} from "./colors.json";
+import { lightColors, darkColors } from "./colors.json";
 import { primary as primaryFont } from "./fonts.json";
 
 // MUI
-import { Paper } from '@material-ui/core';
-import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { Paper } from "@material-ui/core";
+import { makeStyles, createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 // others
 import styled from "styled-components";
@@ -23,18 +18,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100vw"
   }
 }));
-
-const palette = {
-  primary: {
-    main: primaryColor
-  },
-  secondary: {
-    main: secondaryColor
-  },
-  text: {
-    primary: textColor
-  }
-};
 
 const typography = {
   fontFamily: primaryFont,
@@ -56,8 +39,16 @@ const breakpoints = {
 
 const darkTheme = createTheme({
   palette: {
-    type: 'dark',
-    ...palette
+    type: "dark",
+    primary: {
+      main: darkColors.primary
+    },
+    secondary: {
+      main: darkColors.secondary
+    },
+    text: {
+      primary: darkColors.text
+    }
   },
   typography,
   breakpoints
@@ -65,11 +56,19 @@ const darkTheme = createTheme({
 
 const lightTheme = createTheme({
   palette: {
-    type: 'light',
+    type: "light",
     background: {
-      paper: pageBackground
+      paper: lightColors.background
     },
-    ...palette
+    primary: {
+      main: lightColors.primary
+    },
+    secondary: {
+      main: lightColors.secondary
+    },
+    text: {
+      primary: lightColors.text
+    }
   },
   typography,
   breakpoints
@@ -84,7 +83,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Paper className={"app " + classes.root}>
-        <Loading />
+        {/* <Loading /> */}
         <InnerApp />
       </Paper>
     </ThemeProvider>

@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import loadAnimation from "./animation-controlers/LoadingToHome.js";
 
-loadAnimation();
+// loadAnimation();
 
 ReactDOM.render(
   <React.StrictMode>

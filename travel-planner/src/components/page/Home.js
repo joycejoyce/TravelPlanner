@@ -5,18 +5,17 @@ import { ArrowForward as ArrowIcon } from '@material-ui/icons';
 
 // my components
 import Logo from "../sub/Logo.js";
-import { textHightlight as textHightlightColor } from "../../colors.json";
 import { secondary as secondaryFont } from "../../fonts.json";
 
 // others
 import { Link as RouterLink } from "react-router-dom";
-// import styled from "styled-components";
 
-// const Container = styled.div`
+let isDarkMode = false;
 
-// `;
+const useStyles = makeStyles((theme) => {
+    isDarkMode = theme.palette.type === "dark";
 
-const useStyles = makeStyles((theme) => ({
+    return({
     home: {
         width: "310px",
         height: "100%",
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     highlightText: {
-        color: textHightlightColor,
+        color: theme.palette.secondary.main,
         fontFamily: secondaryFont
     },
     paragraph: {
@@ -67,9 +66,10 @@ const useStyles = makeStyles((theme) => ({
         },
         marginTop: theme.spacing(12),
         textTransform: "none",
-        letterSpacing: "1px"
+        letterSpacing: "1px",
+        color: theme.palette.type === "dark" ? theme.palette.text.primary : theme.palette.background.paper
     }
-}));
+})});
 
 const Paragraph = () => {
     const classes = useStyles();
@@ -91,7 +91,12 @@ export default function Home() {
 
     return (
         <div className={classes.home}>
-            <Logo className="logo" width="70px" margin="0 auto" />
+            <Logo
+                className="logo"
+                width="70px"
+                margin="0 auto"
+                isDarkMode={isDarkMode}
+            />
             <Paragraph className="paragraph" />
             <Button
                 variant="contained"

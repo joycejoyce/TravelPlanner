@@ -1,7 +1,13 @@
 {
-    "pageBackground": "#FFFCF3",
-    "primary": "#023AFF",
-    "secondary": "#FFB802",
-    "text": "#3D414F",
-    "textHightlight": "#F4B104"
+    "lightColors": {
+        "background": "#FFFCF3",
+        "primary": "#023AFF",
+        "secondary": "#FFB802",
+        "text": "#3D414F"
+    },
+    "darkColors": {
+        "primary": "#4DBCEB",
+        "secondary": "#EDC55E",
+        "text": "#F2F2F2"
+    }
 }

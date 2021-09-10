@@ -1,13 +1,14 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
 import { CenterFocusStrong as CenterIcon } from '@material-ui/icons';
-import { mergeClasses } from "@material-ui/styles";
 
 // my components
 import { lightColors, darkColors } from "../../../colors.json";
+import Map, { MapOperations, MapNames } from "../../map/Map.js";
+import { places } from "../../map/Place.js";
 
 // others
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 let isDarkMode = false;
 
@@ -17,18 +18,24 @@ const useStyles = makeStyles((theme) => {
 
     return ({
         centerPoint: {
-            transform: "translateX(-10px)"
+            transform: "translateX(-10px)",
+            display: "flex",
+            flexDirection: "column",
+            gap: "5px"
         },
         explanation: {
             borderRadius: "3px",
             width: "365px",
-            height: "155%",
+            height: "36px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             gap: "5px",
             color: palette.primary,
             background: palette.primaryBK
+        },
+        map: {
+            height: "300px"
         }
         // formControl: {
         //     minWidth: 120
@@ -75,11 +82,24 @@ function Explanation() {
 
 export default function CenterPoint() {
     const classes = useStyles();
+    const mapProps = {
+        action: MapOperations.GetMap,
+        center: places.myHome,
+        mapName: MapNames.CenterPointMap,
+        zoom: 1
+    };
+
+    useEffect(() => {
+        // 使用瀏覽器 API 更新文件標題
+        // Map(mapProps);
+    });
 
     return (
         <div className={"centerPoint " + classes.centerPoint}>
             {/* <Country /> */}
             <Explanation />
+            <div className={mapProps.mapName + " " + classes.map}></div>
+            {/* <Map {...mapProps} /> */}
         </div>
     );
 }

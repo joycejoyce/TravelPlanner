@@ -6,6 +6,8 @@ import { CenterFocusStrong as CenterIcon } from '@material-ui/icons';
 import { lightColors, darkColors } from "../../../colors.json";
 import Map, { MapOperations, MapNames } from "../../map/Map.js";
 import { places } from "../../map/Place.js";
+import ConfirmModal from "./ConfirmModal.js";
+import addMapListener from "./MapListener.js";
 
 // others
 import { useState, useEffect } from "react";
@@ -82,6 +84,9 @@ function Explanation() {
 
 export default function CenterPoint() {
     const classes = useStyles();
+
+    const [modalOpen, setModalOpen] = useState(false);
+    
     const mapProps = {
         action: MapOperations.GetMap,
         center: places.myHome,
@@ -89,9 +94,10 @@ export default function CenterPoint() {
         zoom: 1
     };
 
-    useEffect(() => {
-        // 使用瀏覽器 API 更新文件標題
-        // Map(mapProps);
+    useEffect(async () => {
+        // const modalCtrl = {modalOpen, setModalOpen};
+        // const [google, map] = await Map(mapProps);
+        // addMapListener(google, map, modalCtrl);
     });
 
     return (
@@ -100,6 +106,10 @@ export default function CenterPoint() {
             <Explanation />
             <div className={mapProps.mapName + " " + classes.map}></div>
             {/* <Map {...mapProps} /> */}
+            <ConfirmModal
+                open={modalOpen}
+                setModalOpen={setModalOpen}
+            />
         </div>
     );
 }

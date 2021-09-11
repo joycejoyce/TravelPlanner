@@ -8,9 +8,9 @@ import { secondary as secondaryFont } from "../../fonts.json";
 import { useState } from "react";
 
 // my component
-import CenterPoint from "../sub/criteria/CenterPoint.js";
-import Date from "../sub/criteria/Date.js";
-import Radius from "../sub/criteria/Radius.js";
+import CenterPoint from "../criteria/centerPoint/CenterPoint.js";
+import Date from "../criteria/Date.js";
+import Radius from "../criteria/Radius.js";
 
 let isDarkMode = false;
 

@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Body = React.forwardRef((props, ref) => {
+function Body(props) {
     const {ctrl, closeModal} = props;
     const {centerPointDesc, setCenterPointDesc} = ctrl;
     const classes = useStyles();
@@ -107,7 +107,7 @@ const Body = React.forwardRef((props, ref) => {
             </div>
         </div>
     );
-});
+}
 
 export default function ConfirmModal({ open, setOpen, ctrl }) {
     const classes = useStyles();

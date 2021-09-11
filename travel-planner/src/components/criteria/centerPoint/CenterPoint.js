@@ -1,5 +1,6 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
 import { CenterFocusStrong as CenterIcon } from '@material-ui/icons';
 
 // my components
@@ -82,10 +83,10 @@ function Explanation() {
     )
 }
 
-export default function CenterPoint() {
+export default function CenterPoint({ctrl}) {
     const classes = useStyles();
 
-    const [modalOpen, setModalOpen] = useState(true);
+    const [modalOpen, setModalOpen] = useState(false);
     
     const mapProps = {
         action: MapOperations.GetMap,
@@ -98,6 +99,7 @@ export default function CenterPoint() {
         // const modalCtrl = {modalOpen, setModalOpen};
         // const [google, map] = await Map(mapProps);
         // addMapListener(google, map, modalCtrl);
+        // setModalOpen(true);
     });
 
     return (
@@ -106,9 +108,11 @@ export default function CenterPoint() {
             <Explanation />
             <div className={mapProps.mapName + " " + classes.map}></div>
             {/* <Map {...mapProps} /> */}
+            <Button onClick={() => setModalOpen(true)}>Open modal</Button>
             <ConfirmModal
                 open={modalOpen}
                 setOpen={setModalOpen}
+                ctrl={ctrl}
             />
         </div>
     );

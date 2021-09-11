@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme) => {
         width: "127px",
         height: "60px",
         borderRadius: "30px",
-        fontFamily: secondaryFont,
         fontSize: "30px",
         "& .MuiSvgIcon-root": {
             fontSize: "24px"

@@ -75,12 +75,20 @@ function Summary({num, text, isActive}) {
 
 export default function Criteria() {
     const classes = useStyles();
+
+    const [centerPointDesc, setCenterPointDesc] = useState("");
+
+    const detail = {
+        1: <CenterPoint ctrl={{centerPointDesc, setCenterPointDesc}} />,
+        2: <Date />,
+        3: <Radius />
+    };
+    
     const [criteria, setCriteria] = useState({
         centerPoint: {
             num: 1,
             id: "center-point",
             summary: "Set center point",
-            detail: <CenterPoint />,
             isUnlock: true,
             isActive: true,
             isExpanded: true
@@ -89,7 +97,6 @@ export default function Criteria() {
             num: 2,
             id: "date",
             summary: "Set date",
-            detail: <Date />,
             isUnlock: false,
             isActive: false,
             isExpanded: false
@@ -98,7 +105,6 @@ export default function Criteria() {
             num: 3,
             id: "radius",
             summary: "Set radius",
-            detail: <Radius />,
             isUnlock: false,
             isActive: false,
             isExpanded: false
@@ -141,7 +147,7 @@ export default function Criteria() {
                                     />
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    {critirion.detail}
+                                    {detail[critirion.num]}
                                 </AccordionDetails>
                             </Accordion>
                         );

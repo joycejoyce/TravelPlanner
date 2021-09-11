@@ -3,14 +3,14 @@ import { Modal, Typography, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // others
-import { useState } from "react";
+import React, { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
     confirmModal: {
 
     },
     modalBody: {
-        width: "385px",
+        width: "400px",
         height: "295px",
         background: theme.palette.background.paper,
         borderRadius: "3px",
@@ -24,10 +24,11 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center"
     },
     desc: {
+        fontSize: "18px",
         color: theme.palette.text.primary
     },
     text: {
-        width: "264px",
+        width: "297px",
         margin: theme.spacing(2),
         "& .MuiOutlinedInput-root": {
             padding: theme.spacing(1)
@@ -40,24 +41,33 @@ const useStyles = makeStyles((theme) => ({
     btnSection: {
         display: "flex",
         justifyContent: "space-between",
-        width: "264px",
-        height: "45px",
+        width: "297px",
+        height: "40px",
         marginTop: "10px",
         "& button": {
+            width: "100px",
             fontSize: "16px"
         }
     }
 }));
 
-function Body() {
+const Body = React.forwardRef((props, ref) => {
+    const {ctrl, closeModal} = props;
+    const {centerPointDesc, setCenterPointDesc} = ctrl;
     const classes = useStyles();
     const maxTextNum = 100;
-    const [text, setText] = useState("");
+    const [text, setText] = useState(centerPointDesc);
     const remainingTextNum = maxTextNum - text.length;
+    let helperText = "remaining character num: " + remainingTextNum.toString();
 
     const handleOnChange = (e) => {
         const { value } = e.target;
         setText(value.slice(0, Math.min(maxTextNum, value.length)));
+    }
+
+    const handleOnClickConfirm = () => {
+        setCenterPointDesc(text);
+        closeModal();
     }
 
     return (
@@ -76,27 +86,30 @@ function Body() {
                 variant="outlined"
                 value={text}
                 onChange={handleOnChange}
-                helperText={"remaining character num: " + remainingTextNum.toString()}
+                helperText={helperText}
             />
             <div className={"btnSection " + classes.btnSection}>
                 <Button
                     color="primary"
                     variant="outlined"
+                    onClick={closeModal}
                 >
                     Cancel
                 </Button>
                 <Button
                     color="primary"
                     variant="contained"
+                    onClick={handleOnClickConfirm}
+                    disabled={text.length === 0}
                 >
                     Confirm
                 </Button>
             </div>
         </div>
     );
-}
+});
 
-export default function ConfirmModal({ open, setOpen }) {
+export default function ConfirmModal({ open, setOpen, ctrl }) {
     const classes = useStyles();
 
     const handleClose = () => {
@@ -109,7 +122,7 @@ export default function ConfirmModal({ open, setOpen }) {
             open={open}
             onClose={handleClose}
         >
-            <Body />
+            <Body ctrl={ctrl} closeModal={handleClose} />
         </Modal>
     );
 }

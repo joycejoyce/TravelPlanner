@@ -85,7 +85,7 @@ function Explanation() {
 export default function CenterPoint() {
     const classes = useStyles();
 
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(true);
     
     const mapProps = {
         action: MapOperations.GetMap,
@@ -108,7 +108,7 @@ export default function CenterPoint() {
             {/* <Map {...mapProps} /> */}
             <ConfirmModal
                 open={modalOpen}
-                setModalOpen={setModalOpen}
+                setOpen={setModalOpen}
             />
         </div>
     );

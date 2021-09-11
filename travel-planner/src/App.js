@@ -2,7 +2,7 @@
 import Loading from "./components/page/Loading.js";
 import InnerApp from "./InnerApp.js";
 import { lightColors, darkColors } from "./colors.json";
-import { primary as primaryFont } from "./fonts.json";
+import { primary as primaryFont, secondary as secondaryFont } from "./fonts.json";
 
 // MUI
 import { Paper } from "@material-ui/core";
@@ -26,6 +26,11 @@ const typography = {
   },
   body2: {
     // letterSpacing: "1px"
+  },
+  button: {
+    fontFamily: secondaryFont,
+    letterSpacing: "1px",
+    textTransform: "none"
   }
 }
 

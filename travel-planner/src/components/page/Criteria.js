@@ -77,9 +77,13 @@ export default function Criteria() {
     const classes = useStyles();
 
     const [centerPointDesc, setCenterPointDesc] = useState("");
+    const [centerPointPosition, setCenterPointPosition] = useState(null);
 
     const detail = {
-        1: <CenterPoint ctrl={{centerPointDesc, setCenterPointDesc}} />,
+        1: <CenterPoint
+            desc={{centerPointDesc, setCenterPointDesc}}
+            position={{centerPointPosition, setCenterPointPosition}}
+        />,
         2: <Date />,
         3: <Radius />
     };

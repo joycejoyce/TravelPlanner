@@ -2,8 +2,12 @@
 import { Modal, Typography, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+// my components
+import { secondary as secondaryFont } from "../../../fonts.json";
+
 // others
 import React, { useState } from "react";
+import { addMarkerAndInfoWindow } from "../../mapHandler/MapHandler_CenterPoint";
 
 const useStyles = makeStyles((theme) => ({
     confirmModal: {
@@ -11,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     },
     modalBody: {
         width: "400px",
-        height: "295px",
+        height: "350px",
+        minHeight: "fit-content",
         background: theme.palette.background.paper,
         borderRadius: "3px",
         position: "absolute",
@@ -25,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
     },
     desc: {
         fontSize: "18px",
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
+        textAlign: "center",
+        width: "fit-content",
+        maxWidth: "305px"
     },
     text: {
         width: "297px",
@@ -48,17 +56,24 @@ const useStyles = makeStyles((theme) => ({
             width: "100px",
             fontSize: "16px"
         }
+    },
+    address: {
+        color: theme.palette.primary.main,
+        fontSize: "16px",
+        fontFamily: secondaryFont
     }
 }));
 
-function Body(props) {
-    const {ctrl, closeModal} = props;
-    const {centerPointDesc, setCenterPointDesc} = ctrl;
+const Body = React.forwardRef((props, ref) => {
+    const {ctrl, closeModal, mapCtrl} = props;
+    const {desc, position} = ctrl;
+    const {centerPointDesc, setCenterPointDesc} = desc;
+    const {address} = position.centerPointPosition;
     const classes = useStyles();
     const maxTextNum = 100;
     const [text, setText] = useState(centerPointDesc);
     const remainingTextNum = maxTextNum - text.length;
-    let helperText = "remaining character num: " + remainingTextNum.toString();
+    let helperText = "remaining character number: " + remainingTextNum.toString();
 
     const handleOnChange = (e) => {
         const { value } = e.target;
@@ -67,6 +82,10 @@ function Body(props) {
 
     const handleOnClickConfirm = () => {
         setCenterPointDesc(text);
+        const {google, map, mapDivSelector} = mapCtrl;
+        const latLngObj = ctrl.position.centerPointPosition.latLngObj;
+        const info = ctrl.position.centerPointPosition.address + " / " + text;
+        addMarkerAndInfoWindow(google, map, mapDivSelector, latLngObj, info);
         closeModal();
     }
 
@@ -77,6 +96,7 @@ function Body(props) {
                 className={classes.desc}
             >
                 Write a short description for this point:
+                <div className={classes.address}>{address}</div>
             </Typography>
             <TextField
                 className={classes.text}
@@ -87,6 +107,7 @@ function Body(props) {
                 value={text}
                 onChange={handleOnChange}
                 helperText={helperText}
+                inputProps={{ "data-testid": "desc" }}
             />
             <div className={"btnSection " + classes.btnSection}>
                 <Button
@@ -107,9 +128,9 @@ function Body(props) {
             </div>
         </div>
     );
-}
+});
 
-export default function ConfirmModal({ open, setOpen, ctrl }) {
+export default function ConfirmModal({ open, setOpen, ctrl, mapCtrl }) {
     const classes = useStyles();
 
     const handleClose = () => {
@@ -122,7 +143,7 @@ export default function ConfirmModal({ open, setOpen, ctrl }) {
             open={open}
             onClose={handleClose}
         >
-            <Body ctrl={ctrl} closeModal={handleClose} />
+            <Body ctrl={ctrl} closeModal={handleClose} mapCtrl={mapCtrl} />
         </Modal>
     );
 }

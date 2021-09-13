@@ -5,10 +5,11 @@ import { CenterFocusStrong as CenterIcon } from '@material-ui/icons';
 
 // my components
 import { lightColors, darkColors } from "../../../colors.json";
-import Map, { MapOperations, MapNames } from "../../map/Map.js";
+import doMapOperations, { MapOperations, MapNames } from "../../map/Map.js";
 import { places } from "../../map/Place.js";
 import ConfirmModal from "./ConfirmModal.js";
-import addMapListener from "./MapListener.js";
+import addMapListener, { addMarkerAndInfoWindow } from "../../mapHandler/MapHandler_CenterPoint.js";
+import "./handler.css";
 
 // others
 import { useState, useEffect } from "react";
@@ -24,7 +25,8 @@ const useStyles = makeStyles((theme) => {
             transform: "translateX(-10px)",
             display: "flex",
             flexDirection: "column",
-            gap: "5px"
+            gap: "5px",
+            // height: "50vh"
         },
         explanation: {
             borderRadius: "3px",
@@ -38,6 +40,7 @@ const useStyles = makeStyles((theme) => {
             background: palette.primaryBK
         },
         map: {
+            // height: "100%"
             height: "300px"
         }
         // formControl: {
@@ -83,11 +86,9 @@ function Explanation() {
     )
 }
 
-export default function CenterPoint({ctrl}) {
+export default function CenterPoint(centerPointCtrl) {
     const classes = useStyles();
 
-    const [modalOpen, setModalOpen] = useState(false);
-    
     const mapProps = {
         action: MapOperations.GetMap,
         center: places.myHome,
@@ -95,24 +96,33 @@ export default function CenterPoint({ctrl}) {
         zoom: 1
     };
 
+    const [modalOpen, setModalOpen] = useState(false);
+    const [mapCtrl, setMapCtrl] = useState(null);
+
     useEffect(async () => {
-        // const modalCtrl = {modalOpen, setModalOpen};
-        // const [google, map] = await Map(mapProps);
-        // addMapListener(google, map, modalCtrl);
-        // setModalOpen(true);
-    });
+        const newMapCtrl = await doMapOperations(mapProps);
+        const {google, map} = newMapCtrl;
+        addMapListener(google, map, setModalOpen, centerPointCtrl);
+
+        setMapCtrl(newMapCtrl);
+    }, [true]);
+
+    const mapContentId = mapProps.mapName + "_" + "content";
+    const mapDivSelector = "#" + mapContentId;
 
     return (
         <div className={"centerPoint " + classes.centerPoint}>
             {/* <Country /> */}
             <Explanation />
             <div className={mapProps.mapName + " " + classes.map}></div>
+            <div id={mapContentId}></div>
             {/* <Map {...mapProps} /> */}
-            <Button onClick={() => setModalOpen(true)}>Open modal</Button>
+            <Button id="openModal" onClick={() => setModalOpen(true)}>Open modal</Button>
             <ConfirmModal
                 open={modalOpen}
                 setOpen={setModalOpen}
-                ctrl={ctrl}
+                ctrl={centerPointCtrl}
+                mapCtrl={{...mapCtrl, mapDivSelector}}
             />
         </div>
     );

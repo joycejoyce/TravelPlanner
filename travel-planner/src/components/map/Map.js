@@ -32,15 +32,21 @@ function getMap(google, { center, zoom, mapName }) {
     return map;
 }
 
-export default async function Map(props) {
+// input:
+// props = {
+//     action: MapOperations.GetMap,
+//     center: places.myHome,
+//     mapName: MapNames.CenterPointMap,
+//     zoom: 1
+// }
+export default async function doMapOperations(props) {
     console.log({ props });
     const loader = getLoader();
     const google = await loader.load();
     switch (props.action) {
         case MapOperations.GetMap:
             const map = getMap(google, props);
-            console.log("going to return");
-            return [google, map];
+            return {google, map};
         default:
             return null;
     }

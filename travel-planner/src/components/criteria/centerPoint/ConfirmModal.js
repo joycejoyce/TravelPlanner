@@ -7,7 +7,7 @@ import { secondary as secondaryFont } from "../../../fonts.json";
 
 // others
 import React, { useState } from "react";
-import { addMarkerAndInfoWindow } from "../../mapHandler/MapHandler_CenterPoint";
+import { addInfoWindow } from "../../mapHandler/MapHandler_CenterPoint";
 
 const useStyles = makeStyles((theme) => ({
     confirmModal: {
@@ -84,8 +84,22 @@ const Body = React.forwardRef((props, ref) => {
         setCenterPointDesc(text);
         const {google, map, mapDivSelector} = mapCtrl;
         const latLngObj = ctrl.position.centerPointPosition.latLngObj;
-        const info = ctrl.position.centerPointPosition.address + " / " + text;
-        addMarkerAndInfoWindow(google, map, mapDivSelector, latLngObj, info);
+        const info = {
+            desc: text,
+            address: ctrl.position.centerPointPosition.address
+        }
+        addInfoWindow(google, map, mapDivSelector, latLngObj, info);
+
+        map.setOptions({
+            // draggable: false,
+            zoomControl: false,
+            // scrollwheel: false,
+            // disableDoubleClickZoom: true,
+            gestureHandling: "none"
+        });
+
+        google.maps.event.clearListeners(map, "click");
+
         closeModal();
     }
 

@@ -8,8 +8,7 @@ import { lightColors, darkColors } from "../../../colors.json";
 import doMapOperations, { MapOperations, MapNames } from "../../map/Map.js";
 import { places } from "../../map/Place.js";
 import ConfirmModal from "./ConfirmModal.js";
-import addMapListener, { addMarkerAndInfoWindow } from "../../mapHandler/MapHandler_CenterPoint.js";
-import "./handler.css";
+import addMapListener, { addInfoWindow } from "../../mapHandler/MapHandler_CenterPoint.js";
 
 // others
 import { useState, useEffect } from "react";
@@ -43,37 +42,8 @@ const useStyles = makeStyles((theme) => {
             // height: "100%"
             height: "300px"
         }
-        // formControl: {
-        //     minWidth: 120
-        // }
     });
 });
-
-// function Country() {
-//     const classes = useStyles();
-//     const [country, setCountry] = useState("");
-//     const countries = ["Taiwan", "United States", "China", "Germany", "France", "Italy"]
-
-//     const handleChange = (e) => {
-//         setCountry(e.target.value);
-//     }
-
-//     return (
-//         <FormControl className={classes.formControl}>
-//             <InputLabel id="country-label">Country</InputLabel>
-//             <Select
-//                 labelId="country-label-id"
-//                 id="country"
-//                 value={country}
-//                 onChange={handleChange}
-//             >
-//                 <MenuItem value={10}>Ten</MenuItem>
-//                 <MenuItem value={20}>Twenty</MenuItem>
-//                 <MenuItem value={30}>Thirty</MenuItem>
-//             </Select>
-//         </FormControl>
-//     );
-// }
 
 function Explanation() {
     const classes = useStyles();
@@ -112,11 +82,9 @@ export default function CenterPoint(centerPointCtrl) {
 
     return (
         <div className={"centerPoint " + classes.centerPoint}>
-            {/* <Country /> */}
             <Explanation />
             <div className={mapProps.mapName + " " + classes.map}></div>
             <div id={mapContentId}></div>
-            {/* <Map {...mapProps} /> */}
             <Button id="openModal" onClick={() => setModalOpen(true)}>Open modal</Button>
             <ConfirmModal
                 open={modalOpen}

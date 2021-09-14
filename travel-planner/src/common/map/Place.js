@@ -1,6 +1,5 @@
 export const places = {
-    "myHome": { lat: 24.78483239597807, lng: 121.00783229775378 },
-    "greenHouse": { lat: 24.78787640175999, lng: 121.00956905130698 }, 
+    "taiwan": { lat: 24.786764832406874, lng: 120.99961765669231 }
 };
 
 export default function getPlace(google, placeName) {

@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // my components
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
-import { addInfoWindow } from "./mapHandler.js";
+import { addInfoWindow, setMapToReadOnly, clearListeners } from "./mapHandler.js";
 import { selectDesc, selectPosition, changeDesc } from "./centerPointSlice.js";
 import { store } from "../../../app/store.js";
 
@@ -68,10 +68,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Body = React.forwardRef((props, ref) => {
-    console.log("store state (ConfirmModal)", store.getState());
-
     const dispatch = useDispatch();
-    const {closeModal, mapCtrl} = props;
+    const { closeModal } = props;
     const classes = useStyles();
     const maxTextNum = 100;
 
@@ -88,20 +86,17 @@ const Body = React.forwardRef((props, ref) => {
         setText(value.slice(0, Math.min(maxTextNum, value.length)));
     }
 
-    const handleOnClickConfirm = () => {
-        const {google, map, mapDivSelector} = mapCtrl;
-        dispatch(changeDesc(text));
-
+    const doMapOperations = () => {
         const { latLng } = position;
-        addInfoWindow(google, map, mapDivSelector, latLng);
+        addInfoWindow(latLng);
 
-        map.setOptions({
-            zoomControl: false,
-            gestureHandling: "none"
-        });
+        setMapToReadOnly();
+        clearListeners();
+    }
 
-        google.maps.event.clearListeners(map, "click");
-
+    const handleOnClickConfirm = () => {
+        dispatch(changeDesc(text));
+        doMapOperations();
         closeModal();
     }
 
@@ -148,14 +143,12 @@ const Body = React.forwardRef((props, ref) => {
     );
 });
 
-export default function ConfirmModal({ open, setOpen, mapCtrl }) {
+export default function ConfirmModal({ open, setOpen }) {
     const classes = useStyles();
 
     const handleClose = () => {
         setOpen(false);
     }
-
-    console.log("store state (ConfirmModal)", store.getState());
 
     return (
         <Modal
@@ -163,7 +156,7 @@ export default function ConfirmModal({ open, setOpen, mapCtrl }) {
             open={open}
             onClose={handleClose}
         >
-            <Body closeModal={handleClose} mapCtrl={mapCtrl} />
+            <Body closeModal={handleClose} />
         </Modal>
     );
 }

@@ -5,11 +5,10 @@ import { CenterFocusStrong as CenterIcon } from '@material-ui/icons';
 
 // my components
 import { lightColors, darkColors } from "../../../common/styles/colors.json";
-import doMapOperations, { MapOperations, MapNames } from "../../../common/map/Map.js";
-import { places } from "../../../common/map/Place.js";
+import { setupMap, addMapListener } from "./mapHandler.js";
 import ConfirmModal from "./ConfirmModal.js";
-import addMapListener, { addInfoWindow } from "./mapHandler.js";
 import { changePosition } from "./centerPointSlice.js";
+import { places } from "../../../common/map/place.js";
 
 // React
 import { useState, useEffect } from "react";
@@ -61,44 +60,37 @@ function Explanation() {
 export default function CenterPoint(centerPointCtrl) {
     const classes = useStyles();
 
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const mapName = "centerPointMap";
     const mapProps = {
-        action: MapOperations.GetMap,
-        center: places.myHome,
-        mapName: MapNames.CenterPointMap,
+        center: places.taiwan,
+        id: mapName,
+        infoWindowId: mapName + "_infoWindow",
         zoom: 1
     };
-
-    const [modalOpen, setModalOpen] = useState(false);
-    const [mapCtrl, setMapCtrl] = useState(null);
 
     const dispatch = useDispatch();
 
     useEffect(async () => {
-        const newMapCtrl = await doMapOperations(mapProps);
-        const {google, map} = newMapCtrl;
-
+        await setupMap(mapProps);
+        
         const centerPointCtrl = {
             dispatch,
             changePosition
         };
-        addMapListener(google, map, setModalOpen, centerPointCtrl);
-
-        setMapCtrl(newMapCtrl);
+        addMapListener(setModalOpen, centerPointCtrl);
     }, [true]);
-
-    const mapContentId = mapProps.mapName + "_" + "content";
-    const mapDivSelector = "#" + mapContentId;
 
     return (
         <div className={"centerPoint " + classes.centerPoint}>
             <Explanation />
-            <div className={mapProps.mapName + " " + classes.map}></div>
-            <div id={mapContentId}></div>
+            <div id={mapProps.id} className={classes.map}></div>
+            <div id={mapProps.infoWindowId}></div>
             <Button id="openModal" onClick={() => setModalOpen(true)}>Open modal</Button>
             <ConfirmModal
                 open={modalOpen}
                 setOpen={setModalOpen}
-                mapCtrl={{...mapCtrl, mapDivSelector}}
             />
         </div>
     );

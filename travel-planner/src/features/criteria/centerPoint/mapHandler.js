@@ -1,16 +1,26 @@
 // my components
 import InfoWindow, { getContainerDiv } from "./InfoWindow.js";
-import { changePosition, selectPosition } from "./centerPointSlice.js";
 import { store } from "../../../app/store.js";
+import { getMap } from "../../../common/map/map.js";
 
 // React
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
-export default function addMapListener(google, map, setModalOpen, centerPointCtrl) {
+let google = null;
+let map = null;
+let infoWindowId = "";
+
+export async function setupMap(mapProps) {
+    const mapCtrl = await getMap(mapProps);
+    google = mapCtrl.google;
+    map = mapCtrl.map;
+    infoWindowId = mapProps.infoWindowId;
+}
+
+export function addMapListener(setModalOpen, centerPointCtrl) {
     map.addListener("click", (mapsMouseEvent) => {
         const latLng = mapsMouseEvent.latLng.toJSON();
-
         const geocoder = new google.maps.Geocoder();
         geocoder
             .geocode({ location: latLng })
@@ -24,8 +34,20 @@ export default function addMapListener(google, map, setModalOpen, centerPointCtr
     });
 }
 
-export function addInfoWindow(google, map, mapDivSelector, latLng) {
-    const rootDiv = document.querySelector(mapDivSelector);
+export function setMapToReadOnly() {
+    map.setOptions({
+        zoomControl: false,
+        gestureHandling: "none"
+    });
+}        
+
+export function clearListeners() {
+    google.maps.event.clearListeners(map, "click");
+}
+
+export function addInfoWindow(latLng) {
+    const infoWindowDivSelector = "#" + infoWindowId;
+    const rootDiv = document.querySelector(infoWindowDivSelector);
 
     ReactDOM.render(
         <Provider store={store}>

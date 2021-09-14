@@ -2,8 +2,12 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import { lightColors } from "../../../colors.json";
-import { secondary as secondaryFont } from "../../../fonts.json";
+import { lightColors } from "../../../common/styles/colors.json";
+import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
+import { selectDesc, selectPosition } from "./centerPointSlice.js";
+
+// React
+import { useSelector } from "react-redux";
 
 const containerClassName = "popup-container";
 
@@ -65,9 +69,11 @@ export function getContainerDiv() {
     return document.querySelector("." + containerClassName);
 }
 
-export default function InfoWindow({ info }) {
+export default function InfoWindow() {
     const classes = useStyles();
-    const { desc, address } = info;
+
+    const desc = useSelector(selectDesc);
+    const { address } = useSelector(selectPosition);
 
     return (
         <div className={containerClassName}>

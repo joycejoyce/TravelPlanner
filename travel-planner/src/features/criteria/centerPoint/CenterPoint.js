@@ -4,14 +4,16 @@ import { Button } from "@material-ui/core";
 import { CenterFocusStrong as CenterIcon } from '@material-ui/icons';
 
 // my components
-import { lightColors, darkColors } from "../../../colors.json";
-import doMapOperations, { MapOperations, MapNames } from "../../map/Map.js";
-import { places } from "../../map/Place.js";
+import { lightColors, darkColors } from "../../../common/styles/colors.json";
+import doMapOperations, { MapOperations, MapNames } from "../../../common/map/Map.js";
+import { places } from "../../../common/map/Place.js";
 import ConfirmModal from "./ConfirmModal.js";
-import addMapListener, { addInfoWindow } from "../../mapHandler/MapHandler_CenterPoint.js";
+import addMapListener, { addInfoWindow } from "./mapHandler.js";
+import { changePosition } from "./centerPointSlice.js";
 
-// others
+// React
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 let isDarkMode = false;
 
@@ -69,9 +71,16 @@ export default function CenterPoint(centerPointCtrl) {
     const [modalOpen, setModalOpen] = useState(false);
     const [mapCtrl, setMapCtrl] = useState(null);
 
+    const dispatch = useDispatch();
+
     useEffect(async () => {
         const newMapCtrl = await doMapOperations(mapProps);
         const {google, map} = newMapCtrl;
+
+        const centerPointCtrl = {
+            dispatch,
+            changePosition
+        };
         addMapListener(google, map, setModalOpen, centerPointCtrl);
 
         setMapCtrl(newMapCtrl);
@@ -89,7 +98,6 @@ export default function CenterPoint(centerPointCtrl) {
             <ConfirmModal
                 open={modalOpen}
                 setOpen={setModalOpen}
-                ctrl={centerPointCtrl}
                 mapCtrl={{...mapCtrl, mapDivSelector}}
             />
         </div>

@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ArrowForward as ArrowIcon } from '@material-ui/icons';
 
 // my components
-import Logo from "../sub/Logo.js";
-import { secondary as secondaryFont } from "../../fonts.json";
+import Logo from "../../common/components/Logo.js";
+import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 
 // others
 import { Link as RouterLink } from "react-router-dom";

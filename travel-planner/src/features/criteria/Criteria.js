@@ -2,15 +2,15 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
-import { secondary as secondaryFont } from "../../fonts.json";
 
 // React
 import { useState } from "react";
 
 // my component
-import CenterPoint from "../criteria/centerPoint/CenterPoint.js";
-import Date from "../criteria/Date.js";
-import Radius from "../criteria/Radius.js";
+import CenterPoint from "./centerPoint/CenterPoint.js";
+import Date from "./Date.js";
+import Radius from "./Radius.js";
+import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 
 let isDarkMode = false;
 
@@ -76,13 +76,13 @@ function Summary({num, text, isActive}) {
 export default function Criteria() {
     const classes = useStyles();
 
-    const [centerPointDesc, setCenterPointDesc] = useState("");
-    const [centerPointPosition, setCenterPointPosition] = useState(null);
+    // const [centerPointDesc, setCenterPointDesc] = useState("");
+    // const [centerPointPosition, setCenterPointPosition] = useState(null);
 
     const detail = {
         1: <CenterPoint
-            desc={{centerPointDesc, setCenterPointDesc}}
-            position={{centerPointPosition, setCenterPointPosition}}
+            // desc={{centerPointDesc, setCenterPointDesc}}
+            // position={{centerPointPosition, setCenterPointPosition}}
         />,
         2: <Date />,
         3: <Radius />

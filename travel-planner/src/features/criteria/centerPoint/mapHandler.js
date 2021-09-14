@@ -1,33 +1,36 @@
 // my components
-import InfoWindow, { getContainerDiv } from "../criteria/centerPoint/InfoWindow.js";
+import InfoWindow, { getContainerDiv } from "./InfoWindow.js";
+import { changePosition, selectPosition } from "./centerPointSlice.js";
+import { store } from "../../../app/store.js";
 
-// others
+// React
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
 export default function addMapListener(google, map, setModalOpen, centerPointCtrl) {
     map.addListener("click", (mapsMouseEvent) => {
-        const latLngObj = mapsMouseEvent.latLng.toJSON();
+        const latLng = mapsMouseEvent.latLng.toJSON();
+
         const geocoder = new google.maps.Geocoder();
         geocoder
-            .geocode({ location: latLngObj })
+            .geocode({ location: latLng })
             .then(({ results }) => {
-                const { setCenterPointPosition } = centerPointCtrl.position;
-                const position = {
-                    address: results[0].formatted_address,
-                    latLngObj
-                };
-                setCenterPointPosition(position);
-
+                const address = results[0].formatted_address;
+                const { dispatch, changePosition } = centerPointCtrl;
+                dispatch(changePosition({address, latLng}));
+                
                 setModalOpen(true);
             });
     });
 }
 
-export function addInfoWindow(google, map, mapDivSelector, latLngObj, info) {
+export function addInfoWindow(google, map, mapDivSelector, latLng) {
     const rootDiv = document.querySelector(mapDivSelector);
 
     ReactDOM.render(
-        <InfoWindow info={info} />,
+        <Provider store={store}>
+            <InfoWindow />
+        </Provider>,
         rootDiv
     );
 
@@ -54,7 +57,7 @@ export function addInfoWindow(google, map, mapDivSelector, latLngObj, info) {
             const divPosition = this.getProjection().fromLatLngToDivPixel(
                 this.position
             );
-            
+
             // Hide the popup when it is far out of view.
             const display =
                 Math.abs(divPosition.x) < 4000 && Math.abs(divPosition.y) < 4000
@@ -72,7 +75,7 @@ export function addInfoWindow(google, map, mapDivSelector, latLngObj, info) {
         }
     }
 
-    const { lat, lng } = latLngObj;
+    const { lat, lng } = latLng;
     const popup = new Popup(
         new google.maps.LatLng(lat, lng),
         rootDiv

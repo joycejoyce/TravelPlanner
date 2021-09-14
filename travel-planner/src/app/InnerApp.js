@@ -12,10 +12,10 @@ import styled from "styled-components";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 // my components
-import Home from "./components/page/Home.js";
-import Criteria from "./components/page/Criteria.js";
-import Tech from "./components/page/Tech.js";
-import Navbar from "./components/sub/Navbar.js";
+import Home from "../features/home/Home.js";
+import Criteria from "../features/criteria/Criteria.js";
+import About from "../features/about/About.js";
+import Navbar from "../features/navbar/Navbar.js";
 
 function AnimationPart() {
     const location = useLocation();
@@ -30,7 +30,7 @@ function AnimationPart() {
                 <Switch location={location}>
                     <Route path="/home" component={Home} />
                     <Route path="/criteria" component={Criteria} />
-                    <Route path="/tech" component={Tech} />
+                    <Route path="/about" component={About} />
                     <Route path="/" component={Criteria} />
                 </Switch>
             </CSSTransition>

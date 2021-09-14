@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Criteria from "./Criteria.js";
+import Criteria from "../Criteria.js";
 
 const getOpenModalBtn = () => screen.getByRole("button", { name: /open modal/i });
 const getDescInput = () => screen.getByTestId(/desc/i);

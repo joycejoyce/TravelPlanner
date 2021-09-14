@@ -3,11 +3,14 @@ import { Modal, Typography, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import { secondary as secondaryFont } from "../../../fonts.json";
+import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
+import { addInfoWindow } from "./mapHandler.js";
+import { selectDesc, selectPosition, changeDesc } from "./centerPointSlice.js";
+import { store } from "../../../app/store.js";
 
-// others
+// React
 import React, { useState } from "react";
-import { addInfoWindow } from "../../mapHandler/MapHandler_CenterPoint";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     confirmModal: {
@@ -65,13 +68,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Body = React.forwardRef((props, ref) => {
-    const {ctrl, closeModal, mapCtrl} = props;
-    const {desc, position} = ctrl;
-    const {centerPointDesc, setCenterPointDesc} = desc;
-    const {address} = position.centerPointPosition;
+    console.log("store state (ConfirmModal)", store.getState());
+
+    const dispatch = useDispatch();
+    const {closeModal, mapCtrl} = props;
     const classes = useStyles();
     const maxTextNum = 100;
-    const [text, setText] = useState(centerPointDesc);
+
+    const desc = useSelector(selectDesc);
+    const position = useSelector(selectPosition);
+
+    const [text, setText] = useState(desc);
+
     const remainingTextNum = maxTextNum - text.length;
     let helperText = "remaining character number: " + remainingTextNum.toString();
 
@@ -81,20 +89,14 @@ const Body = React.forwardRef((props, ref) => {
     }
 
     const handleOnClickConfirm = () => {
-        setCenterPointDesc(text);
         const {google, map, mapDivSelector} = mapCtrl;
-        const latLngObj = ctrl.position.centerPointPosition.latLngObj;
-        const info = {
-            desc: text,
-            address: ctrl.position.centerPointPosition.address
-        }
-        addInfoWindow(google, map, mapDivSelector, latLngObj, info);
+        dispatch(changeDesc(text));
+
+        const { latLng } = position;
+        addInfoWindow(google, map, mapDivSelector, latLng);
 
         map.setOptions({
-            // draggable: false,
             zoomControl: false,
-            // scrollwheel: false,
-            // disableDoubleClickZoom: true,
             gestureHandling: "none"
         });
 
@@ -102,6 +104,8 @@ const Body = React.forwardRef((props, ref) => {
 
         closeModal();
     }
+
+    const { address } = useSelector(selectPosition);    
 
     return (
         <div className={"modalBody " + classes.modalBody}>
@@ -144,12 +148,14 @@ const Body = React.forwardRef((props, ref) => {
     );
 });
 
-export default function ConfirmModal({ open, setOpen, ctrl, mapCtrl }) {
+export default function ConfirmModal({ open, setOpen, mapCtrl }) {
     const classes = useStyles();
 
     const handleClose = () => {
         setOpen(false);
     }
+
+    console.log("store state (ConfirmModal)", store.getState());
 
     return (
         <Modal
@@ -157,7 +163,7 @@ export default function ConfirmModal({ open, setOpen, ctrl, mapCtrl }) {
             open={open}
             onClose={handleClose}
         >
-            <Body ctrl={ctrl} closeModal={handleClose} mapCtrl={mapCtrl} />
+            <Body closeModal={handleClose} mapCtrl={mapCtrl} />
         </Modal>
     );
 }

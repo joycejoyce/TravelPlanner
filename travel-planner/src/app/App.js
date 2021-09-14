@@ -1,8 +1,8 @@
 // my components
-import Loading from "./components/page/Loading.js";
+import Loading from "../common/components/Logo.js";
 import InnerApp from "./InnerApp.js";
-import { lightColors, darkColors } from "./colors.json";
-import { primary as primaryFont, secondary as secondaryFont } from "./fonts.json";
+import { lightColors, darkColors } from "../common/styles/colors.json";
+import { primary as primaryFont, secondary as secondaryFont } from "../common/styles/fonts.json";
 
 // MUI
 import { Paper } from "@material-ui/core";

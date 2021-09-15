@@ -27,12 +27,12 @@ const useStyles = makeStyles((theme) => {
             flexDirection: "column",
             gap: "5px",
             "& > *": {
-                width: "90vw",
+                width: "85vw",
                 [theme.breakpoints.up('md')]: {
                     width: "70vw"
                 },
-                minWidth: "395px",
-                maxWidth: "990px"
+                minWidth: "380px",
+                maxWidth: "900px"
             }
         },
         explanation: {

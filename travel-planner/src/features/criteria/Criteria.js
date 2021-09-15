@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => {
             alignItems: "center"
         },
         accordion: {
-            width: "100%",
             // outline: "solid red 1px"
+            width: "95%",
         },
         detail: {
             // outline: "dashed green 3px",

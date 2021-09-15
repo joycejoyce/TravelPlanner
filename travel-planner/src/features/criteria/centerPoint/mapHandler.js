@@ -18,7 +18,7 @@ export async function setupMap(mapProps) {
     infoWindowId = mapProps.infoWindowId;
 }
 
-export function addMapListener(setModalOpen, centerPointCtrl) {
+export function addMapListener(dispatch, openModal, changePosition) {
     map.addListener("click", (mapsMouseEvent) => {
         const latLng = mapsMouseEvent.latLng.toJSON();
         const geocoder = new google.maps.Geocoder();
@@ -26,10 +26,8 @@ export function addMapListener(setModalOpen, centerPointCtrl) {
             .geocode({ location: latLng })
             .then(({ results }) => {
                 const address = results[0].formatted_address;
-                const { dispatch, changePosition } = centerPointCtrl;
                 dispatch(changePosition({address, latLng}));
-                
-                setModalOpen(true);
+                dispatch(openModal());
             });
     });
 }

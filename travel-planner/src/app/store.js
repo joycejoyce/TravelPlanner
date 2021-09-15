@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import centerPointReducer from "../features/criteria/centerPoint/centerPointSlice.js";
+import modalOpenReducer from "../features/criteria/centerPoint/modalOpenSlice.js";
 
 export const store = configureStore({
     reducer: {
-        centerPoint: centerPointReducer
+        centerPoint: centerPointReducer,
+        modalOpen: modalOpenReducer
     }
 });

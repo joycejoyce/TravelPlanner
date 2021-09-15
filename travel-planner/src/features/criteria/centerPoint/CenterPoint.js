@@ -8,10 +8,11 @@ import { lightColors, darkColors } from "../../../common/styles/colors.json";
 import { setupMap, addMapListener } from "./mapHandler.js";
 import ConfirmModal from "./ConfirmModal.js";
 import { changePosition } from "./centerPointSlice.js";
+import { openModal } from "./modalOpenSlice.js";
 import { places } from "../../../common/map/place.js";
 
 // React
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 let isDarkMode = false;
@@ -60,8 +61,6 @@ function Explanation() {
 export default function CenterPoint(centerPointCtrl) {
     const classes = useStyles();
 
-    const [modalOpen, setModalOpen] = useState(false);
-
     const mapName = "centerPointMap";
     const mapProps = {
         center: places.taiwan,
@@ -74,12 +73,7 @@ export default function CenterPoint(centerPointCtrl) {
 
     useEffect(async () => {
         await setupMap(mapProps);
-        
-        const centerPointCtrl = {
-            dispatch,
-            changePosition
-        };
-        addMapListener(setModalOpen, centerPointCtrl);
+        addMapListener(dispatch, openModal, changePosition);
     }, [true]);
 
     return (
@@ -87,11 +81,8 @@ export default function CenterPoint(centerPointCtrl) {
             <Explanation />
             <div id={mapProps.id} className={classes.map}></div>
             <div id={mapProps.infoWindowId}></div>
-            <Button id="openModal" onClick={() => setModalOpen(true)}>Open modal</Button>
-            <ConfirmModal
-                open={modalOpen}
-                setOpen={setModalOpen}
-            />
+            {/* <Button id="openModal" onClick={() => setModalOpen(true)}>Open modal</Button> */}
+            <ConfirmModal />
         </div>
     );
 }

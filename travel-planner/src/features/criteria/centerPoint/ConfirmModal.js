@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { addInfoWindow, setMapToReadOnly, clearListeners } from "./mapHandler.js";
 import { selectDesc, selectPosition, changeDesc } from "./centerPointSlice.js";
-import { store } from "../../../app/store.js";
+import { selectIsOpen, closeModal } from "./modalOpenSlice.js";
 
 // React
 import React, { useState } from "react";
@@ -67,9 +67,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Body = React.forwardRef((props, ref) => {
+// const Body = React.forwardRef((props, ref) => {
+const Body = React.forwardRef((props) => {
     const dispatch = useDispatch();
-    const { closeModal } = props;
+    const { handleClose } = props;
     const classes = useStyles();
     const maxTextNum = 100;
 
@@ -97,7 +98,7 @@ const Body = React.forwardRef((props, ref) => {
     const handleOnClickConfirm = () => {
         dispatch(changeDesc(text));
         doMapOperations();
-        closeModal();
+        handleClose();
     }
 
     const { address } = useSelector(selectPosition);    
@@ -126,7 +127,7 @@ const Body = React.forwardRef((props, ref) => {
                 <Button
                     color="primary"
                     variant="outlined"
-                    onClick={closeModal}
+                    onClick={handleClose}
                 >
                     Cancel
                 </Button>
@@ -143,20 +144,22 @@ const Body = React.forwardRef((props, ref) => {
     );
 });
 
-export default function ConfirmModal({ open, setOpen }) {
+export default function ConfirmModal() {
     const classes = useStyles();
+    const isOpen = useSelector(selectIsOpen);
+    const dispatch = useDispatch();
 
     const handleClose = () => {
-        setOpen(false);
+        dispatch(closeModal());
     }
 
     return (
         <Modal
             className={"confirmModal " + classes.confirmModal}
-            open={open}
+            open={isOpen}
             onClose={handleClose}
         >
-            <Body closeModal={handleClose} />
+            <Body handleClose={handleClose} />
         </Modal>
     );
 }

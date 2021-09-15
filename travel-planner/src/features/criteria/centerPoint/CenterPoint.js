@@ -23,15 +23,20 @@ const useStyles = makeStyles((theme) => {
 
     return ({
         centerPoint: {
-            transform: "translateX(-10px)",
             display: "flex",
             flexDirection: "column",
             gap: "5px",
-            // height: "50vh"
+            "& > *": {
+                width: "90vw",
+                [theme.breakpoints.up('md')]: {
+                    width: "70vw"
+                },
+                minWidth: "395px",
+                maxWidth: "990px"
+            }
         },
         explanation: {
             borderRadius: "3px",
-            width: "365px",
             height: "36px",
             display: "flex",
             alignItems: "center",
@@ -41,8 +46,10 @@ const useStyles = makeStyles((theme) => {
             background: palette.primaryBK
         },
         map: {
-            // height: "100%"
-            height: "300px"
+            height: "400px",
+            [theme.breakpoints.up('md')]: {
+                height: "515px"
+            }
         }
     });
 });

@@ -37,8 +37,8 @@ const typography = {
 const breakpoints = {
   values: {
     sm: 414,
-    md: 834,
-    lg: 1440
+    md: 768,
+    lg: 1024
   }
 }
 

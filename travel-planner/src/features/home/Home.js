@@ -18,13 +18,14 @@ const useStyles = makeStyles((theme) => {
     return({
     home: {
         width: "310px",
-        height: "100%",
+        height: "600px",
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         [theme.breakpoints.up('md')]: {
-            width: "478px"
+            width: "480px",
+            height: "800px"
         }
     },
     highlightText: {

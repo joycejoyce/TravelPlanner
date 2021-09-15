@@ -18,6 +18,14 @@ const useStyles = makeStyles((theme) => {
     isDarkMode = theme.palette.type === "dark";
 
     return ({
+        criteria: {
+            width: "95vw",
+            [theme.breakpoints.up('md')]: {
+                width: "75vw"
+            },
+            minWidth: "415px",
+            maxWidth: "1000px"
+        },
         accordions: {
             display: "flex",
             flexDirection: "column",
@@ -25,7 +33,12 @@ const useStyles = makeStyles((theme) => {
             alignItems: "center"
         },
         accordion: {
-            width: "385px"
+            width: "100%",
+            // outline: "solid red 1px"
+        },
+        detail: {
+            // outline: "dashed green 3px",
+            justifyContent: "center"
         },
         summary: {
             display: "flex",
@@ -76,14 +89,8 @@ function Summary({num, text, isActive}) {
 export default function Criteria() {
     const classes = useStyles();
 
-    // const [centerPointDesc, setCenterPointDesc] = useState("");
-    // const [centerPointPosition, setCenterPointPosition] = useState(null);
-
     const detail = {
-        1: <CenterPoint
-            // desc={{centerPointDesc, setCenterPointDesc}}
-            // position={{centerPointPosition, setCenterPointPosition}}
-        />,
+        1: <CenterPoint />,
         2: <Date />,
         3: <Radius />
     };
@@ -126,7 +133,7 @@ export default function Criteria() {
     };
 
     return (
-        <div className="criteria">
+        <div className={"criteria " + classes.criteria}>
             <div className={"accordions " + classes.accordions}>
                 {
                     Object.keys(criteria).map(key => {
@@ -150,7 +157,9 @@ export default function Criteria() {
                                         isActive={critirion.isActive}
                                     />
                                 </AccordionSummary>
-                                <AccordionDetails>
+                                <AccordionDetails
+                                    className={"detail " + classes.detail}
+                                >
                                     {detail[critirion.num]}
                                 </AccordionDetails>
                             </Accordion>

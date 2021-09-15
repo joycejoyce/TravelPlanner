@@ -1,13 +1,18 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
+import { IconButton, Button } from "@material-ui/core";
+import { Edit as EditIcon } from '@material-ui/icons';
 
 // my components
 import { lightColors } from "../../../common/styles/colors.json";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { selectDesc, selectPosition } from "./centerPointSlice.js";
+import { openModal } from "./modalOpenSlice.js";
+import { addClickListener, setMapToModifiable } from "./mapHandler.js"
 
 // React
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const containerClassName = "popup-container";
 
@@ -19,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
         transform: "translate(-50%, -100%)",
         backgroundColor: "white",
         padding: "5px",
+        paddingRight: "40px",
         borderRadius: "3px",
         fontSize: "16px",
         overflowY: "auto",
@@ -27,7 +33,11 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: "0px 2px 10px 1px rgba(0, 0, 0, 0.5)",
         // color: theme.palette.primary.main,
         color: lightColors.primary,
-        textAlign: "center"
+        textAlign: "center",
+        // test start
+        // top: "-400px",
+        // left: "400px"
+        // test end
     },
     popupBubbleAnchor: { /* The parent of the bubble. A zero-height div at the top of the tip. */
         position: "absolute",
@@ -62,6 +72,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "18px",
         margin: "10px 0",
         fontWeight: "bold"
+    },
+    editIcon: {
+        color: lightColors.secondary,
+        position: "absolute",
+        right: "0",
+        top: "0"
     }
 }));
 
@@ -72,13 +88,36 @@ export function getContainerDiv() {
 export default function InfoWindow() {
     const classes = useStyles();
 
+    const dispatch = useDispatch();
+
     const desc = useSelector(selectDesc);
     const { address } = useSelector(selectPosition);
+    // const desc = "test desc";
+    // const address = "test address";
+
+    const editIconClassName = "editIcon"
+
+    const handleClickEdit = () => {
+        dispatch(openModal());
+        setMapToModifiable();
+    }
+
+    useEffect(() => {
+        addClickListener(
+            document.querySelector("." + editIconClassName),
+            handleClickEdit
+        );
+    }, [true]);
 
     return (
         <div className={containerClassName}>
             <div className={classes.popupBubbleAnchor}>
                 <div className={classes.popupBubble}>
+                    <IconButton
+                        className={editIconClassName + " " + classes.editIcon}
+                    >
+                        <EditIcon />
+                    </IconButton>
                     <div className={classes.desc}>{desc}</div>
                     <div className={classes.address}>{address}</div>
                 </div>

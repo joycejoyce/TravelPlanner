@@ -11,6 +11,7 @@ import CenterPoint from "./centerPoint/CenterPoint.js";
 import Date from "./Date.js";
 import Radius from "./Radius.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
+import InfoWindow from "./centerPoint/InfoWindow.js";
 
 let isDarkMode = false;
 
@@ -134,6 +135,7 @@ export default function Criteria() {
 
     return (
         <div className={"criteria " + classes.criteria}>
+            {/* <InfoWindow /> */}
             <div className={"accordions " + classes.accordions}>
                 {
                     Object.keys(criteria).map(key => {

@@ -1,12 +1,12 @@
 // MUI
-import { Modal, Typography, TextField, Button } from "@material-ui/core";
+import { Modal, Typography, TextField, Button, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
-import { addInfoWindow, setMapToReadOnly, clearListeners } from "./mapHandler.js";
-import { selectDesc, selectPosition, changeDesc } from "./centerPointSlice.js";
-import { selectIsOpen, closeModal } from "./modalOpenSlice.js";
+import { addMapListener, addInfoWindow, setMapToReadOnly } from "./mapHandler.js";
+import { selectDesc, selectPosition, changeDesc, changePosition, resetCenterPointInfo } from "./centerPointSlice.js";
+import { selectIsOpen, openModal, closeModal } from "./modalOpenSlice.js";
 
 // React
 import React, { useState } from "react";
@@ -25,11 +25,18 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: "translate(-50%, -50%)",
+        transform: "translate(-50%, -50%)"
+    },
+    modalContent: {
+        width: "298px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)"
     },
     desc: {
         fontSize: "18px",
@@ -39,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: "305px"
     },
     text: {
-        width: "297px",
+        width: "296px",
         margin: theme.spacing(2),
         "& .MuiOutlinedInput-root": {
             padding: theme.spacing(1)
@@ -64,6 +71,12 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.main,
         fontSize: "16px",
         fontFamily: secondaryFont
+    },
+    chooseAnother: {
+        alignSelf: "flex-start",
+        marginTop: theme.spacing(3),
+        cursor: "pointer",
+        fontSize: "14px"
     }
 }));
 
@@ -89,10 +102,10 @@ const Body = React.forwardRef((props) => {
 
     const doMapOperations = () => {
         const { latLng } = position;
-        addInfoWindow(latLng);
-
+        
         setMapToReadOnly();
-        clearListeners();
+
+        addInfoWindow(latLng);
     }
 
     const handleOnClickConfirm = () => {
@@ -101,44 +114,57 @@ const Body = React.forwardRef((props) => {
         handleClose();
     }
 
+    const handleClickChooseAnother = () => {
+        dispatch(resetCenterPointInfo());
+        addMapListener(dispatch, openModal, changePosition);
+    }
+
     const { address } = useSelector(selectPosition);    
 
     return (
         <div className={"modalBody " + classes.modalBody}>
-            <Typography
-                variant="body1"
-                className={classes.desc}
-            >
-                Write a short description for this point:
-                <div className={classes.address}>{address}</div>
-            </Typography>
-            <TextField
-                className={classes.text}
-                multiline
-                placeholder={"max character number: " + maxTextNum.toString()}
-                minRows={4}
-                variant="outlined"
-                value={text}
-                onChange={handleOnChange}
-                helperText={helperText}
-                inputProps={{ "data-testid": "desc" }}
-            />
-            <div className={"btnSection " + classes.btnSection}>
-                <Button
-                    color="primary"
+            <div className={"modalContent " + classes.modalContent}>
+                <Typography
+                    variant="body1"
+                    className={classes.desc}
+                >
+                    Write a short description for this point:
+                    <div className={classes.address}>{address}</div>
+                </Typography>
+                <TextField
+                    className={classes.text}
+                    multiline
+                    placeholder={"max character number: " + maxTextNum.toString()}
+                    minRows={4}
                     variant="outlined"
-                    onClick={handleClose}
+                    value={text}
+                    onChange={handleOnChange}
+                    helperText={helperText}
+                    inputProps={{ "data-testid": "desc" }}
+                />
+                <div className={"btnSection " + classes.btnSection}>
+                    <Button
+                        color="primary"
+                        variant="outlined"
+                        onClick={handleClose}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={handleOnClickConfirm}
+                        disabled={text.length === 0}
+                    >
+                        Confirm
+                    </Button>
+                </div>
+                <Link
+                    className={"chooseAnother " + classes.chooseAnother}
+                    onClick={handleClickChooseAnother}
                 >
-                    Cancel
-                </Button>
-                <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={handleOnClickConfirm}
-                    disabled={text.length === 0}
-                >
-                    Confirm
-                </Button>
+                    Choose another center point
+                </Link>
             </div>
         </div>
     );

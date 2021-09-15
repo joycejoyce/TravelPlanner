@@ -14,6 +14,7 @@ import { places } from "../../../common/map/place.js";
 // React
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import InfoWindow from "./InfoWindow";
 
 let isDarkMode = false;
 
@@ -88,6 +89,7 @@ export default function CenterPoint(centerPointCtrl) {
             <Explanation />
             <div id={mapProps.id} className={classes.map}></div>
             <div id={mapProps.infoWindowId}></div>
+            {/* <InfoWindow /> */}
             {/* <Button id="openModal" onClick={() => setModalOpen(true)}>Open modal</Button> */}
             <ConfirmModal />
         </div>

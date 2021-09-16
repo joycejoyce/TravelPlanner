@@ -74,7 +74,7 @@ export default function CenterPoint(centerPointCtrl) {
         center: places.taiwan,
         id: mapName,
         infoWindowId: mapName + "_infoWindow",
-        zoom: 1
+        zoom: 2
     };
 
     const dispatch = useDispatch();

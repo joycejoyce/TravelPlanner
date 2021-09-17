@@ -1,11 +1,10 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
 import { CenterFocusStrong as CenterIcon } from '@material-ui/icons';
 
 // my components
 import { lightColors, darkColors } from "../../../common/styles/colors.json";
-import { setupMap, addMapListener } from "./mapHandler.js";
+import { initMap, hideInfoWindow } from "./mapHandler.js";
 import ConfirmModal from "./ConfirmModal.js";
 import { changePosition } from "./centerPointSlice.js";
 import { openModal } from "./modalOpenSlice.js";
@@ -14,7 +13,6 @@ import { places } from "../../../common/map/place.js";
 // React
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import InfoWindow from "./InfoWindow";
 
 let isDarkMode = false;
 
@@ -51,6 +49,13 @@ const useStyles = makeStyles((theme) => {
             [theme.breakpoints.up('md')]: {
                 height: "515px"
             }
+        },
+        popupContainer: { /* JavaScript will position this div at the bottom of the popup tip. */
+            cursor: "auto",
+            height: 0,
+            position: "absolute",
+            /* The max width of the info window. */
+            width: "200px"
         }
     });
 });
@@ -73,24 +78,35 @@ export default function CenterPoint(centerPointCtrl) {
     const mapProps = {
         center: places.taiwan,
         id: mapName,
-        infoWindowId: mapName + "_infoWindow",
         zoom: 2
     };
+    
+    const infoWindowProps = {
+        id: [mapName, "infoWindow"].join("_")
+    }
 
     const dispatch = useDispatch();
 
+    const reduxCtrl = {
+        dispatch,
+        openModal,
+        changePosition
+    }    
+
     useEffect(async () => {
-        await setupMap(mapProps);
-        addMapListener(dispatch, openModal, changePosition);
+        await initMap(mapProps, reduxCtrl, infoWindowProps);
+        hideInfoWindow();
     }, [true]);
 
     return (
         <div className={"centerPoint " + classes.centerPoint}>
             <Explanation />
             <div id={mapProps.id} className={classes.map}></div>
-            <div id={mapProps.infoWindowId}></div>
-            {/* <InfoWindow /> */}
-            {/* <Button id="openModal" onClick={() => setModalOpen(true)}>Open modal</Button> */}
+            <div 
+                id={infoWindowProps.id}
+                className={classes.popupContainer}
+                style={{display: "none"}}
+            ></div>
             <ConfirmModal />
         </div>
     );

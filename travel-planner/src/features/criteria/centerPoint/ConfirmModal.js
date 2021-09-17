@@ -4,9 +4,15 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // my components
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
-import { addMapListener, addInfoWindow, setMapToReadOnly } from "./mapHandler.js";
-import { selectDesc, selectPosition, changeDesc, changePosition, resetCenterPointInfo } from "./centerPointSlice.js";
-import { selectIsOpen, openModal, closeModal } from "./modalOpenSlice.js";
+import { 
+    setMapToReadOnly,
+    setMapToModifiable,
+    showInfoWindow,
+    hideInfoWindow,
+    changeInfoWindowPosition
+} from "./mapHandler.js";
+import { selectDesc, selectPosition, changeDesc } from "./centerPointSlice.js";
+import { selectIsOpen, closeModal } from "./modalOpenSlice.js";
 
 // React
 import React, { useState } from "react";
@@ -83,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 // const Body = React.forwardRef((props, ref) => {
 const Body = React.forwardRef((props) => {
     const dispatch = useDispatch();
-    const { handleClose } = props;
+    const { closeModal } = props;
     const classes = useStyles();
     const maxTextNum = 100;
 
@@ -100,23 +106,36 @@ const Body = React.forwardRef((props) => {
         setText(value.slice(0, Math.min(maxTextNum, value.length)));
     }
 
-    const doMapOperations = () => {
-        const { latLng } = position;
-        
-        setMapToReadOnly();
-
-        addInfoWindow(latLng);
-    }
+    const doChangeDesc = (desc) => {
+        dispatch(changeDesc(desc));
+    };
 
     const handleOnClickConfirm = () => {
-        dispatch(changeDesc(text));
-        doMapOperations();
-        handleClose();
+        doChangeDesc(text);
+
+        const mapOperations = () => {
+            setMapToReadOnly();
+
+            const { latLng } = position;
+            changeInfoWindowPosition(latLng);
+
+            showInfoWindow();
+        };
+        mapOperations();
+
+        closeModal();
     }
 
     const handleClickChooseAnother = () => {
-        dispatch(resetCenterPointInfo());
-        addMapListener(dispatch, openModal, changePosition);
+        doChangeDesc("");
+        
+        const mapOperations = () => {
+            setMapToModifiable();
+            hideInfoWindow();
+        };
+        mapOperations();
+
+        closeModal();
     }
 
     const { address } = useSelector(selectPosition);    
@@ -146,7 +165,7 @@ const Body = React.forwardRef((props) => {
                     <Button
                         color="primary"
                         variant="outlined"
-                        onClick={handleClose}
+                        onClick={closeModal}
                     >
                         Cancel
                     </Button>
@@ -185,7 +204,7 @@ export default function ConfirmModal() {
             open={isOpen}
             onClose={handleClose}
         >
-            <Body handleClose={handleClose} />
+            <Body closeModal={handleClose} />
         </Modal>
     );
 }

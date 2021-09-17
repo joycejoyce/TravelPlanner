@@ -1,6 +1,6 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
-import { IconButton, Button } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { Edit as EditIcon } from '@material-ui/icons';
 
 // my components
@@ -8,13 +8,11 @@ import { lightColors } from "../../../common/styles/colors.json";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { selectDesc, selectPosition } from "./centerPointSlice.js";
 import { openModal } from "./modalOpenSlice.js";
-import { addClickListener, setMapToModifiable } from "./mapHandler.js"
+import {  addClickDomListener } from "./mapHandler.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-
-const containerClassName = "popup-container";
 
 const useStyles = makeStyles((theme) => ({
     popupBubble: {
@@ -60,13 +58,6 @@ const useStyles = makeStyles((theme) => ({
             borderTop: "8px solid white",
         }
     },
-    popupContainer: { /* JavaScript will position this div at the bottom of the popup tip. */
-        cursor: "auto",
-        height: 0,
-        position: "absolute",
-        /* The max width of the info window. */
-        width: "200px"
-    },
     desc: {
         fontFamily: secondaryFont,
         fontSize: "18px",
@@ -81,11 +72,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export function getContainerDiv() {
-    return document.querySelector("." + containerClassName);
-}
-
-export default function InfoWindow() {
+export default function InfoWindow({ idPrefix }) {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -95,34 +82,37 @@ export default function InfoWindow() {
     // const desc = "test desc";
     // const address = "test address";
 
-    const editIconClassName = "editIcon"
+    const editIconId = [ idPrefix, "editIcon" ].join("_");
 
     const handleClickEdit = () => {
         dispatch(openModal());
-        setMapToModifiable();
     }
 
     useEffect(() => {
-        addClickListener(
-            document.querySelector("." + editIconClassName),
+        addClickDomListener(
+            document.getElementById(editIconId),
             handleClickEdit
         );
     }, [true]);
 
+    const infoWindowId = [ idPrefix, "content" ].join("_");
+
     return (
-        <div className={containerClassName}>
-            <div className={classes.popupBubbleAnchor}>
-                <div className={classes.popupBubble}>
-                    <IconButton
-                        className={editIconClassName + " " + classes.editIcon}
-                    >
-                        <EditIcon />
-                    </IconButton>
-                    <div className={classes.desc}>{desc}</div>
-                    <div className={classes.address}>{address}</div>
-                </div>
+        <div
+            id={infoWindowId}
+            className={classes.popupBubbleAnchor}
+        >
+            <div className={classes.popupBubble}>
+                <IconButton
+                    id={editIconId}
+                    className={classes.editIcon}
+                >
+                    <EditIcon />
+                </IconButton>
+                <div className={classes.desc}>{desc}</div>
+                <div className={classes.address}>{address}</div>
             </div>
         </div>
-    )
+    );
 }
 

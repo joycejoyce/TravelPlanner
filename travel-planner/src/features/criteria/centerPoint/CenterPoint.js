@@ -8,6 +8,7 @@ import { changePosition } from "./centerPointSlice.js";
 import { openModal } from "./modalOpenSlice.js";
 import { places } from "../../../common/map/place.js";
 import Explanation from "./Explanation.js";
+import NextBtn from "./NextBtn.js";
 
 // React
 import { useEffect } from "react";
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             flexDirection: "column",
             gap: "5px",
-            "& > *": {
+            "& > *:not(.MuiButtonBase-root)": {
                 width: "85vw",
                 [theme.breakpoints.up('md')]: {
                     width: "70vw"
@@ -40,6 +41,10 @@ const useStyles = makeStyles((theme) => {
             /* The max width of the info window. */
             width: "300px",
             height: 0
+        },
+        nextBtn: {
+            width: "100px",
+            fontSize: "16px"
         }
     });
 });
@@ -80,6 +85,7 @@ export default function CenterPoint() {
                 className={classes.popupContainer}
                 style={{display: "none"}}
             ></div>
+            <NextBtn />
             <ConfirmModal />
         </div>
     );

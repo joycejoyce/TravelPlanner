@@ -1,23 +1,20 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
-import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@material-ui/core";
+import { Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
 
 // React
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 // my component
 import CenterPoint from "./centerPoint/CenterPoint.js";
 import Date from "./Date.js";
 import Radius from "./Radius.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
-import InfoWindow from "./centerPoint/InfoWindow.js";
-
-let isDarkMode = false;
+import { selectCriteria_all, toggleExpanded } from "./criteriaSlice.js";
 
 const useStyles = makeStyles((theme) => {
-    isDarkMode = theme.palette.type === "dark";
-
     return ({
         criteria: {
             width: "95vw",
@@ -90,47 +87,52 @@ function Summary({num, text, isActive}) {
 export default function Criteria() {
     const classes = useStyles();
 
-    const detail = {
-        1: <CenterPoint />,
-        2: <Date />,
-        3: <Radius />
-    };
-    
-    const [criteria, setCriteria] = useState({
-        centerPoint: {
-            num: 1,
-            id: "center-point",
-            summary: "Set center point",
-            isUnlock: true,
-            isActive: true,
-            isExpanded: true
-        },
-        date: {
-            num: 2,
-            id: "date",
-            summary: "Set date",
-            isUnlock: false,
-            isActive: false,
-            isExpanded: false
-        },
-        radius: {
-            num: 3,
-            id: "radius",
-            summary: "Set radius",
-            isUnlock: false,
-            isActive: false,
-            isExpanded: false
-        }
-    });
+    // const detail = {
+    //     1: <CenterPoint />,
+    //     2: <Date />,
+    //     3: <Radius />
+    // };
 
-    const handleOnChangeAccordion = (e, key, isExpanded) => {
-        setCriteria({
-            ...criteria,
-            [key]: {
-                ...criteria[key],
-                isExpanded: !isExpanded
-            }
-        })
+    const criteria = useSelector(selectCriteria_all);
+    
+    const dispatch = useDispatch();
+    
+    // const [criteria, setCriteria] = useState({
+    //     centerPoint: {
+    //         num: 1,
+    //         id: "center-point",
+    //         summary: "Set center point",
+    //         isUnlock: true,
+    //         isActive: true,
+    //         isExpanded: true
+    //     },
+    //     date: {
+    //         num: 2,
+    //         id: "date",
+    //         summary: "Set date",
+    //         isUnlock: false,
+    //         isActive: false,
+    //         isExpanded: false
+    //     },
+    //     radius: {
+    //         num: 3,
+    //         id: "radius",
+    //         summary: "Set radius",
+    //         isUnlock: false,
+    //         isActive: false,
+    //         isExpanded: false
+    //     }
+    // });
+
+    const handleOnChangeAccordion = (key) => {
+        dispatch(toggleExpanded(key));
+        // setCriteria({
+        //     ...criteria,
+        //     [key]: {
+        //         ...criteria[key],
+        //         isExpanded: !isExpanded
+        //     }
+        // })
     };
 
     return (
@@ -147,7 +149,7 @@ export default function Criteria() {
                                 className={classes.accordion}
                                 disabled={!critirion.isUnlock}
                                 expanded={critirion.isExpanded}
-                                onChange={(e) => handleOnChangeAccordion(e, key, critirion.isExpanded)}
+                                onChange={() => handleOnChangeAccordion(key)}
                             >
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
@@ -162,7 +164,7 @@ export default function Criteria() {
                                 <AccordionDetails
                                     className={"detail " + classes.detail}
                                 >
-                                    {detail[critirion.num]}
+                                    {critirion.detail}
                                 </AccordionDetails>
                             </Accordion>
                         );

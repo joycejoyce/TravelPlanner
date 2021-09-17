@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => {
             }
         },
         map: {
-            height: "400px",
+            height: "450px",
             [theme.breakpoints.up('md')]: {
                 height: "515px"
             }

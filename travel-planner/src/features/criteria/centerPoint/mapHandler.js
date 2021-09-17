@@ -149,8 +149,10 @@ export function hideInfoWindow() {
 }
 
 export function changeInfoWindowPosition({ lat, lng }) {
+    const newPosition = new google.maps.LatLng(lat, lng);
+    infoWindow.position = newPosition;
+
     const newCenter = new google.maps.LatLng(lat, lng);
-    infoWindow.position = newCenter;
     map.setCenter(newCenter);
 }
 

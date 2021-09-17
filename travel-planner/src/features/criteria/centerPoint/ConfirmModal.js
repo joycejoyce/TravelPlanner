@@ -91,7 +91,7 @@ const Body = React.forwardRef((props) => {
     const dispatch = useDispatch();
     const { closeModal } = props;
     const classes = useStyles();
-    const maxTextNum = 100;
+    const maxTextNum = 60;
 
     const desc = useSelector(selectDesc);
     const position = useSelector(selectPosition);
@@ -114,7 +114,7 @@ const Body = React.forwardRef((props) => {
         doChangeDesc(text);
 
         const mapOperations = () => {
-            // setMapToReadOnly();
+            setMapToReadOnly();
 
             const { latLng } = position;
             changeInfoWindowPosition(latLng);
@@ -130,7 +130,7 @@ const Body = React.forwardRef((props) => {
         doChangeDesc("");
         
         const mapOperations = () => {
-            // setMapToModifiable();
+            setMapToModifiable();
             hideInfoWindow();
         };
         mapOperations();

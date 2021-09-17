@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "18px",
         margin: "10px 0",
         fontWeight: "bold",
+        minWidth: "150px",
         maxWidth: "220px"
     },
     editIcon: {

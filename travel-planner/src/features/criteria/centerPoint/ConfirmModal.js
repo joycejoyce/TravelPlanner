@@ -114,7 +114,7 @@ const Body = React.forwardRef((props) => {
         doChangeDesc(text);
 
         const mapOperations = () => {
-            setMapToReadOnly();
+            // setMapToReadOnly();
 
             const { latLng } = position;
             changeInfoWindowPosition(latLng);
@@ -130,7 +130,7 @@ const Body = React.forwardRef((props) => {
         doChangeDesc("");
         
         const mapOperations = () => {
-            setMapToModifiable();
+            // setMapToModifiable();
             hideInfoWindow();
         };
         mapOperations();

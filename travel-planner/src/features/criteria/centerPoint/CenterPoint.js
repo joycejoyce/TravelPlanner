@@ -36,10 +36,10 @@ const useStyles = makeStyles((theme) => {
         },
         popupContainer: { /* JavaScript will position this div at the bottom of the popup tip. */
             cursor: "auto",
-            height: 0,
             position: "absolute",
             /* The max width of the info window. */
-            width: "200px"
+            width: "300px",
+            height: 0
         }
     });
 });

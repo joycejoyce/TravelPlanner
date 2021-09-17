@@ -21,12 +21,11 @@ const useStyles = makeStyles((theme) => ({
         left: "0",
         transform: "translate(-50%, -100%)",
         backgroundColor: "white",
-        padding: "5px",
-        paddingRight: "40px",
+        padding: "10px",
         borderRadius: "3px",
         fontSize: "16px",
         overflowY: "auto",
-        maxHeight: "200px",
+        maxHeight: "180px",
         maxWidth: "300px",
         boxShadow: "0px 2px 10px 1px rgba(0, 0, 0, 0.5)",
         color: lightColors.primary,
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         "&::after": { /* This element draws the tip. */
             content: "''",
             position: "absolute",
-            top: 0,
+            top: "-1px",
             left: 0,
             /* Center the tip horizontally. */
             transform: "translate(-50%, 0)",
@@ -57,14 +56,19 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: secondaryFont,
         fontSize: "18px",
         margin: "10px 0",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        maxWidth: "220px"
     },
     editIcon: {
         color: lightColors.secondary,
+        background: lightColors.primary,
         position: "absolute",
-        right: "0",
-        top: "0"
-    }
+        right: "3px",
+        top: "3px"
+    },
+    // titlePart: {
+    //     display: "flex"
+    // }
 }));
 
 export default function InfoWindow({ idPrefix }) {
@@ -98,13 +102,15 @@ export default function InfoWindow({ idPrefix }) {
             className={classes.popupBubbleAnchor}
         >
             <div className={classes.popupBubble}>
-                <IconButton
-                    id={editIconId}
-                    className={classes.editIcon}
-                >
-                    <EditIcon />
-                </IconButton>
-                <div className={classes.desc}>{desc}</div>
+                <div className={classes.titlePart}>
+                    <IconButton
+                        id={editIconId}
+                        className={classes.editIcon}
+                    >
+                        <EditIcon />
+                    </IconButton>
+                    <div className={classes.desc}>{desc}</div>
+                </div>
                 <div className={classes.address}>{address}</div>
             </div>
         </div>

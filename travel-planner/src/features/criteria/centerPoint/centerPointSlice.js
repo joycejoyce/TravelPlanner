@@ -19,14 +19,11 @@ export const centerPointSlice = createSlice({
             const { latLng, address } = action.payload;
             state.position.latLng = latLng;
             state.position.address = address;
-        },
-        resetCenterPointInfo: (state) => {
-            state = initialState;
         }
     }
 });
 
-export const { changeDesc, changePosition, resetCenterPointInfo } = centerPointSlice.actions;
+export const { changeDesc, changePosition } = centerPointSlice.actions;
 
 export const selectDesc = (state) => state.centerPoint.desc;
 export const selectPosition = (state) => state.centerPoint.position;

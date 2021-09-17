@@ -1,25 +1,19 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
-import { CenterFocusStrong as CenterIcon } from '@material-ui/icons';
 
 // my components
-import { lightColors, darkColors } from "../../../common/styles/colors.json";
 import { initMap, hideInfoWindow } from "./mapHandler.js";
 import ConfirmModal from "./ConfirmModal.js";
 import { changePosition } from "./centerPointSlice.js";
 import { openModal } from "./modalOpenSlice.js";
 import { places } from "../../../common/map/place.js";
+import Explanation from "./Explanation.js";
 
 // React
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-let isDarkMode = false;
-
 const useStyles = makeStyles((theme) => {
-    isDarkMode = theme.palette.type === "dark";
-    const palette = isDarkMode ? darkColors : lightColors;
-
     return ({
         centerPoint: {
             display: "flex",
@@ -33,16 +27,6 @@ const useStyles = makeStyles((theme) => {
                 minWidth: "380px",
                 maxWidth: "900px"
             }
-        },
-        explanation: {
-            borderRadius: "3px",
-            height: "36px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "5px",
-            color: palette.primary,
-            background: palette.primaryBK
         },
         map: {
             height: "400px",
@@ -60,18 +44,7 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-function Explanation() {
-    const classes = useStyles();
-
-    return (
-        <div className={"explanation " + classes.explanation}>
-            <CenterIcon />
-            <div className="expText">Choose a center point by tapping on the map</div>
-        </div>
-    )
-}
-
-export default function CenterPoint(centerPointCtrl) {
+export default function CenterPoint() {
     const classes = useStyles();
 
     const mapName = "centerPointMap";

@@ -8,7 +8,7 @@ import { lightColors } from "../../../common/styles/colors.json";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { selectDesc, selectPosition } from "./centerPointSlice.js";
 import { openModal } from "./modalOpenSlice.js";
-import {  addClickDomListener } from "./mapHandler.js";
+import { addClickDomListener } from "./mapHandler.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -29,13 +29,8 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: "200px",
         maxWidth: "300px",
         boxShadow: "0px 2px 10px 1px rgba(0, 0, 0, 0.5)",
-        // color: theme.palette.primary.main,
         color: lightColors.primary,
-        textAlign: "center",
-        // test start
-        // top: "-400px",
-        // left: "400px"
-        // test end
+        textAlign: "center"
     },
     popupBubbleAnchor: { /* The parent of the bubble. A zero-height div at the top of the tip. */
         position: "absolute",

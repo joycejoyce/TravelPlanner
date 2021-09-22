@@ -8,11 +8,13 @@ import { changePosition } from "./centerPointSlice.js";
 import { openModal } from "./modalOpenSlice.js";
 import { places } from "../../../common/map/place.js";
 import Explanation from "./Explanation.js";
-import NextBtn from "./NextBtn.js";
+import NextBtn from "../NextBtn.js";
+import { selectDesc } from "./centerPointSlice.js";
+import { Criterion } from "../criteriaSlice";
 
 // React
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -76,6 +78,8 @@ export default function CenterPoint() {
         hideInfoWindow();
     }, [true]);
 
+    const desc = useSelector(selectDesc);
+
     return (
         <div className={"centerPoint " + classes.centerPoint}>
             <Explanation />
@@ -85,7 +89,11 @@ export default function CenterPoint() {
                 className={classes.popupContainer}
                 style={{display: "none"}}
             ></div>
-            <NextBtn />
+            <NextBtn
+                disabled={desc.length === 0}
+                currStep={Criterion.centerPoint}
+                nextStep={Criterion.date}
+            />
             <ConfirmModal />
         </div>
     );

@@ -62,7 +62,6 @@ const useStyles = makeStyles((theme) => ({
     },
     editIcon: {
         color: lightColors.secondary,
-        background: lightColors.primary,
         position: "absolute",
         right: "3px",
         top: "3px"

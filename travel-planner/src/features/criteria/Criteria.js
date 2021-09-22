@@ -22,13 +22,17 @@ const useStyles = makeStyles((theme) => {
                 width: "75vw"
             },
             minWidth: "415px",
-            maxWidth: "1000px"
+            maxWidth: "1000px",
+            position: "relative",
+            height: "100vh"
         },
         accordions: {
             display: "flex",
             flexDirection: "column",
             gap: "10px",
-            alignItems: "center"
+            alignItems: "center",
+            position: "absolute",
+            top: theme.spacing(10)
         },
         accordion: {
             // outline: "solid red 1px"

@@ -1,5 +1,69 @@
-export default function Date() {
+// React
+import { useSelector, useDispatch } from "react-redux";
+
+// my components
+import { changeDate, selectDate } from "./dateSlice.js";
+import NextBtn from "./NextBtn.js";
+import { Criterion } from "./criteriaSlice.js";
+
+// MUI
+import { makeStyles } from "@material-ui/core/styles";
+import "date-fns";
+import React from "react";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker
+} from "@material-ui/pickers";
+
+const useStyles = makeStyles((theme) => {
+    return ({
+        datePicker: {
+            width: "70%",
+            minWidth: "231px"
+        },
+        nextBtn: {
+
+        }
+    });
+});
+
+export default function MaterialUIPickers() {
+    const classes = useStyles();
+    const dispatch = useDispatch();
+    const selectedDate = useSelector(selectDate);
+
+    const handleDateChange = (date) => {
+        dispatch(changeDate(date));
+    };
+
+    const today = new Date();
+
     return (
-        <div className="date">date</div>
+        <div className="date">
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                    className={classes.datePicker}
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy/MM/dd"
+                    // margin="normal"
+                    id="date-picker-inline"
+                    label="Date"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    KeyboardButtonProps={{
+                        "aria-label": "change date"
+                    }}
+                    minDate={today}
+                />
+            </MuiPickersUtilsProvider>
+            <NextBtn
+                className={classes.nextBtn}
+                disabled={!selectedDate}
+                currStep={Criterion.date}
+                nextStep={Criterion.radius}
+            />
+        </div>
     );
 }

@@ -3,11 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 
 // my components
-import { selectDesc } from "./centerPointSlice.js";
-import { Criterion, unlockStep, expandStep, collapseStep, changeActiveStep } from "../criteriaSlice.js";
+import { unlockStep, expandStep, collapseStep, changeActiveStep } from "./criteriaSlice.js";
 
 // React
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -20,18 +19,18 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-export default function NextBtn() {
+export default function NextBtn({disabled, currStep, nextStep}) {
     const classes = useStyles();
 
-    const desc = useSelector(selectDesc);
+    
 
     const dispatch = useDispatch();
 
     const handleOnClick = () => {
-        const currStep = Criterion.centerPoint;
+        // const currStep = Criterion.centerPoint;
         dispatch(collapseStep(currStep));
 
-        const nextStep = Criterion.date;
+        // const nextStep = Criterion.date;
         dispatch(unlockStep(nextStep));
         dispatch(expandStep(nextStep));
 
@@ -44,7 +43,7 @@ export default function NextBtn() {
             color="primary"
             variant="contained"
             onClick={handleOnClick}
-            disabled={desc.length === 0}
+            disabled={disabled}
         >
             Next
         </Button>

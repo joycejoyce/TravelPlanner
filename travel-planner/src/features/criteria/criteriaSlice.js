@@ -26,9 +26,9 @@ const initialState = {
         num: 2,
         id: "date",
         summary: "Set date",
-        isUnlock: false,
-        isActive: false,
-        isExpanded: false,
+        isUnlock: true,
+        isActive: true,
+        isExpanded: true,
         detail: <Date />
     },
     [Criterion.radius]: {

@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => {
                 },
                 minWidth: "380px",
                 maxWidth: "900px"
-            }
+            },
+            transform: "translateX(-32px)"
         },
         map: {
             height: "450px",

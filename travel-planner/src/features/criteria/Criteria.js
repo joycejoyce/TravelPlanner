@@ -11,22 +11,21 @@ import Criterion from "./Criterion.js";
 const useStyles = makeStyles((theme) => {
     return ({
         criteria: {
-            width: "95vw",
-            [theme.breakpoints.up('md')]: {
-                width: "75vw"
-            },
-            minWidth: "415px",
-            maxWidth: "1000px",
+            minWidth: "400px",
+            width: "100vw",
             position: "relative",
             height: "100vh",
-            overflowY: "auto"
+            overflowY: "auto",
+            overflowX: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
         },
         contents: {
             display: "flex",
             flexDirection: "column",
             gap: theme.spacing(4),
-            position: "absolute",
-            top: theme.spacing(12)
+            marginTop: theme.spacing(12)
         }
     });
 });

@@ -7,14 +7,14 @@ import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 const useStyles = makeStyles((theme) => {
     return ({
         criterion: {
-            
         },
         summary: {
             display: "flex",
             alignItems: "center",
             gap: "10px",
             color: theme.palette.primary.main,
-            fontSize: "18px"
+            fontSize: "18px",
+            paddingLeft: theme.spacing(4)
         },
         numCircle: {
             width: "40px",
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => {
         },
         detail: {
             marginTop: theme.spacing(1),
-            marginLeft: theme.spacing(6)
+            marginLeft: theme.spacing(10)
         }
     });
 });

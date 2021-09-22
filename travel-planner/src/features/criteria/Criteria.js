@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             flexDirection: "column",
             gap: theme.spacing(4),
-            marginTop: theme.spacing(12)
+            marginTop: theme.spacing(12),
+            marginBottom: theme.spacing(12)
         }
     });
 });

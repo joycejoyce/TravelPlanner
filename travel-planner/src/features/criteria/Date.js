@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 // my components
 import { changeDate, selectDate } from "./dateSlice.js";
-import NextBtn from "./NextBtn.js";
-import { Criterion } from "./criteriaSlice.js";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
@@ -58,12 +56,6 @@ export default function MaterialUIPickers() {
                     minDate={today}
                 />
             </MuiPickersUtilsProvider>
-            <NextBtn
-                className={classes.nextBtn}
-                disabled={!selectedDate}
-                currStep={Criterion.date}
-                nextStep={Criterion.radius}
-            />
         </div>
     );
 }

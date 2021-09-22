@@ -9,7 +9,7 @@ const initialState = {
         }
     },
     date: new Date(),
-    radius: 30
+    radius: 10
 }
 
 export const criteriaSlice = createSlice({

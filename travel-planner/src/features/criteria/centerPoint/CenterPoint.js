@@ -4,11 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 // my components
 import { initMap, hideInfoWindow } from "./mapHandler.js";
 import ConfirmModal from "./ConfirmModal.js";
-import { changePosition } from "./centerPointSlice.js";
+import { changePosition } from "../criteriaSlice.js";
 import { openModal } from "./modalOpenSlice.js";
 import { places } from "../../../common/map/place.js";
 import Explanation from "./Explanation.js";
-import { selectDesc } from "./centerPointSlice.js";
 
 // React
 import { useEffect } from "react";

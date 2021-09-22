@@ -11,7 +11,7 @@ import {
     hideInfoWindow,
     changeInfoWindowPosition
 } from "./mapHandler.js";
-import { selectDesc, selectPosition, changeDesc } from "./centerPointSlice.js";
+import { selectDesc, selectPosition, changeDesc } from "../criteriaSlice.js";
 import { selectIsOpen, closeModal } from "./modalOpenSlice.js";
 
 // React

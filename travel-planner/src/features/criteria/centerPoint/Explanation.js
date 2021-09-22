@@ -7,7 +7,7 @@ import { CenterFocusStrong as CenterIcon } from '@material-ui/icons';
 import { useSelector } from "react-redux";
 
 // my components
-import { selectDesc } from "./centerPointSlice.js";
+import { selectDesc } from "../criteriaSlice.js";
 import { lightColors, darkColors } from "../../../common/styles/colors.json";
 
 const useStyles = makeStyles((theme) => {

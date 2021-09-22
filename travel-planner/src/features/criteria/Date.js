@@ -2,7 +2,7 @@
 import { useSelector, useDispatch } from "react-redux";
 
 // my components
-import { changeDate, selectDate } from "./dateSlice.js";
+import { changeDate, selectDate } from "./criteriaSlice.js";
 
 // MUI
 import { makeStyles } from "@material-ui/core/styles";

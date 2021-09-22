@@ -4,7 +4,6 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from "@material-ui/core/FormControl";
-// import FormLabel from "@material-ui/core/FormLabel";
 
 // my components
 import { changeRadius, selectRadius } from "./criteriaSlice";
@@ -37,7 +36,6 @@ export default function Radius() {
             className={"radius " + classes.radius}
             component="fieldset"
         >
-            {/* <FormLabel component="legend">Gender</FormLabel> */}
             <RadioGroup
                 aria-label="radius"
                 name="radius"

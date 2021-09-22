@@ -7,7 +7,7 @@ import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 const useStyles = makeStyles((theme) => {
     return ({
         criterion: {
-
+            
         },
         summary: {
             display: "flex",
@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => {
             fontFamily: secondaryFont
         },
         detail: {
-            marginTop: theme.spacing(1)
+            marginTop: theme.spacing(1),
+            marginLeft: theme.spacing(6)
         }
     });
 });

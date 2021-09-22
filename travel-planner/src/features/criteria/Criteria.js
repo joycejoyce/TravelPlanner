@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CenterPoint from "./centerPoint/CenterPoint.js";
 import Date from "./Date.js";
 import Radius from "./Radius.js";
+import POIs from "./POIs.js";
 import Criterion from "./Criterion.js";
 
 const useStyles = makeStyles((theme) => {
@@ -17,7 +18,8 @@ const useStyles = makeStyles((theme) => {
             minWidth: "415px",
             maxWidth: "1000px",
             position: "relative",
-            height: "100vh"
+            height: "100vh",
+            overflowY: "auto"
         },
         contents: {
             display: "flex",
@@ -35,27 +37,30 @@ export default function Criteria() {
     const CriterionName = {
         centerPoint: "centerPoint",
         date: "date",
-        radius: "radius"
+        radius: "radius",
+        pois: "pois"
     };
     
     const criteria = {
         [CriterionName.centerPoint]: {
             num: 1,
-            id: "center-point",
             summary: "Set center point",
             detail: <CenterPoint />
         },
         [CriterionName.date]: {
             num: 2,
-            id: "date",
             summary: "Set date",
             detail: <Date />
         },
         [CriterionName.radius]: {
             num: 3,
-            id: "radius",
             summary: "Set radius",
             detail: <Radius />
+        },
+        [CriterionName.pois]: {
+            num: 4,
+            summary: "Set point-of-interst",
+            detail: <POIs />
         }
     };
 

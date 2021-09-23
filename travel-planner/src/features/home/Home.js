@@ -6,8 +6,10 @@ import { ArrowForward as ArrowIcon } from '@material-ui/icons';
 // my components
 import Logo from "../../common/components/Logo.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
+import { resetCriteria } from '../criteria/criteriaSlice.js';
 
 // React
+import { useDispatch } from 'react-redux';
 import {
     Link as RouterLink,
     useHistory
@@ -95,9 +97,11 @@ const Paragraph = () => {
 export default function Home() {
     const classes = useStyles();
     const history = useHistory();
+    const dispatch = useDispatch();
     const TechLink = props => <RouterLink to="/tech" {...props} />
 
     const handleClickGo = () => {
+        dispatch(resetCriteria());
         history.push("/criteria");
     }
 

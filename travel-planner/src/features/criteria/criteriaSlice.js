@@ -45,6 +45,9 @@ export const criteriaSlice = createSlice({
         changePOIs: (state, action) => {
             const { name, checked } = action.payload;
             state.pois[name] = checked;
+        },
+        resetCriteria: () => {
+            return initialState;
         }
     }
 });
@@ -54,7 +57,8 @@ export const {
     changeDesc,
     changePosition,
     changeRadius,
-    changePOIs
+    changePOIs,
+    resetCriteria
 } = criteriaSlice.actions;
 
 export const selectDesc = (state) => state.criteria.centerPoint.desc;

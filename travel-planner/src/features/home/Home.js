@@ -7,8 +7,11 @@ import { ArrowForward as ArrowIcon } from '@material-ui/icons';
 import Logo from "../../common/components/Logo.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 
-// others
-import { Link as RouterLink } from "react-router-dom";
+// React
+import {
+    Link as RouterLink,
+    useHistory
+} from "react-router-dom";
 
 let isDarkMode = false;
 
@@ -89,9 +92,14 @@ const Paragraph = () => {
     )
 };
 
-export default function Home() {
+export default function Home(props) {
     const classes = useStyles();
+    const history = useHistory();
     const TechLink = props => <RouterLink to="/tech" {...props} />
+
+    const handleClickGo = () => {
+        history.push("/criteria");
+    }
 
     return (
         <div className={"home " + classes.home}>
@@ -108,6 +116,7 @@ export default function Home() {
                     color="primary"
                     className={classes.btn}
                     endIcon={<ArrowIcon />}
+                    onClick={handleClickGo}
                 >
                     Go
                 </Button>

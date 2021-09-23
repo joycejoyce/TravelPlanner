@@ -19,13 +19,14 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const useStyles = makeStyles((theme) => ({
     animationPart: {
-        // outline: "2px solid red",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
         "& > *": {
-            // background: "lightGreen"
+            // background: "lightGreen",
+            width: "100vw",
+            height: "100vh",
+            overflow: "auto",
+            position: "absolute",
+            top: "0",
+            left: "0"
         }
     }
 }));

@@ -16,60 +16,64 @@ const useStyles = makeStyles((theme) => {
     isDarkMode = theme.palette.type === "dark";
 
     return({
-    home: {
-        width: "310px",
-        height: "600px",
-        margin: "0 auto",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        [theme.breakpoints.up('md')]: {
-            width: "480px",
-            height: "800px"
-        }
-    },
-    highlightText: {
-        color: theme.palette.secondary.main,
-        fontFamily: secondaryFont
-    },
-    paragraph: {
-        marginTop: theme.spacing(8),
-        alignSelf: "flex-start",
-        [theme.breakpoints.up('md')]: {
-            marginTop: theme.spacing(12),
-            "& h5": {
-                fontSize: "36px"
-            },
-            "& h3": {
-                fontSize: "75px"
-            }
-        }
-    },
-    techLink: {
-        position: "absolute",
-        bottom: "0",
-        fontFamily: theme.typography.fontFamily,
-        letterSpacing: ".5px",
-        fontSize: "14px",
-        alignSelf: "flex-start",
-        [theme.breakpoints.up('md')]: {
-            fontSize: "16px"
-        }
-    },
-    btn: {
-        width: "127px",
-        height: "60px",
-        borderRadius: "30px",
-        fontSize: "30px",
-        "& .MuiSvgIcon-root": {
-            fontSize: "24px"
+        home: {
         },
-        marginTop: theme.spacing(12),
-        textTransform: "none",
-        letterSpacing: "1px",
-        color: theme.palette.type === "dark" ? theme.palette.text.primary : theme.palette.background.paper
-    }
-})});
+        contents: {
+            position: "relative",
+            width: "310px",
+            height: "600px",
+            margin: "5vh auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            [theme.breakpoints.up('md')]: {
+                width: "480px",
+                height: "800px"
+            }
+        },
+        highlightText: {
+            color: theme.palette.secondary.main,
+            fontFamily: secondaryFont
+        },
+        paragraph: {
+            marginTop: theme.spacing(8),
+            alignSelf: "flex-start",
+            [theme.breakpoints.up('md')]: {
+                marginTop: theme.spacing(12),
+                "& h5": {
+                    fontSize: "36px"
+                },
+                "& h3": {
+                    fontSize: "75px"
+                }
+            }
+        },
+        techLink: {
+            position: "absolute",
+            bottom: "0",
+            fontFamily: theme.typography.fontFamily,
+            letterSpacing: ".5px",
+            fontSize: "14px",
+            alignSelf: "flex-start",
+            [theme.breakpoints.up('md')]: {
+                fontSize: "16px"
+            }
+        },
+        btn: {
+            width: "127px",
+            height: "60px",
+            borderRadius: "30px",
+            fontSize: "30px",
+            "& .MuiSvgIcon-root": {
+                fontSize: "24px"
+            },
+            marginTop: theme.spacing(12),
+            textTransform: "none",
+            letterSpacing: "1px",
+            color: theme.palette.type === "dark" ? theme.palette.text.primary : theme.palette.background.paper
+        }
+    });
+});
 
 const Paragraph = () => {
     const classes = useStyles();
@@ -90,25 +94,27 @@ export default function Home() {
     const TechLink = props => <RouterLink to="/tech" {...props} />
 
     return (
-        <div className={classes.home}>
-            <Logo
-                className="logo"
-                width="70px"
-                margin="0 auto"
-                isDarkMode={isDarkMode}
-            />
-            <Paragraph className="paragraph" />
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.btn}
-                endIcon={<ArrowIcon />}
-            >
-                Go
-            </Button>
-            <Link className={classes.techLink} color="textPrimary" component={TechLink}>
-                technologies<br />behind the scenes
-            </Link>
+        <div className={"home " + classes.home}>
+            <div className={"contents " + classes.contents}>
+                <Logo
+                    className="logo"
+                    width="70px"
+                    margin="0 auto"
+                    isDarkMode={isDarkMode}
+                />
+                <Paragraph className="paragraph" />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.btn}
+                    endIcon={<ArrowIcon />}
+                >
+                    Go
+                </Button>
+                <Link className={classes.techLink} color="textPrimary" component={TechLink}>
+                    technologies<br />behind the scenes
+                </Link>
+            </div>
         </div>
     );
 }

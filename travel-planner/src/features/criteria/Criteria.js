@@ -11,12 +11,12 @@ import Criterion from "./Criterion.js";
 const useStyles = makeStyles((theme) => {
     return ({
         criteria: {
-            minWidth: "400px",
-            width: "100vw",
-            position: "relative",
-            height: "100vh",
-            overflowY: "auto",
-            overflowX: "hidden",
+            // minWidth: "400px",
+            // width: "100vw",
+            // height: "100vh",
+            // position: "relative",
+            // overflowY: "auto",
+            // overflowX: "hidden",
             display: "flex",
             flexDirection: "column",
             alignItems: "center"

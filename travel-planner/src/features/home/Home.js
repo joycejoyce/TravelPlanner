@@ -92,7 +92,7 @@ const Paragraph = () => {
     )
 };
 
-export default function Home(props) {
+export default function Home() {
     const classes = useStyles();
     const history = useHistory();
     const TechLink = props => <RouterLink to="/tech" {...props} />

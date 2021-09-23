@@ -1,5 +1,5 @@
 // React
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // my components
 import { changeDate, selectDate } from "./criteriaSlice.js";
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => {
 export default function MaterialUIPickers() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const selectedDate = useSelector(selectDate);
+    const date = useSelector(selectDate);
 
     const handleDateChange = (date) => {
         dispatch(changeDate(date));
@@ -48,7 +48,7 @@ export default function MaterialUIPickers() {
                     // margin="normal"
                     id="date-picker-inline"
                     label="Date"
-                    value={selectedDate}
+                    value={date}
                     onChange={handleDateChange}
                     KeyboardButtonProps={{
                         "aria-label": "change date"

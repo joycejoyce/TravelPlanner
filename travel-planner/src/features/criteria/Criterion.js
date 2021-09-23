@@ -1,8 +1,11 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 // my components
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
+import { selectErrMsg } from "./validateCriteriaSlice";
+import ErrMsg from "./ErrMsg";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -38,15 +41,20 @@ export default function Criterion({criterion}) {
     const {
         num,
         summary,
-        detail
+        detail,
+        name
     } = criterion;
+
+    const errMsgs = useSelector(selectErrMsg);
+    const errMsg = errMsgs[name];
 
     return (
         <div className={"criterion " + classes.criterion}>
             <div className={"summary " + classes.summary}>
                 <div className={"circle " + classes.numCircle}>{num}</div>
-                <div className={"summaryText" + classes.summaryText}>{summary}</div>
+                <div className={"summaryText " + classes.summaryText}>{summary}</div>
             </div>
+            <ErrMsg errMsg={errMsg} />
             <div className={"detail " + classes.detail}>{detail}</div>
         </div>
     );

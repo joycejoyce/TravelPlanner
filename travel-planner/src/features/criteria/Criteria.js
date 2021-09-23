@@ -7,16 +7,12 @@ import Date from "./Date.js";
 import Radius from "./Radius.js";
 import POIs from "./POIs.js";
 import Criterion from "./Criterion.js";
+import NextBtn from "./NextBtn.js";
+import { CriteriaName } from "./criteriaSlice.js";
 
 const useStyles = makeStyles((theme) => {
     return ({
         criteria: {
-            // minWidth: "400px",
-            // width: "100vw",
-            // height: "100vh",
-            // position: "relative",
-            // overflowY: "auto",
-            // overflowX: "hidden",
             display: "flex",
             flexDirection: "column",
             alignItems: "center"
@@ -31,50 +27,48 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
+export const CriteriaInfo = {
+    [CriteriaName.centerPoint]: {
+        name: CriteriaName.centerPoint,
+        num: 1,
+        summary: "Set center point",
+        detail: <CenterPoint />
+    },
+    [CriteriaName.date]: {
+        name: CriteriaName.date,
+        num: 2,
+        summary: "Set date",
+        detail: <Date />
+    },
+    [CriteriaName.radius]: {
+        name: CriteriaName.radius,
+        num: 3,
+        summary: "Set radius",
+        detail: <Radius />
+    },
+    [CriteriaName.pois]: {
+        name: CriteriaName.pois,
+        num: 4,
+        summary: "Set point-of-interst",
+        detail: <POIs />
+    }
+};
+
 export default function Criteria() {
     const classes = useStyles();
-
-    const CriterionName = {
-        centerPoint: "centerPoint",
-        date: "date",
-        radius: "radius",
-        pois: "pois"
-    };
-    
-    const criteria = {
-        [CriterionName.centerPoint]: {
-            num: 1,
-            summary: "Set center point",
-            detail: <CenterPoint />
-        },
-        [CriterionName.date]: {
-            num: 2,
-            summary: "Set date",
-            detail: <Date />
-        },
-        [CriterionName.radius]: {
-            num: 3,
-            summary: "Set radius",
-            detail: <Radius />
-        },
-        [CriterionName.pois]: {
-            num: 4,
-            summary: "Set point-of-interst",
-            detail: <POIs />
-        }
-    };
 
     return (
         <div className={"criteria " + classes.criteria}>
             <div className={"contents " + classes.contents}>
                 {
-                    Object.keys(criteria).map(key => {
-                        const criterion = criteria[key];
-                        return (
-                            <Criterion criterion={criterion} />
-                        );
-                    })
+                    Object.keys(CriteriaInfo).map(criteriaName => 
+                        <Criterion
+                            key={criteriaName}
+                            criterion={CriteriaInfo[criteriaName]}
+                        />
+                    )
                 }
+                <NextBtn />
             </div>
         </div>
     );

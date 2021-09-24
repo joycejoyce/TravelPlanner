@@ -9,7 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 // my components
 import { changePOIs, selectPOIs } from "./criteriaSlice";
-import { secondary as secondaryFont } from "../../common/styles/fonts.json";
+import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 
 // React
 import { useDispatch, useSelector } from "react-redux";

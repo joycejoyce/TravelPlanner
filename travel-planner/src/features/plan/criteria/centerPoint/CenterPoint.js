@@ -6,7 +6,7 @@ import { initMap, hideInfoWindow } from "./mapHandler.js";
 import ConfirmModal from "./ConfirmModal.js";
 import { changePosition } from "../criteriaSlice.js";
 import { openModal } from "./modalOpenSlice.js";
-import { places } from "../../../common/map/place.js";
+import { places } from "../../../../common/map/place.js";
 import Explanation from "./Explanation.js";
 
 // React

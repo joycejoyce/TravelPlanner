@@ -6,7 +6,7 @@ import { ArrowForward as ArrowIcon } from '@material-ui/icons';
 // my components
 import Logo from "../../common/components/Logo.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
-import { resetCriteria } from '../criteria/criteriaSlice.js';
+import { resetCriteria } from '../plan/criteria/criteriaSlice.js';
 
 // React
 import { useDispatch } from 'react-redux';

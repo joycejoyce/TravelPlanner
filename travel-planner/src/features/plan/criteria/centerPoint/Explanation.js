@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 // my components
 import { selectDesc } from "../criteriaSlice.js";
-import { lightColors, darkColors } from "../../../common/styles/colors.json";
+import { lightColors, darkColors } from "../../../../common/styles/colors.json";
 
 const useStyles = makeStyles((theme) => {
     const isDarkMode = theme.palette.type === "dark";

@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // my components
 import "./InnerApp.css";
 import Home from "../features/home/Home.js";
-import Criteria from "../features/criteria/Criteria.js";
+import Criteria from "../features/plan/criteria/Criteria.js";
 import About from "../features/about/About.js";
 import Navbar from "../features/navbar/Navbar.js";
 

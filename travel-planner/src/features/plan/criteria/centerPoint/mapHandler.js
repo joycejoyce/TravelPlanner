@@ -1,7 +1,7 @@
 // my components
 import InfoWindow from "./InfoWindow.js";
-import { store } from "../../../app/store.js";
-import { getMap } from "../../../common/map/map.js";
+import { store } from "../../../../app/store.js";
+import { getMap } from "../../../../common/map/map.js";
 
 // React
 import ReactDOM from "react-dom";

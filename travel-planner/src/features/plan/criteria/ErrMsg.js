@@ -2,8 +2,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my component
-import { err as errColor, errBK as errBKColor } from "../../common/styles/colors.json";
-import { secondary as secondaryFont } from "../../common/styles/fonts.json";
+import { err as errColor, errBK as errBKColor } from "../../../common/styles/colors.json";
+import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 
 const useStyles = makeStyles((theme) => {
     return ({

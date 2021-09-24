@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 
 // my components
-import { secondary as secondaryFont } from "../../common/styles/fonts.json";
+import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { selectErrMsg } from "./validateCriteriaSlice";
 import ErrMsg from "./ErrMsg";
 

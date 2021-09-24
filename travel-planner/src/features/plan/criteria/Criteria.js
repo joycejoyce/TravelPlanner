@@ -54,11 +54,12 @@ export const CriteriaInfo = {
     }
 };
 
-export default function Criteria() {
+export default function Criteria({cssClassName}) {
     const classes = useStyles();
+    const rootClassName = ["criteria", classes.criteria, cssClassName].join(" ");
 
     return (
-        <div className={"criteria " + classes.criteria}>
+        <div className={rootClassName}>
             <div className={"contents " + classes.contents}>
                 {
                     Object.keys(CriteriaInfo).map(criteriaName => 

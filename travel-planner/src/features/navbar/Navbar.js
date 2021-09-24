@@ -22,7 +22,8 @@ export default function Navbar() {
     return (
         <div className={"navbar " + classes.navbar}>
             <button onClick={() => handleOnClick("home")}>Home</button>
-            <button onClick={() => handleOnClick("criteria")}>Criteria</button>
+            &nbsp;&nbsp;
+            <button onClick={() => handleOnClick("plan")}>Plan</button>
         </div>
     );
 }

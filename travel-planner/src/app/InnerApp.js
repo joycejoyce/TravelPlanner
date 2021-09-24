@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // my components
 import "./InnerApp.css";
 import Home from "../features/home/Home.js";
-import Criteria from "../features/plan/criteria/Criteria.js";
+import Plan from "../features/plan/Plan";
 import About from "../features/about/About.js";
 import Navbar from "../features/navbar/Navbar.js";
 
@@ -49,9 +49,9 @@ function AnimationPart() {
                     className={classes.page}
                 >
                     <Route path="/home" component={Home} />
-                    <Route path="/criteria" component={Criteria} />
+                    <Route path="/plan" component={Plan} />
                     <Route path="/about" component={About} />
-                    <Route path="/" component={Criteria} />
+                    <Route path="/" component={Home} />
                 </Switch>
             </CSSTransition>
         </TransitionGroup>

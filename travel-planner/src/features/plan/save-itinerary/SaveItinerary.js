@@ -1,6 +1,8 @@
-export default function SaveItinerary({cssClassName}) {
+export default function SaveItinerary({ cssClassName }) {
+    const rootClassName = ["save-itinerary", cssClassName].join(" ");
+
     return (
-        <div className={cssClassName}>
+        <div className={rootClassName}>
             <h1>SaveItinerary</h1>
         </div>
     );

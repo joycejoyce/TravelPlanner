@@ -94,7 +94,7 @@ const Paragraph = () => {
     )
 };
 
-export default function Home() {
+export default function Home({ setAnimationKey }) {
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
@@ -102,7 +102,8 @@ export default function Home() {
 
     const handleClickGo = () => {
         dispatch(resetCriteria());
-        history.push("/criteria");
+        setAnimationKey();
+        history.push("/plan");
     }
 
     return (

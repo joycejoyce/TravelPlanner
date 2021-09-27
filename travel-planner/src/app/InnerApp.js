@@ -6,16 +6,17 @@ import "./InnerApp.css";
 import Home from "../features/home/Home.js";
 import Plan from "../features/plan/Plan";
 import About from "../features/about/About.js";
-import Navbar from "../features/navbar/Navbar.js";
 
 // React
 import {
     BrowserRouter as Router,
     Switch,
     Route,
+    Link,
     useLocation
 } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
     animationPart: {
@@ -28,33 +29,73 @@ const useStyles = makeStyles((theme) => ({
             top: "0",
             left: "0"
         }
+    },
+    navbar: {
+        position: "fixed",
+        zIndex: "10"
     }
 }));
 
 function AnimationPart() {
     const classes = useStyles();
+    const [ key, setKey ] = useState(0);
     const location = useLocation();
+    const URL = {
+        home: "home",
+        plan: "plan",
+        about: "about"
+    };
+
+    const Navbar = () => {    
+         const handleClick = () => {
+            setKey(Math.random);
+         };
+    
+        return (
+            <div className={"navbar " + classes.navbar}>
+                <Link onClick={handleClick} to={`/${URL.home}`}>Home</Link>
+                &nbsp;&nbsp;
+                <Link onClick={handleClick} to={`/${URL.plan}`}>Plan</Link>
+                &nbsp;&nbsp;
+                <Link onClick={handleClick} to={`/${URL.about}`}>About</Link>
+            </div>
+        );
+    }
 
     return (
-        <TransitionGroup
-            className={classes.animationPart + " animationPart"}
-        >
-            <CSSTransition
-                timeout={250}
-                classNames="fade"
-                key={location.key}
+        <>
+            <Navbar />
+            <TransitionGroup
+                className={"animationPart " + classes.animationPart}
             >
-                <Switch
-                    location={location}
-                    className={classes.page}
+                <CSSTransition
+                    timeout={250}
+                    classNames="fade"
+                    key={key}
                 >
-                    <Route path="/home" component={Home} />
-                    <Route path="/plan" component={Plan} />
-                    <Route path="/about" component={About} />
-                    <Route path="/" component={Home} />
-                </Switch>
-            </CSSTransition>
-        </TransitionGroup>
+                    <Switch
+                        location={location}
+                    >
+                        <Route
+                            path={`/${URL.home}`}
+                            render={() => <Home setAnimationKey={setKey} />}
+                        />
+                        <Route
+                            path={`/${URL.plan}`}
+                            render={() => <Plan />}
+                        />
+                        <Route
+                            path={`/${URL.about}`}
+                            render={() => <About />}
+                        />
+                        <Route
+                            path="/"
+                            render={() => <Home setAnimationKey={setKey} />}
+                        />
+                    </Switch>
+                </CSSTransition>
+            </TransitionGroup>
+        </>
     )
 }
 
@@ -63,7 +104,6 @@ export default function InnerApp() {
 
     return (
         <Router className="innerApp">
-            <Navbar />
             <AnimationPart />
         </Router>
     );

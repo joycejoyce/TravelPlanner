@@ -8,9 +8,13 @@ import {
     selectAll
 } from "./criteriaSlice.js";
 import { changeErrMsg } from "./validateCriteriaSlice.js";
+import { toNextStep } from "../stepSlice.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
+import {
+    useHistory
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -25,6 +29,7 @@ const useStyles = makeStyles((theme) => {
 
 export default function NextBtn() {
     const classes = useStyles();
+    const history = useHistory();
     const dispatch = useDispatch();
     const criteria = useSelector(selectAll);
 
@@ -37,11 +42,14 @@ export default function NextBtn() {
     };
     
     const handleOnClick = () => {
+        let hasError = false;
+
         const validateCenterPoint = () => {
             const criteriaName = CriteriaName.centerPoint;
             const { desc } = criteria[criteriaName];
             const errMsg = desc ? "" : "Choose a center point";
             dispatchErrMsg(criteriaName, errMsg);
+            hasError = hasError || errMsg;
         };
 
         const validateDate = () => {
@@ -49,6 +57,7 @@ export default function NextBtn() {
             const date = criteria[criteriaName];
             const errMsg = date ? "" : "Choose a date";
             dispatchErrMsg(criteriaName, errMsg);
+            hasError = hasError || errMsg;
         };
 
         const validatePOIs = () => {
@@ -63,11 +72,17 @@ export default function NextBtn() {
             }
             const errMsg = hasPOIs ? "" : "Choose at least 1 point-of-interest";
             dispatchErrMsg(criteriaName, errMsg);
+            hasError = hasError || errMsg;
         };
 
         validateCenterPoint();
         validateDate();
         validatePOIs();
+
+        if (!hasError) {
+            dispatch(toNextStep());
+            history.push("/plan/modifyPOIs");
+        }
     };
 
     return (

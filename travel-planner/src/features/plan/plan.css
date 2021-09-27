@@ -1,0 +1,10 @@
+/* swipe */
+.swipe-enter {
+    opacity: 0;
+    z-index: 1;
+}
+
+.swipe-enter.swipe-enter-active {
+    opacity: 1;
+    transition: opacity 2250ms ease-in;
+}

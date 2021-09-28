@@ -2,16 +2,16 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import { initMap, hideInfoWindow } from "./mapHandler.js";
+import { initMap, hideInfoWindow, setMapToReadOnly } from "./mapHandler.js";
 import ConfirmModal from "./ConfirmModal.js";
-import { changePosition } from "../criteriaSlice.js";
+import { changePosition, selectDesc, selectPosition } from "../criteriaSlice.js";
 import { openModal } from "./modalOpenSlice.js";
 import { places } from "../../../../common/map/place.js";
 import Explanation from "./Explanation.js";
 
 // React
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -52,30 +52,38 @@ const useStyles = makeStyles((theme) => {
 export default function CenterPoint() {
     const classes = useStyles();
 
+    // Redux
+    const dispatch = useDispatch();
+    const desc = useSelector(selectDesc);
+    const position = useSelector(selectPosition);
+    const isPosSet = position.latLng ? true : false;
+
+    // map
     const mapName = "centerPointMap";
     const mapProps = {
-        center: places.taiwan,
+        center: isPosSet ? position.latLng : places.taiwan,
         id: mapName,
         zoom: 2
     };
-    
     const infoWindowProps = {
         id: [mapName, "infoWindow"].join("_")
-    }
-
-    const dispatch = useDispatch();
-
-    const reduxCtrl = {
-        dispatch,
-        openModal,
-        changePosition
-    }    
+    };
 
     useEffect(() => {
         async function doInitMap() {
             console.log("doInitMap");
+            const reduxCtrl = {
+                dispatch,
+                openModal,
+                changePosition
+            };
             await initMap(mapProps, reduxCtrl, infoWindowProps);
-            hideInfoWindow();
+            if (desc) {
+                setMapToReadOnly();
+            }
+            else {
+                hideInfoWindow();
+            }
         }
         doInitMap();
     }, []);

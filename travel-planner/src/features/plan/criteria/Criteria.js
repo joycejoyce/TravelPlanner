@@ -98,7 +98,7 @@ export default function Criteria({ setAnimationKey }) {
         if (!hasError) {
             dispatch(toNextStep());
             setAnimationKey();
-            history.push(`${parentPath}/${URL.modifyPOIs}`);
+            history.push(`/plan/${URL.modifyPOIs}`);
         }
     };
 

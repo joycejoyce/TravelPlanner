@@ -1,10 +1,20 @@
 /* swipe */
 .swipe-enter {
-    opacity: 0;
+    transform: translateX(100vw);
     z-index: 1;
 }
 
 .swipe-enter.swipe-enter-active {
-    opacity: 1;
-    transition: opacity 2250ms ease-in;
+    transform: translateX(0);
+    transition: transform 300ms linear;
+}
+
+.swipe-exit {
+    transform: translateX(0);
+    z-index: 1;
+}
+
+.swipe-exit.swipe-exit-active {
+    transform: translateX(-100vw);
+    transition: transform 300ms linear;
 }

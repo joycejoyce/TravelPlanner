@@ -26,16 +26,22 @@ import {
 const useStyles = makeStyles((theme) => {
     return ({
         criteria: {
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
+            // display: "flex",
+            // flexDirection: "column",
+            // alignItems: "center"
         },
         contents: {
             display: "flex",
             flexDirection: "column",
+            alignItems: "center",
+            background: "pink"
+        },
+        flexWrapper: {
+            display: "flex",
+            flexDirection: "column",
             gap: theme.spacing(4),
             marginTop: theme.spacing(12),
-            marginBottom: theme.spacing(12)
+            marginBottom: theme.spacing(12),
         }
     });
 });
@@ -102,18 +108,20 @@ export default function Criteria({ setAnimationKey }) {
     return (
         <div className={rootClassName}>
             <div className={"contents " + classes.contents}>
-                {
-                    Object.keys(CriteriaInfo).map(criteriaName => 
-                        <Criterion
-                            key={criteriaName}
-                            criterion={CriteriaInfo[criteriaName]}
-                        />
-                    )
-                }
-                <ButtonSection
-                    handleClickNext={handleClickNext}
-                    handleClickPrev={handleClickNext}
-                />
+                <div className={"flexWrapper " + classes.flexWrapper}>
+                    {
+                        Object.keys(CriteriaInfo).map(criteriaName => 
+                            <Criterion
+                                key={criteriaName}
+                                criterion={CriteriaInfo[criteriaName]}
+                            />
+                        )
+                    }
+                    <ButtonSection
+                        handleClickNext={handleClickNext}
+                        handleClickPrev={handleClickNext}
+                    />
+                </div>
             </div>
         </div>
     );

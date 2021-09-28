@@ -31,12 +31,16 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
         width: "100vw",
         top: "12vh",
-        "& > *": {
+        "& > *": { // Criteria / ModifyPOIs / ... 
+            // animationPart cannot set translateX or it'll effect animation
             position: "absolute",
-            width: "90%",
-            top: "0",
-            left: "50%",
-            transform: "translateX(-50%)"
+            width: "100vw",
+            "& > .contents" : {
+                position: "absolute",
+                width: "fit-content",
+                left: "50%",
+                transform: "translateX(-50%)"
+            }
         }
     }
 }));
@@ -78,7 +82,7 @@ export default function Plan() {
                 className={"animationPart-plan " + classes.animationPart}
             >
                 <CSSTransition
-                    timeout={2250}
+                    timeout={300}
                     classNames="swipe"
                     key={key}
                 >

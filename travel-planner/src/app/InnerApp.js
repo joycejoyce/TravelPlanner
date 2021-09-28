@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
             // background: "lightGreen",
             width: "100vw",
             height: "100vh",
-            overflow: "auto",
+            overflowY: "overlay",
             position: "absolute",
             top: "0",
             left: "0"
@@ -66,7 +66,7 @@ function AnimationPart() {
         <>
             <Navbar />
             <TransitionGroup
-                className={"animationPart " + classes.animationPart}
+                className={"animationPart-innerApp " + classes.animationPart}
             >
                 <CSSTransition
                     timeout={250}
@@ -103,7 +103,7 @@ export default function InnerApp() {
     const classes = useStyles();
 
     return (
-        <Router className="innerApp">
+        <Router>
             <AnimationPart />
         </Router>
     );

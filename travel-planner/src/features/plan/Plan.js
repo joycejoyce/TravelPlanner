@@ -30,13 +30,14 @@ const useStyles = makeStyles((theme) => ({
     animationPart: {
         position: "absolute",
         width: "100vw",
-        top: "12vh"
-    },
-    animateChildren: {
-        position: "absolute",
-        top: "0",
-        left: "50%",
-        transform: "translateX(-50%)"
+        top: "12vh",
+        "& > *": {
+            position: "absolute",
+            width: "90%",
+            top: "0",
+            left: "50%",
+            transform: "translateX(-50%)"
+        }
     }
 }));
 
@@ -82,23 +83,22 @@ export default function Plan() {
                 >
                     <Switch
                         location={location}
-                        className={classes.parent}
                     >
                         <Route
                             path={`${path}/${URL.criteria}`}
-                            render={() => (<Criteria cssClassName={classes.animateChildren} />)}
+                            render={() => (<Criteria />)}
                         />
                         <Route
                             path={`${path}/${URL.modifyPOIs}`}
-                            render={() => (<ModifyPOIs cssClassName={classes.animateChildren} />)}
+                            render={() => (<ModifyPOIs />)}
                         />
                         <Route
                             path={`${path}/${URL.saveItinerary}`}
-                            render={() => (<SaveItinerary cssClassName={classes.animateChildren} />)}
+                            render={() => (<SaveItinerary />)}
                         />
                         <Route
                             path={`${path}`}
-                            render={() => (<Criteria cssClassName={classes.animateChildren} />)}
+                            render={() => (<Criteria />)}
                         />
                     </Switch>
                 </CSSTransition>

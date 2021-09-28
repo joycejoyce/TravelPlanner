@@ -54,9 +54,9 @@ export const CriteriaInfo = {
     }
 };
 
-export default function Criteria({ cssClassName }) {
+export default function Criteria() {
     const classes = useStyles();
-    const rootClassName = ["criteria", classes.criteria, cssClassName].join(" ");
+    const rootClassName = ["criteria", classes.criteria].join(" ");
 
     return (
         <div className={rootClassName}>

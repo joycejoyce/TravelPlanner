@@ -71,10 +71,14 @@ export default function CenterPoint() {
         changePosition
     }    
 
-    useEffect(async () => {
-        await initMap(mapProps, reduxCtrl, infoWindowProps);
-        hideInfoWindow();
-    }, [true]);
+    useEffect(() => {
+        async function doInitMap() {
+            console.log("doInitMap");
+            await initMap(mapProps, reduxCtrl, infoWindowProps);
+            hideInfoWindow();
+        }
+        doInitMap();
+    }, []);
 
     return (
         <div className={"centerPoint " + classes.centerPoint}>

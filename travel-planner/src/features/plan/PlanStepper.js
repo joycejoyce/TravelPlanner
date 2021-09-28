@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
     planStepper: {
         padding: "0",
-        width: "100%",
         position: "absolute",
         top: "10vh",
         width: "90vw",

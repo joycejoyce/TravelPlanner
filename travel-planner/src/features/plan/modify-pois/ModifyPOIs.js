@@ -1,5 +1,5 @@
-export default function ModifyPOIs({ cssClassName }) {
-    const rootClassName = ["modify-pois", cssClassName].join(" ");
+export default function ModifyPOIs() {
+    const rootClassName = ["modify-pois"].join(" ");
 
     return (
         <div className={rootClassName}>

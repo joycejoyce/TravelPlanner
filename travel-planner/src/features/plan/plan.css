@@ -6,7 +6,7 @@
 
 .swipe-enter.swipe-enter-active {
     transform: translateX(0);
-    transition: transform 300ms linear;
+    transition: transform 300ms ease-in;
 }
 
 .swipe-exit {
@@ -16,5 +16,5 @@
 
 .swipe-exit.swipe-exit-active {
     transform: translateX(-100vw);
-    transition: transform 300ms linear;
+    transition: transform 300ms ease-in;
 }

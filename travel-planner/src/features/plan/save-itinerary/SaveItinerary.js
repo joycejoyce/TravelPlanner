@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
         
     },
     contents: {
-        background: "green"
+        // background: "green"
     }
 }));
 

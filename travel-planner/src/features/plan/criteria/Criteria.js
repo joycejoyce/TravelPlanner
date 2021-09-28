@@ -26,15 +26,12 @@ import {
 const useStyles = makeStyles((theme) => {
     return ({
         criteria: {
-            // display: "flex",
-            // flexDirection: "column",
-            // alignItems: "center"
         },
         contents: {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            background: "pink"
+            // background: "pink"
         },
         flexWrapper: {
             display: "flex",

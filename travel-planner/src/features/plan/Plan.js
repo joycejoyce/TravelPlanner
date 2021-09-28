@@ -41,17 +41,18 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+export const URL = {
+    criteria: "criteria",
+    modifyPOIs: "modify-pois",
+    saveItinerary: "save-itinerary"
+};
+
 export default function Plan() {
     const classes = useStyles();
     const [key, setKey] = useState(0);
     const location = useLocation();
     const { path, url } = useRouteMatch();
-    const URL = {
-        criteria: "criteria",
-        modifyPOIs: "modify-pois",
-        saveItinerary: "save-itinerary"
-    };
-
+    
     const NavBar = () => {
         const handleClick = () => {
             setKey(Math.random);
@@ -86,19 +87,19 @@ export default function Plan() {
                     >
                         <Route
                             path={`${path}/${URL.criteria}`}
-                            render={() => (<Criteria />)}
+                            render={() => (<Criteria setAnimationKey={setKey} />)}
                         />
                         <Route
                             path={`${path}/${URL.modifyPOIs}`}
-                            render={() => (<ModifyPOIs />)}
+                            render={() => (<ModifyPOIs setAnimationKey={setKey} />)}
                         />
                         <Route
                             path={`${path}/${URL.saveItinerary}`}
-                            render={() => (<SaveItinerary />)}
+                            render={() => (<SaveItinerary setAnimationKey={setKey} />)}
                         />
                         <Route
                             path={`${path}`}
-                            render={() => (<Criteria />)}
+                            render={() => (<Criteria setAnimationKey={setKey} />)}
                         />
                     </Switch>
                 </CSSTransition>

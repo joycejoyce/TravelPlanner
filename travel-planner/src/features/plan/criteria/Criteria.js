@@ -7,8 +7,21 @@ import Date from "./Date.js";
 import Radius from "./Radius.js";
 import POIs from "./POIs.js";
 import Criterion from "./Criterion.js";
-import NextBtn from "./NextBtn.js";
-import { CriteriaName } from "./criteriaSlice.js";
+import ButtonSection from "../buttonSection/ButtonSection.js";
+import { CriteriaName, selectAll } from "./criteriaSlice.js";
+import { URL } from "../Plan.js";
+import validate from "./CriteriaValidator.js";
+import { changeErrMsg } from "./validateCriteriaSlice.js";
+import { getParentPath } from "../../../common/components/PathGetter.js";
+
+import { toNextStep } from "../stepSlice.js";
+
+// React
+import { useDispatch, useSelector } from "react-redux";
+import {
+    useHistory,
+    useRouteMatch
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -54,9 +67,37 @@ export const CriteriaInfo = {
     }
 };
 
-export default function Criteria() {
+export default function Criteria({ setAnimationKey }) {
+    // styles
     const classes = useStyles();
     const rootClassName = ["criteria", classes.criteria].join(" ");
+
+    // React Route
+    const history = useHistory();
+    const { path } = useRouteMatch();
+    const parentPath = getParentPath(path);
+
+    // Redyx
+    const dispatch = useDispatch();
+    const criteria = useSelector(selectAll);
+    
+    const handleClickNext = () => {
+        const dispatchErrMsg = (criteriaName, errMsg) => {
+            const input = {
+                name: criteriaName,
+                errMsg
+            };
+            dispatch(changeErrMsg(input));
+        };
+
+        const hasError = validate(criteria, dispatchErrMsg);
+
+        if (!hasError) {
+            dispatch(toNextStep());
+            setAnimationKey();
+            history.push(`${parentPath}/${URL.modifyPOIs}`);
+        }
+    };
 
     return (
         <div className={rootClassName}>
@@ -69,7 +110,10 @@ export default function Criteria() {
                         />
                     )
                 }
-                <NextBtn />
+                <ButtonSection
+                    handleClickNext={handleClickNext}
+                    handleClickPrev={handleClickNext}
+                />
             </div>
         </div>
     );

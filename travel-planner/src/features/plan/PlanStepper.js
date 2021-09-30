@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     planStepper: {
         padding: "0",
         position: "absolute",
-        top: "10vh",
+        top: "12vh",
         width: "90vw",
         left: "50%",
         transform: "translateX(-50%)"

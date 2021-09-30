@@ -8,7 +8,7 @@ export default function GetLogo({width, margin, isDarkMode}) {
         margin: ${margin};
     `);
 
-    const imgName = "img/" + (isDarkMode ? "logo_dark.svg" : "logo.svg");
+    const imgName = "/img/" + (isDarkMode ? "logo_dark.svg" : "logo.svg");
     Logo.defaultProps = {
         src: imgName,
         alt: "logo"

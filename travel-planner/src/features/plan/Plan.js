@@ -7,6 +7,7 @@ import PlanStepper from "./PlanStepper.js";
 import Criteria from "./criteria/Criteria";
 import ModifyPOIs from "./modify-pois/ModifyPOIs.js";
 import SaveItinerary from "./save-itinerary/SaveItinerary.js";
+import Logo from "../../common/components/Logo.js";
 
 // React
 import {
@@ -30,12 +31,13 @@ const useStyles = makeStyles((theme) => ({
     animationPart: {
         position: "absolute",
         width: "100vw",
-        top: "12vh",
+        top: "22vh",
         "& > *": { // Criteria / ModifyPOIs / ... 
             // animationPart cannot set translateX or it'll effect animation
-            position: "absolute",
+            // therefore, to center the content, wrap up the contents in ".contents" and center it
+            position: "relative",
             width: "100vw",
-            "& > .contents" : {
+            "& > .contents": {
                 position: "absolute",
                 width: "fit-content",
                 left: "50%",
@@ -56,7 +58,7 @@ export default function Plan() {
     const [key, setKey] = useState(0);
     const location = useLocation();
     const { path, url } = useRouteMatch();
-    
+
     const NavBar = () => {
         const handleClick = () => {
             setKey(Math.random);
@@ -75,6 +77,12 @@ export default function Plan() {
 
     return (
         <div className={"plan " + classes.plan}>
+            <Logo
+                className="logo"
+                width="55px"
+                margin="3vh auto"
+                isDarkMode={false}
+            />
             {/* <h1>Plan</h1> */}
             <NavBar />
             <PlanStepper />

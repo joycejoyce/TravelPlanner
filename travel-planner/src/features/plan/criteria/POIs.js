@@ -1,15 +1,14 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Checkbox from '@material-ui/core/Checkbox';
+import {
+    FormControl,
+    FormGroup,
+    FormControlLabel,
+    Checkbox
+} from '@material-ui/core';
 
 // my components
 import { changePOIs, selectPOIs } from "./criteriaSlice";
-import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +20,9 @@ const useStyles = makeStyles((theme) => {
             gridTemplateColumns: "1.8fr 1fr",
             alignItems: "center",
             letterSpacing: ".5px"
+        },
+        ctrlLabel: {
+            height: "42px"
         }
     });
 });
@@ -93,6 +95,7 @@ export default function Radius() {
                     Object.keys(POIInfo).map(poiName => {
                         return (
                             <FormControlLabel
+                                className={classes.ctrlLabel}
                                 control={<Checkbox
                                             checked={selectedPOIs[poiName]}
                                             onChange={handleChange}

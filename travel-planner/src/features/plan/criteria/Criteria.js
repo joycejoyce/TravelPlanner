@@ -6,6 +6,7 @@ import CenterPoint from "./centerPoint/CenterPoint.js";
 import Date from "./Date.js";
 import Radius from "./Radius.js";
 import POIs from "./POIs.js";
+import POITypes from "./POITypes.js";
 import Criterion from "./Criterion.js";
 import ButtonSection from "../buttonSection/ButtonSection.js";
 import { CriteriaName, selectAll } from "./criteriaSlice.js";
@@ -13,7 +14,6 @@ import { URL } from "../Plan.js";
 import validate from "./CriteriaValidator.js";
 import { changeErrMsg } from "./validateCriteriaSlice.js";
 import { getParentPath } from "../../../common/components/PathGetter.js";
-
 import { toNextStep } from "../stepSlice.js";
 
 // React
@@ -66,6 +66,12 @@ export const CriteriaInfo = {
         num: 4,
         summary: "Set point-of-interst",
         detail: <POIs />
+    },
+    [CriteriaName.poiTypes]: {
+        name: CriteriaName.poiTypes,
+        num: 5,
+        summary: "Set Point-of-interest types (at most 3)",
+        detail: <POITypes />
     }
 };
 

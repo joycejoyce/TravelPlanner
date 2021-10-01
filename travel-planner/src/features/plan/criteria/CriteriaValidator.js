@@ -35,9 +35,25 @@ export default function validate(criteria, dispatchErrMsg) {
         hasError = hasError || errMsg;
     };
 
+    const validatePOITypes = () => {
+        const criteriaName = CriteriaName.poiTypes;
+        const poiTypes = criteria[criteriaName];
+        let hasCheckedItems = false;
+        for (let type in poiTypes) {
+            if (poiTypes[type]) {
+                hasCheckedItems = true;
+                break;
+            }
+        }
+        const errMsg = hasCheckedItems ? "" : "Choose at least 1 type";
+        dispatchErrMsg(criteriaName, errMsg);
+        hasError = hasError || errMsg;
+    };
+
     validateCenterPoint();
     validateDate();
     validatePOIs();
+    validatePOITypes();
 
     return hasError;
 }

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => {
             borderRadius: "18px",
             width: "fit-content",
             padding: "0 24px",
-            margin: "0 auto"
+            marginLeft: "80px"
         }
     });
 });

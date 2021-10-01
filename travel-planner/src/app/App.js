@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
 
 const typography = {
   fontFamily: primaryFont,
+  h3: {
+    fontFamily: secondaryFont
+  },
   h5: {
     letterSpacing: ".5px"
   },

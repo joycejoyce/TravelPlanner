@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { POIInfo } from "./POIs.js";
+import { POITypeInfo } from "./POITypes.js";
 
 export const CriteriaName = {
     centerPoint: "centerPoint",
     date: "date",
     radius: "radius",
-    pois: "pois"
+    pois: "pois",
+    poiTypes: "poiTypes"
 };
 
 const initialState = {
@@ -20,6 +22,10 @@ const initialState = {
     [CriteriaName.radius]: 10,
     [CriteriaName.pois]: Object.keys(POIInfo).reduce((accu, poiName) => {
         accu[poiName] = false;
+        return accu;
+    }, {}),
+    [CriteriaName.poiTypes]: Object.keys(POITypeInfo).reduce((accu, type) => {
+        accu[type] = false;
         return accu;
     }, {})
 }
@@ -46,6 +52,10 @@ export const criteriaSlice = createSlice({
             const { name, checked } = action.payload;
             state.pois[name] = checked;
         },
+        changePOITypes: (state, action) => {
+            const { name, checked } = action.payload;
+            state.poiTypes[name] = checked;
+        },
         resetCriteria: () => {
             return initialState;
         }
@@ -58,6 +68,7 @@ export const {
     changePosition,
     changeRadius,
     changePOIs,
+    changePOITypes,
     resetCriteria
 } = criteriaSlice.actions;
 
@@ -66,6 +77,7 @@ export const selectPosition = (state) => state.criteria.centerPoint.position;
 export const selectDate = (state) => state.criteria.date;
 export const selectRadius = (state) => state.criteria.radius;
 export const selectPOIs = (state) => state.criteria.pois;
+export const selectPOITypes = (state) => state.criteria.poiTypes;
 export const selectAll = (state) => state.criteria;
 
 export default criteriaSlice.reducer;

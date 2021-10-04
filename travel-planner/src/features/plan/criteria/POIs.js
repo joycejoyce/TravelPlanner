@@ -41,36 +41,45 @@ function Contents({poiName}) {
     );
 }
 
+export const POIName = {
+    breakfast: "breakfast",
+    lunch: "lunch",
+    dinner: "dinner",
+    poi1: "poi1",
+    poi2: "poi2",
+    poi3: "poi3"
+};
+
 export const POIInfo = {
-    breakfast: {
+    [POIName.breakfast]: {
         label: "Breakfast",
         timeStart: "06:00",
         timeEnd: "09:00"
     },
-    poi1: {
-        label: "Point-of-Interst #1",
-        timeStart: "09:00",
-        timeEnd: "12:00"
-    },
-    lunch: {
+    [POIName.lunch]: {
         label: "Lunch",
         timeStart: "12:00",
         timeEnd: "13:00"
     },
-    poi2: {
+    [POIName.dinner]: {
+        label: "Dinner",
+        timeStart: "18:00",
+        timeEnd: "21:00"
+    },
+    [POIName.poi1]: {
+        label: "Point-of-Interst #1",
+        timeStart: "09:00",
+        timeEnd: "12:00"
+    },
+    [POIName.poi2]: {
         label: "Point-of-Interst #2",
         timeStart: "13:00",
         timeEnd: "15:00"
     },
-    poi3: {
+    [POIName.poi3]: {
         label: "Point-of-Interst #3",
         timeStart: "15:00",
         timeEnd: "18:00"
-    },
-    dinner: {
-        label: "Dinner",
-        timeStart: "18:00",
-        timeEnd: "21:00"
     }
 }
 

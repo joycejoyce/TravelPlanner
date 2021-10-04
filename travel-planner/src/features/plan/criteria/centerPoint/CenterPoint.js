@@ -8,32 +8,26 @@ import { changePosition, selectDesc, selectPosition } from "../criteriaSlice.js"
 import { openModal } from "./modalOpenSlice.js";
 import { places } from "../../../../common/map/place.js";
 import Explanation from "./Explanation.js";
+import { getStyles_mapContainer, getStyles_map } from "../../../../common/styles/styles.js";
 
 // React
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
+    const styles_mapContainer = getStyles_mapContainer(theme);
+    const styles_map = getStyles_map(theme);
+
     return ({
         centerPoint: {
             display: "flex",
             flexDirection: "column",
             gap: "5px",
-            "& > *:not(.MuiButtonBase-root)": {
-                width: "85vw",
-                [theme.breakpoints.up('md')]: {
-                    width: "70vw"
-                },
-                minWidth: "380px",
-                maxWidth: "900px"
-            },
+            ...styles_mapContainer,
             transform: "translateX(-32px)"
         },
         map: {
-            height: "450px",
-            [theme.breakpoints.up('md')]: {
-                height: "515px"
-            }
+            ...styles_map
         },
         popupContainer: { /* JavaScript will position this div at the bottom of the popup tip. */
             cursor: "auto",
@@ -71,7 +65,7 @@ export default function CenterPoint() {
 
     useEffect(() => {
         async function doInitMap() {
-            console.log("doInitMap");
+            console.log("doInitMap_CenterPoint");
             const reduxCtrl = {
                 dispatch,
                 openModal,

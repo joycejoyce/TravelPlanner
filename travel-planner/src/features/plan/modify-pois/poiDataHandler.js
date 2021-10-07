@@ -1,73 +1,87 @@
 // my components
 import { CriteriaName } from "../criteria/criteriaSlice.js";
-import { POIInfo, POIName } from "../criteria/POIs.js";
-import { POITypeInfo } from "../criteria/POITypes.js";
+import { POIName, POIInfo } from "../criteria/POIs.js";
+import { mock_criteria } from "./mockData.js";
 import { getMap } from "../../../common/map/map.js";
-import checkIsOpen from "./IsOpenChecker.js";
+import { checkIsOperational, checkIsHighlyRated, getBizOpenInfo as getBizOpenInfo } from "./bizStatusChecker.js";
 
 // [ map controls ]
 let google = null;
 let map = null;
 let service = null;
 
-// test [start]
-const criteria_fake = {
-    [CriteriaName.centerPoint]: {
-        desc: "",
-        position: {
-            latLng: { lat: 24.810059549453758, lng: 120.97512116891903 }, //Big City
-            address: ""
-        }
+const RetObj = {
+    NormalEnd: {
+        msg: "Normal end",
+        code: 0
     },
-    [CriteriaName.date]: new Date(),
-    [CriteriaName.radius]: 10,
-    [CriteriaName.pois]: Object.keys(POIInfo).reduce((accu, poiName) => {
-        if (poiName === POIName.breakfast) {
-            accu[poiName] = true;
-        }
-        else {
-            accu[poiName] = false;
-        }
-        return accu;
-    }, {}),
-    [CriteriaName.poiTypes]: Object.keys(POITypeInfo).reduce((accu, type) => {
-        accu[type] = false;
-        return accu;
-    }, {})
-}
-// test [end]
+    GmapReqFail: {
+        msg: "Request sent to Google Maps failed",
+        code: 1,
+        additionalInfo: null
+    }
+};
 
 export default async function getPOIData(mapProps, reduxCtrl, criteria) {
-    criteria = criteria_fake; //for test
+    // criteria = mock_criteria; //for test
 
     await initMap(mapProps);
 
-    const radius = getRadius(criteria);
-    const center = getCenter(criteria);
-    const pois = getPOIs(criteria);
+    const poiNames = getPOINames(criteria);
+    const commonFieldsInRequest = getCommonFieldsInRequest(criteria);
 
-    const poiData = {};
-    for (let poiName in pois) {
-        if (!pois[poiName]) {
-            continue;
+    const poiName_to_placeId = {};
+    const placeId_to_placeDetail = {};
+    let poi2_and_poi3_nearbySearchResult = null;
+    for (let poiName of poiNames) {
+        let places = null;
+        let status = null;
+        if (poi2_and_poi3_nearbySearchResult &&
+            [POIName.poi2, POIName.poi3].includes(poiName)) {
+            places = poi2_and_poi3_nearbySearchResult.places;
+            status = poi2_and_poi3_nearbySearchResult.status;
         }
-        poiData[poiName] = [];
-
-        const request = getRequest_nearbySearch(poiName, radius, center);
-        const { places, status } = await new Promise((resolve) => {
-            service.nearbySearch(request, (places, status) => {
-                resolve({ places, status });
+        else {
+            const request = getRequest_nearbySearch(poiName, commonFieldsInRequest);
+            const result = await new Promise((resolve) => {
+                service.nearbySearch(request, (places, status) => {
+                    resolve({ places, status });
+                });
             });
-        });
-
+            places = result.places;
+            status = result.status;
+            if ([POIName.poi2, POIName.poi3].includes(poiName)) {
+                poi2_and_poi3_nearbySearchResult = {};
+                poi2_and_poi3_nearbySearchResult.places = places;
+                poi2_and_poi3_nearbySearchResult.status = status;
+            }
+        }
+    
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
-            return null;
+            const err = RetObj.GmapReqFail;
+            err.additionalInfo = `status: [${status}], service: [nearbySearch]`;
+            return err;
         }
 
-        let num = 0;
-        const maxNum = 3;
+        shuffle(places);
         for (let place of places) {
-            const request = getRequest_detail(place.place_id);
+            const isPlaceUsed = Object.keys(placeId_to_placeDetail).includes(place.place_id);
+            if (isPlaceUsed) {
+                continue;
+            }
+
+            const isOperational = checkIsOperational(place);
+            if (!isOperational) {
+                continue;
+            }
+
+            const isHighlyRated = checkIsHighlyRated(place);
+            if (!isHighlyRated) {
+                continue;
+            }
+    
+            const { place_id } = place;
+            const request = getRequest_detail(place_id);
             const { detail, status } = await new Promise((resolve) => {
                 service.getDetails(request, (detail, status) => {
                     resolve({ detail, status });
@@ -75,23 +89,26 @@ export default async function getPOIData(mapProps, reduxCtrl, criteria) {
             });
 
             if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                break;
+                const err = RetObj.GmapReqFail;
+                err.additionalInfo = `status: [${status}], service: [getDetails]`;
+                return err;
             }
 
-            if (checkIsOpen(detail, criteria, poiName)) {
-                poiData[poiName].push(detail);
-                num ++;
-                if (num === maxNum) {
-                    break;
-                }
-            }
-            else {
-                console.log(place.name + " not open");
+            const bizOpenInfo = getBizOpenInfo(detail, POIInfo[poiName], criteria);
+            if (bizOpenInfo.isOpen) {
+                poiName_to_placeId[poiName] = place_id;
+                placeId_to_placeDetail[place_id] = getFullDetail(detail, place, bizOpenInfo);
+                break;
             }
         }
     }
 
-    return poiData;
+    const poiName_to_poiDetail = Object.entries(poiName_to_placeId).reduce((accu, [poiName, placeId]) => {
+        accu[poiName] = placeId_to_placeDetail[placeId];
+        return accu;
+    }, {});
+
+    return poiName_to_poiDetail;
 }
 
 async function initMap(props) {
@@ -101,50 +118,111 @@ async function initMap(props) {
     service = new google.maps.places.PlacesService(map);
 }
 
-function getRadius(criteria) {
-    let { radius } = criteria;
-    radius = (radius * 1000).toString();
-    return radius;
-}
-
-function getCenter(criteria) {
-    const center = criteria[CriteriaName.centerPoint].position.latLng;
-    return center;
-}
-
-function getPOIs(criteria) {
-    const pois = criteria[CriteriaName.pois];
-    return pois;
-}
-
-function getRequest_nearbySearch(poiName, radius, center) {
-    const mealRequest = {
-        location: center,
-        radius,
-        type: ["restaurant"]
-        // keyword: "breakfast"
-    }
-
-    let request = null;
-    if (poiName === POIName.breakfast) {
-        request = {
-            ...mealRequest,
-            keyword: "breakfast"
+function getPOINames(criteria) {
+    const { pois } = criteria;
+    const poiNames = Object.entries(pois).reduce((accu, [poiName, checked]) => {
+        if (checked) {
+            accu.push(poiName);
         }
-    }
+        return accu;
+    }, []);
 
-    return request;
+    return poiNames;
 }
 
-function getRequest_detail(placeId) {
+function getCommonFieldsInRequest(criteria) {
+    const getRadius = () => {
+        let { radius } = criteria;
+        radius = (radius * 1000).toString();
+        return radius;
+    };
+    const getCenter = () => {
+        const center = criteria[CriteriaName.centerPoint].position.latLng;
+        return center;
+    };
+    const radius = getRadius();
+    const center = getCenter();
+
+    const commonFields = {
+        radius,
+        location: center
+    };
+
+    return commonFields;
+}
+
+function getRequest_nearbySearch(poiName, commonFields) {
+    const types = {
+        meal: ["restuarant"],
+        poi: ["tourist_attraction"]
+    };
+    const otherFields = {
+        [POIName.breakfast]: {
+            type: types.meal,
+            keyword: "breakfast"
+        },
+        [POIName.lunch]: {
+            type: types.meal,
+            keyword: "lunch"
+        },
+        [POIName.dinner]: {
+            type: types.meal,
+            keyword: "dinner"
+        },
+        [POIName.poi1]: {
+            type: types.poi,
+            keyword: "morning"
+        },
+        [POIName.poi2]: {
+            type: types.poi,
+            keyword: "afternoon"
+        },
+        [POIName.poi3]: {
+            type: types.poi,
+            keyword: "afternoon"
+        }
+    };
+    
     const request = {
-        placeId,
-        fields: [
-            "opening_hours",
-            "url"
-        ]
+        ...commonFields,
+        ...otherFields[POIName[poiName]]
     };
 
     return request;
 }
 
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+}
+
+function getRequest_detail(placeId) {
+    const fields = [
+        "opening_hours",
+        "url",
+        "website",
+        "formatted_address"
+    ];
+
+    const request = {
+        placeId,
+        fields
+    };
+
+    return request;
+}
+
+function getFullDetail(detail, place, bizOpenInfo) {
+    const fullDetail = {
+        id: place.place_id,
+        name: place.name,
+        address: detail.formatted_address,
+        rating: place.rating,
+        totalRatingNum: place.user_ratings_total,
+        photo: (place.photos && place.photos.length) >= 1 ? place.photos[0] : null,
+        bizOpenPeriod: bizOpenInfo.period,
+        gmapUrl: detail.url,
+        bizWebsite: detail.website
+    };
+
+    return fullDetail;
+}

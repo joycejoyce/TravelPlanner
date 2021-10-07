@@ -111,8 +111,8 @@ export default function Plan() {
                         />
                         <Route
                             path={`${path}`}
-                            // render={() => (<Criteria setAnimationKey={setKey} />)}
-                            render={() => (<ModifyPOIs setAnimationKey={setKey} />)}
+                            render={() => (<Criteria setAnimationKey={setKey} />)}
+                            // render={() => (<ModifyPOIs setAnimationKey={setKey} />)}
                         />
                     </Switch>
                 </CSSTransition>

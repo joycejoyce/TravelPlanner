@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { POIInfo } from "./POIs.js";
-import { POITypeInfo } from "./POITypes.js";
+import { POIName } from "./POIs.js";
+import { POITypeName } from "./POITypes.js";
 
 export const CriteriaName = {
     centerPoint: "centerPoint",
@@ -20,11 +20,11 @@ const initialState = {
     },
     [CriteriaName.date]: new Date(),
     [CriteriaName.radius]: 10,
-    [CriteriaName.pois]: Object.keys(POIInfo).reduce((accu, poiName) => {
-        accu[poiName] = false;
+    [CriteriaName.pois]: Object.keys(POIName).reduce((accu, name) => {
+        accu[name] = false;
         return accu;
     }, {}),
-    [CriteriaName.poiTypes]: Object.keys(POITypeInfo).reduce((accu, type) => {
+    [CriteriaName.poiTypes]: Object.keys(POITypeName).reduce((accu, type) => {
         accu[type] = false;
         return accu;
     }, {})

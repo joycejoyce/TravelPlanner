@@ -32,36 +32,47 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
+export const POITypeName = {
+    park: "park",
+    amusement_park: "amusement_park",
+    zoo: "zoo",
+    natural_feature: "natural_feature",
+    shopping_mall: "shopping_mall",
+    museum: "museum",
+    art_gallery: "art_gallery",
+    aquarium: "aquarium"
+};
+
 export const POITypeInfo = {
-    park: {
+    [POITypeName.park]: {
         isOutdoor: true,
         label: "Park"
     },
-    amusement_park: {
+    [POITypeName.amusement_park]: {
         isOutdoor: true,
         label: "Amusement Park"
     },
-    zoo: {
+    [POITypeName.zoo]: {
         isOutdoor: true,
         label: "Zoo"
     },
-    natural_feature: {
+    [POITypeName.natural_feature]: {
         isOutdoor: true,
         label: "Natural Feature"
     },
-    shopping_mall: {
+    [POITypeName.shopping_mall]: {
         isOutdoor: false,
         label: "Shopping Mall"
     },
-    museum: {
+    [POITypeName.museum]: {
         isOutdoor: false,
         label: "Museum"
     },
-    art_gallery: {
+    [POITypeName.art_gallery]: {
         isOutdoor: false,
         label: "Art Gallery"
     },
-    aquarium: {
+    [POITypeName.aquarium]: {
         isOutdoor: false,
         label: "Aquarium"
     }

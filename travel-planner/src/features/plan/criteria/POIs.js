@@ -52,36 +52,42 @@ export const POIName = {
 
 export const POIInfo = {
     [POIName.breakfast]: {
+        name: POIName.breakfast,
         label: "Breakfast",
         timeStart: "06:00",
         timeEnd: "09:00"
     },
     [POIName.lunch]: {
+        name: POIName.lunch,
         label: "Lunch",
         timeStart: "12:00",
         timeEnd: "13:00"
     },
     [POIName.dinner]: {
+        name: POIName.dinner,
         label: "Dinner",
         timeStart: "18:00",
         timeEnd: "21:00"
     },
     [POIName.poi1]: {
+        name: POIName.poi1,
         label: "Point-of-Interst #1",
         timeStart: "09:00",
         timeEnd: "12:00"
     },
     [POIName.poi2]: {
+        name: POIName.poi2,
         label: "Point-of-Interst #2",
         timeStart: "13:00",
         timeEnd: "15:00"
     },
     [POIName.poi3]: {
+        name: POIName.poi3,
         label: "Point-of-Interst #3",
         timeStart: "15:00",
         timeEnd: "18:00"
     }
-}
+};
 
 export default function Radius() {
     const classes = useStyles();

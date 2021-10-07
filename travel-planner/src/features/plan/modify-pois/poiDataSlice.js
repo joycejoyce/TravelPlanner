@@ -1,10 +1,10 @@
 // my components
-import { POIInfo } from "../criteria/POIs";
+import { POIName } from "../criteria/POIs";
 
 // Redux
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = Object.keys(POIInfo).reduce((accu, name) => {
+const initialState = Object.keys(POIName).reduce((accu, name) => {
     accu[name] = {};
     return accu;
 }, {});

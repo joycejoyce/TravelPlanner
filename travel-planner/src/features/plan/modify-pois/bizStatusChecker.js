@@ -68,6 +68,9 @@ function getPeriods_biz(detail, weekday) {
     const periods = [];
 
     for (let period of periods_biz) {
+        if (!period.open || !period.close) {
+            continue;
+        }
         if (period.open.day !== weekday) {
             continue;
         }

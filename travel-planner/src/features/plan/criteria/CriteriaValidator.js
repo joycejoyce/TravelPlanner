@@ -53,7 +53,7 @@ export default function validate(criteria, dispatchErrMsg) {
     validateCenterPoint();
     validateDate();
     validatePOIs();
-    validatePOITypes();
+    // validatePOITypes();
 
     return hasError;
 }

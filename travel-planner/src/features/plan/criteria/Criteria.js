@@ -67,12 +67,12 @@ export const CriteriaInfo = {
         summary: "Set point-of-interst",
         detail: <POIs />
     },
-    [CriteriaName.poiTypes]: {
-        name: CriteriaName.poiTypes,
-        num: 5,
-        summary: "Set Point-of-interest types (at most 3)",
-        detail: <POITypes />
-    }
+    // [CriteriaName.poiTypes]: {
+    //     name: CriteriaName.poiTypes,
+    //     num: 5,
+    //     summary: "Set Point-of-interest types (at most 3)",
+    //     detail: <POITypes />
+    // }
 };
 
 export default function Criteria({ setAnimationKey }) {

@@ -110,6 +110,7 @@ export default function Criteria({ setAnimationKey }) {
     return (
         <div className={rootClassName}>
             <div className={"contents " + classes.contents}>
+                {/* <h1>Set Criteria</h1> */}
                 <div className={"flexWrapper " + classes.flexWrapper}>
                     {
                         Object.keys(CriteriaInfo).map(criteriaName => 

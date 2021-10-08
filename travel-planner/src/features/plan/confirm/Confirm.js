@@ -30,10 +30,10 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-export default function GenPOIs() {
+export default function GenItinerary() {
     // styles
     const classes = useStyles();
-    const rootClassName = ["gen-pois", classes.genPOIs].join(" ");
+    const rootClassName = ["gen-itinerary", classes.genPOIs].join(" ");
 
     // Redux
     const dispatch = useDispatch();
@@ -62,7 +62,7 @@ export default function GenPOIs() {
     return (
         <div className={rootClassName}>
             <div className={["contents", classes.contents].join(" ")}>
-                <h1>GenPOIs</h1>
+                {/* <h1>Confirm</h1> */}
                 <div className={"mapSection " + classes.mapSection}>
                     <div id={mapProps.id} className={classes.map}></div>
                 </div>

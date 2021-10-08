@@ -79,7 +79,7 @@ export default function CenterPoint() {
                 hideInfoWindow();
             }
         }
-        // doInitMap();
+        doInitMap();
     }, []);
 
     return (

@@ -10,17 +10,20 @@ const useStyles = makeStyles((theme) => {
     return ({
         navbar: {
             position: "relative",
-            zIndex: "11",
             width: "100vw"
         },
         ctrlSection: {
+            gap: "0px",
             width: "30px",
             position: "absolute",
-            right: "40px",
-            top: "-5px",
+            right: "10px",
+            top: "-20px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            [theme.breakpoints.up('sm')]: {
+                right: "30px"
+            }
         }
     });
 });

@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
         top: "12vh",
         width: "90vw",
+        minWidth: "414px",
         left: "50%",
         transform: "translateX(-50%)"
     }
@@ -26,7 +27,7 @@ export default function PlanStepper() {
     const getSteps = () => {
         return [
             "Set criteria",
-            "Generate POIs",
+            "Confirm",
             "Get itinerary!"
         ]
     };

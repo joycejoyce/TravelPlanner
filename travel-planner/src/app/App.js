@@ -39,7 +39,7 @@ const typography = {
 
 const breakpoints = {
   values: {
-    sm: 414,
+    sm: 415,
     md: 768,
     lg: 1024
   }

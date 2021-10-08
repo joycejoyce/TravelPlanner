@@ -5,9 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import "./plan.css";
 import PlanStepper from "./PlanStepper.js";
 import Criteria from "./criteria/Criteria";
-import GenPOIs from "./gen-pois/GenPOIs.js";
-import ViewItinerary from "./view-itinerary/ViewItinerary.js";
-import Logo from "../../common/components/Logo.js";
+import Confirm from "./confirm/Confirm.js";
+import GetItinerary from "./get-itinerary/GetItinerary.js";
 
 // React
 import {
@@ -50,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const URL = {
     criteria: "criteria",
-    genPOIs: "gen-pois",
+    genPOIs: "gen-itinerary",
     saveItinerary: "save-itinerary"
 };
 
@@ -67,11 +66,11 @@ export default function Plan() {
 
         return (
             <div className={"navbar " + classes.navbar}>
-                <Link onClick={handleClick} to={`${url}/${URL.criteria}`}>Criteria</Link>
+                <Link onClick={handleClick} to={`${url}/${URL.criteria}`}>SetCriteria</Link>
                 &nbsp;&nbsp;
-                <Link onClick={handleClick} to={`${url}/${URL.genPOIs}`}>GenPOIs</Link>
+                <Link onClick={handleClick} to={`${url}/${URL.genPOIs}`}>Confirm</Link>
                 &nbsp;&nbsp;
-                <Link onClick={handleClick} to={`${url}/${URL.saveItinerary}`}>ViewItinerary</Link>
+                <Link onClick={handleClick} to={`${url}/${URL.saveItinerary}`}>GetItinerary</Link>
             </div>
         )
     };
@@ -79,12 +78,6 @@ export default function Plan() {
     return (
         <div className={"plan " + classes.plan}>
             <Navbar />
-            {/* <Logo
-                className="logo"
-                width="55px"
-                margin="3vh auto"
-                isDarkMode={false}
-            /> */}
             {/* <h1>Plan</h1> */}
             <NavBar />
             <PlanStepper />
@@ -105,11 +98,11 @@ export default function Plan() {
                         />
                         <Route
                             path={`${path}/${URL.genPOIs}`}
-                            render={() => (<GenPOIs setAnimationKey={setKey} />)}
+                            render={() => (<Confirm setAnimationKey={setKey} />)}
                         />
                         <Route
                             path={`${path}/${URL.saveItinerary}`}
-                            render={() => (<ViewItinerary setAnimationKey={setKey} />)}
+                            render={() => (<GetItinerary setAnimationKey={setKey} />)}
                         />
                         <Route
                             path={`${path}`}

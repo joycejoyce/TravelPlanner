@@ -19,6 +19,7 @@ import {
 } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import React, { useState } from "react";
+import Navbar from "../navbar/Navbar";
 
 const useStyles = makeStyles((theme) => ({
     plan: {
@@ -77,12 +78,13 @@ export default function Plan() {
 
     return (
         <div className={"plan " + classes.plan}>
-            <Logo
+            <Navbar />
+            {/* <Logo
                 className="logo"
                 width="55px"
                 margin="3vh auto"
                 isDarkMode={false}
-            />
+            /> */}
             {/* <h1>Plan</h1> */}
             <NavBar />
             <PlanStepper />

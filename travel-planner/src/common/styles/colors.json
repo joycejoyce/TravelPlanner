@@ -5,7 +5,8 @@
         "secondary": "#FFB802",
         "text": "#3D414F",
         "primaryBK": "#D0D7F1",
-        "accSummaryBK": "white"
+        "accSummaryBK": "white",
+        "accDetailsBK": "#FFF4D6"
     },
     "darkColors": {
         "primary": "#21B0ED",

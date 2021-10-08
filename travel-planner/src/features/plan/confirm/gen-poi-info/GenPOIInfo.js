@@ -10,6 +10,7 @@ import POIDetail from "./POIDetail.js";
 // React
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { POIName } from "../../criteria/POIs.js";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -29,7 +30,8 @@ export default function GenPOIInfo() {
     const classes = useStyles();
 
     // React
-    const [expanded, setExpanded] = useState(false);
+    // const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(POIName.breakfast);
     const poiDatas = useSelector(selectPOIData);
 
     const handleChange = (panel) => (event, isExpanded) => {

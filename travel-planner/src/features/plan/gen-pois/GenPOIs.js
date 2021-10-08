@@ -30,10 +30,10 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-export default function ModifyPOIs() {
+export default function GenPOIs() {
     // styles
     const classes = useStyles();
-    const rootClassName = ["modify-pois", classes.modifyPOIs].join(" ");
+    const rootClassName = ["gen-pois", classes.genPOIs].join(" ");
 
     // Redux
     const dispatch = useDispatch();
@@ -62,7 +62,7 @@ export default function ModifyPOIs() {
     return (
         <div className={rootClassName}>
             <div className={["contents", classes.contents].join(" ")}>
-                <h1>ModifyPOIs</h1>
+                <h1>GenPOIs</h1>
                 <div className={"mapSection " + classes.mapSection}>
                     <div id={mapProps.id} className={classes.map}></div>
                 </div>

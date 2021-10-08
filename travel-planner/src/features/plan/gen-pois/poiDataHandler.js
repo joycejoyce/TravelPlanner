@@ -108,6 +108,8 @@ export default async function getPOIData(mapProps, reduxCtrl, criteria) {
         return accu;
     }, {});
 
+    console.log(poiName_to_poiDetail);
+
     return poiName_to_poiDetail;
 }
 

@@ -26,9 +26,8 @@ export default function PlanStepper() {
     const getSteps = () => {
         return [
             "Set criteria",
-            "Modify POIs",
-            "Confirm",
-            "Generated!"
+            "Generate POIs",
+            "Get itinerary!"
         ]
     };
 

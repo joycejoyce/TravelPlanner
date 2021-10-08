@@ -5,8 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import "./plan.css";
 import PlanStepper from "./PlanStepper.js";
 import Criteria from "./criteria/Criteria";
-import ModifyPOIs from "./modify-pois/ModifyPOIs.js";
-import SaveItinerary from "./save-itinerary/SaveItinerary.js";
+import GenPOIs from "./gen-pois/GenPOIs.js";
+import ViewItinerary from "./view-itinerary/ViewItinerary.js";
 import Logo from "../../common/components/Logo.js";
 
 // React
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
         width: "100vw",
         top: "22vh",
-        "& > *": { // Criteria / ModifyPOIs / ... 
+        "& > *": { // Criteria / GenPOIs / ... 
             // animationPart cannot set translateX or it'll effect animation
             // therefore, to center the content, wrap up the contents in ".contents" and center it
             position: "relative",
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const URL = {
     criteria: "criteria",
-    modifyPOIs: "modify-pois",
+    genPOIs: "gen-pois",
     saveItinerary: "save-itinerary"
 };
 
@@ -68,9 +68,9 @@ export default function Plan() {
             <div className={"navbar " + classes.navbar}>
                 <Link onClick={handleClick} to={`${url}/${URL.criteria}`}>Criteria</Link>
                 &nbsp;&nbsp;
-                <Link onClick={handleClick} to={`${url}/${URL.modifyPOIs}`}>ModifyPOIs</Link>
+                <Link onClick={handleClick} to={`${url}/${URL.genPOIs}`}>GenPOIs</Link>
                 &nbsp;&nbsp;
-                <Link onClick={handleClick} to={`${url}/${URL.saveItinerary}`}>SaveItinerary</Link>
+                <Link onClick={handleClick} to={`${url}/${URL.saveItinerary}`}>ViewItinerary</Link>
             </div>
         )
     };
@@ -102,17 +102,17 @@ export default function Plan() {
                             render={() => (<Criteria setAnimationKey={setKey} />)}
                         />
                         <Route
-                            path={`${path}/${URL.modifyPOIs}`}
-                            render={() => (<ModifyPOIs setAnimationKey={setKey} />)}
+                            path={`${path}/${URL.genPOIs}`}
+                            render={() => (<GenPOIs setAnimationKey={setKey} />)}
                         />
                         <Route
                             path={`${path}/${URL.saveItinerary}`}
-                            render={() => (<SaveItinerary setAnimationKey={setKey} />)}
+                            render={() => (<ViewItinerary setAnimationKey={setKey} />)}
                         />
                         <Route
                             path={`${path}`}
                             render={() => (<Criteria setAnimationKey={setKey} />)}
-                            // render={() => (<ModifyPOIs setAnimationKey={setKey} />)}
+                            // render={() => (<GenPOIs setAnimationKey={setKey} />)}
                         />
                     </Switch>
                 </CSSTransition>

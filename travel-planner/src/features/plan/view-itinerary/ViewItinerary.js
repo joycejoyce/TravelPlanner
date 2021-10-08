@@ -10,14 +10,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function SaveItinerary() {
+export default function ViewItinerary() {
     const classes = useStyles();
     const rootClassName = ["save-itinerary", classes.root].join(" ");
 
     return (
         <div className={rootClassName}>
             <div className={["contents", classes.contents].join(" ")}>
-                <h1>SaveItinerary</h1>
+                <h1>ViewItinerary</h1>
             </div>
         </div>
     );

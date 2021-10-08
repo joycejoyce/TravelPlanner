@@ -29,7 +29,8 @@ const typography = {
   },
   h6: {
     fontFamily: secondaryFont,
-    fontSize: "16px"
+    fontSize: "16px",
+    fontWeight: "bold"
   },
   body2: {
     // letterSpacing: "1px"

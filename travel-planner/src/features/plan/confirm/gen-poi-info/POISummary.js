@@ -1,7 +1,7 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
 import { AccordionSummary, Typography } from "@material-ui/core";
-import { ExpandMore as ExpandMoreIcon } from "@material-ui/icons";
+import { ExpandMore as ExpandMoreIcon, Star as StarIcon } from "@material-ui/icons";
 
 // my components
 import MapIcon from "../../../../common/components/MapIcon.js";
@@ -12,9 +12,10 @@ const useStyles = makeStyles((theme) => {
     return ({
         poiSummary: {
             background: lightColors.accSummaryBK,
+            padding: "0 8px",
             "& > .MuiAccordionSummary-content": {
                 display: "grid",
-                gridTemplateColumns: "1fr 2.5fr 5fr",
+                gridTemplateColumns: "1fr 1.3fr 4fr 1fr",
                 alignItems: "center",
                 gap: "5px"
             }
@@ -31,6 +32,21 @@ const useStyles = makeStyles((theme) => {
             fontSize: "12px"
         },
         bizName: {
+        },
+        ratingSection: {
+            display: "flex",
+            alignItems: "center",
+            gap: "2px",
+            // "& > *": {
+            //     fontSize: "14px"
+            // }
+        },
+        rating: {
+            color: lightGrey,
+            fontSize: "14px"
+        },
+        star: {
+            color: theme.palette.secondary.main
         }
     });
 });
@@ -47,6 +63,18 @@ function POINameAndTime({ poiName }) {
     )
 }
 
+function Rating({ rating }) {
+    // styles
+    const classes = useStyles();
+
+    return (
+        <div className={classes.ratingSection}>
+            <div className={classes.rating}>{rating}</div>
+            <StarIcon className={classes.star} />
+        </div>
+    )
+}
+
 export default function POISummary({ poiName, poiData }) {
     // styles
     const classes = useStyles();
@@ -55,7 +83,7 @@ export default function POISummary({ poiName, poiData }) {
     const { name: bizName } = poiData;
 
     const getShownBizName = () => {
-        const limit = 14;
+        const limit = 11;
         let result = bizName.slice(0, limit);
         result += bizName.length > limit ? "..." : "";
         return result;
@@ -74,6 +102,7 @@ export default function POISummary({ poiName, poiData }) {
             >
                 {getShownBizName()}
             </Typography>
+            <Rating rating={poiData.rating} />
         </AccordionSummary>
     );
 }

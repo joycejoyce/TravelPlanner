@@ -1,7 +1,7 @@
 // my components
 import { CriteriaName } from "../criteria/criteriaSlice.js";
 import { POIName, POIInfo } from "../criteria/POIs.js";
-import { mock_criteria } from "./mockData.js";
+import { mock_criteria, mock_poiData } from "./mockData.js";
 import { getMap } from "../../../common/map/map.js";
 import { checkIsOperational, checkIsHighlyRated, getBizOpenInfo as getBizOpenInfo } from "./bizStatusChecker.js";
 
@@ -22,7 +22,13 @@ const RetObj = {
     }
 };
 
-export default async function getPOIData(mapProps, reduxCtrl, criteria) {
+export function getPOIData_mock(doChangePOI) {
+    const poiData = mock_poiData;
+    doChangePOI(poiData);
+    return poiData;
+}
+
+export default async function getPOIData(mapProps, doChangePOI, criteria) {
     // criteria = mock_criteria; //for test
 
     await initMap(mapProps);
@@ -109,6 +115,7 @@ export default async function getPOIData(mapProps, reduxCtrl, criteria) {
     }, {});
 
     console.log(poiName_to_poiDetail);
+    doChangePOI(poiName_to_poiDetail);
 
     return poiName_to_poiDetail;
 }

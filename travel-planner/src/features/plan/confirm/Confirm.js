@@ -2,9 +2,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import getPOIData from "./poiDataHandler.js";
+import getPOIData, { getPOIData_mock } from "./poiDataHandler.js";
 import { CriteriaName, selectAll } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
+import { changePOI, selectPOIData } from "./poiDataSlice.js";
+import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -38,6 +40,7 @@ export default function GenItinerary() {
     // Redux
     const dispatch = useDispatch();
     const criteria = useSelector(selectAll);
+    // const poiDatas = useSelector(selectPOIData);
 
     // map
     const mapName = "modifyPOIMap";
@@ -48,13 +51,19 @@ export default function GenItinerary() {
         zoom: 15
     };
 
+    const doChangePOI = (poiData) => {
+        dispatch(changePOI(poiData));
+    };
+
     useEffect(() => {
         async function doGetPOIData() {
-            const reduxCtrl = {
-                dispatch
-            };
+            // const reduxCtrl = {
+            //     dispatch,
+            //     changePOI
+            // };
 
-            const poiData = await getPOIData(mapProps, reduxCtrl, criteria);
+            // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
+            getPOIData_mock(doChangePOI);
         }
         doGetPOIData();
     }, []);
@@ -63,9 +72,15 @@ export default function GenItinerary() {
         <div className={rootClassName}>
             <div className={["contents", classes.contents].join(" ")}>
                 {/* <h1>Confirm</h1> */}
-                <div className={"mapSection " + classes.mapSection}>
+                {/* <div className={"mapSection " + classes.mapSection}>
                     <div id={mapProps.id} className={classes.map}></div>
-                </div>
+                </div> */}
+                {/* {
+                    Object.entries(poiDatas).map(([poiName, poiData]) => {
+                        return (<div>{poiName}</div>);
+                    })
+                } */}
+                <GenPOIInfo />
             </div>
         </div>
     );

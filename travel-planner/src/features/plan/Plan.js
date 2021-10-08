@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const URL = {
     criteria: "criteria",
-    genPOIs: "gen-itinerary",
-    saveItinerary: "save-itinerary"
+    genPOIs: "confirm",
+    saveItinerary: "get-itinerary"
 };
 
 export default function Plan() {

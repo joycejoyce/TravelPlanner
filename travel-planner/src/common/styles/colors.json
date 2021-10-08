@@ -4,7 +4,8 @@
         "primary": "#023AFF",
         "secondary": "#FFB802",
         "text": "#3D414F",
-        "primaryBK": "#D0D7F1"
+        "primaryBK": "#D0D7F1",
+        "accSummaryBK": "white"
     },
     "darkColors": {
         "primary": "#21B0ED",
@@ -13,5 +14,6 @@
         "primaryBK": "#0E5E81"
     },
     "err": "#F15353",
-    "errBK": "#FDE7E7"
+    "errBK": "#FDE7E7",
+    "lightGrey": "#9C9C9C"
 }

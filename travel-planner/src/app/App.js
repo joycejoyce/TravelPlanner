@@ -27,6 +27,10 @@ const typography = {
   h5: {
     letterSpacing: ".5px"
   },
+  h6: {
+    fontFamily: secondaryFont,
+    fontSize: "16px"
+  },
   body2: {
     // letterSpacing: "1px"
   },

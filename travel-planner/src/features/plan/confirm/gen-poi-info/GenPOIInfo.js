@@ -31,7 +31,7 @@ export default function GenPOIInfo() {
 
     // React
     // const [expanded, setExpanded] = useState(false);
-    const [expanded, setExpanded] = useState(POIName.breakfast);
+    const [expanded, setExpanded] = useState(POIName.poi1);
     const poiDatas = useSelector(selectPOIData);
 
     const handleChange = (panel) => (event, isExpanded) => {

@@ -64,6 +64,7 @@ export default function GenItinerary() {
 
             // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
             getPOIData_mock(doChangePOI);
+
         }
         doGetPOIData();
     }, []);

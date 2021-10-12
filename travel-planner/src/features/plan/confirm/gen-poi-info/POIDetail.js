@@ -6,7 +6,7 @@ import { Home as WebsiteIcon, LaunchRounded as OpenLinkIcon } from "@material-ui
 
 // my components
 import { lightColors, lightGrey } from "../../../../common/styles/colors.json";
-import { secondary as secondaryFont } from "../../../../common/styles/fonts.json";
+import { primary as primaryFont, secondary as secondaryFont } from "../../../../common/styles/fonts.json";
 
 // React
 import React from "react";
@@ -54,7 +54,8 @@ const useStyles = makeStyles((theme) => {
         },
         websiteLink: {
             width: "144px",
-            borderRadius: "20px"
+            borderRadius: "20px",
+            fontFamily: primaryFont
         },
         gmapLink: {
             position: "absolute",

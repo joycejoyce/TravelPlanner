@@ -21,11 +21,11 @@ export default function POIAccordion({ expanded, handleClick, poiName, poiData }
         <Accordion
             className={classes.accordion}
             expanded={expanded}
-            onClick={() => handleClick(poiName)}
         >
             <POISummary
                 poiName={poiName}
                 poiData={poiData}
+                handleClick={handleClick}
             />
             <POIDetail
                 poiData={poiData}

@@ -78,7 +78,7 @@ function Rating({ rating }) {
     )
 }
 
-function POISummary({ poiName, poiData }) {
+function POISummary({ poiName, poiData, handleClick }) {
     // styles
     const classes = useStyles();
 
@@ -96,6 +96,7 @@ function POISummary({ poiName, poiData }) {
         <AccordionSummary
             className={["poiSummary", classes.poiSummary].join(" ")}
             expandIcon={<ExpandMoreIcon />}
+            onClick={() => handleClick(poiName)}
         >
             <MapIcon name={poiName} />
             <POINameAndTime poiName={poiName} />

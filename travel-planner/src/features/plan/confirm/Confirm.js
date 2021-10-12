@@ -2,7 +2,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import getPOIData, { getPOIData_mock } from "./poiDataHandler.js";
+import getPOIData, { getPOIData_mock, addMarkers, initMap } from "./poiDataHandler.js";
 import { CriteriaName, selectAll } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
@@ -47,9 +47,10 @@ export default function Confirm() {
     const mapName = "modifyPOIMap";
     const mapProps = {
         // center: criteria[CriteriaName.centerPoint].position,
-        center: { lat: 24.810059549453758, lng: 120.97512116891903 }, //Big City
+        // center: { lat: 24.810059549453758, lng: 120.97512116891903 }, //Big City
+        center: { lat: 25.042271471648643, lng: 121.50680555326282}, // 西門紅樓
         id: mapName,
-        zoom: 15
+        zoom: 13
     };
 
     const doChangePOI = (poiData) => {
@@ -64,8 +65,9 @@ export default function Confirm() {
             // };
 
             // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
-            getPOIData_mock(doChangePOI);
-
+            await initMap(mapProps);
+            const poiData = getPOIData_mock(doChangePOI);
+            addMarkers(poiData);
         }
         doGetPOIData();
     }, []);
@@ -74,9 +76,9 @@ export default function Confirm() {
         <div className={rootClassName}>
             <div className={["contents", classes.contents].join(" ")}>
                 {/* <h1>Confirm</h1> */}
-                {/* <div className={"mapSection " + classes.mapSection}>
+                <div className={"mapSection " + classes.mapSection}>
                     <div id={mapProps.id} className={classes.map}></div>
-                </div> */}
+                </div>
                 {/* {
                     Object.entries(poiDatas).map(([poiName, poiData]) => {
                         return (<div>{poiName}</div>);

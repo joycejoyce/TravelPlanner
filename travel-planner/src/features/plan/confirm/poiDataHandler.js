@@ -120,7 +120,7 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
     return poiName_to_poiDetail;
 }
 
-async function initMap(props) {
+export async function initMap(props) {
     const mapCtrl = await getMap(props);
     google = mapCtrl.google;
     map = mapCtrl.map;
@@ -239,4 +239,18 @@ function getFullDetail(detail, place, bizOpenInfo) {
     };
 
     return fullDetail;
+}
+
+export function addMarkers(poiDatas) {
+    const getIconUrl = (poiName) => {
+        return `/img/map-icons/${poiName}.svg`;
+    };
+
+    Object.entries(poiDatas).forEach(([poiName, poiData]) => {
+        const marker = new google.maps.Marker({
+            position: poiData.location,
+            icon: getIconUrl(poiName),
+            map: map
+        });
+    });
 }

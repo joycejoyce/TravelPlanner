@@ -2,12 +2,13 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import getPOIData, { getPOIData_mock, addMarkers, initMap } from "./poiDataHandler.js";
+import getPOIData, { getPOIData_mock, addMarkers, initMap, getIconUrl } from "./poiDataHandler.js";
 import { CriteriaName, selectAll } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
 import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
 import { POIName } from "../criteria/POIs.js";
+import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -29,9 +30,40 @@ const useStyles = makeStyles((theme) => {
         },
         map: {
             ...styles_map
+        },
+        centerPointDesc: {
+            marginTop: theme.spacing(1),
+            width: "380px",
+            display: "flex",
+            gap: theme.spacing(1),
+            alignItems: "center",
+            "& > .desc": {
+                fontFamily: secondaryFont,
+                letterSpacing: ".5px"
+            },
+            "& > .title": {
+                fontSize: "14px",
+                letterSpacing: ".3px",
+                minWidth: "80px"
+            }
         }
     });
 });
+
+function CenterPointDesc({ data }) {
+    // styles
+    const classes = useStyles();
+
+    const { desc } = data;
+
+    return (
+        <div className={classes.centerPointDesc}>
+            <img src={getIconUrl("center")} width="32px" />
+            <div className="title">Center Point</div>
+            <div className="desc">{desc}</div>
+        </div>
+    )
+}
 
 export default function Confirm() {
     // styles
@@ -42,6 +74,14 @@ export default function Confirm() {
     const dispatch = useDispatch();
     const criteria = useSelector(selectAll);
     // const poiDatas = useSelector(selectPOIData);
+    // const centerPoint = criteria[CriteriaName.centerPoint];
+    const centerPoint = {
+        desc: "test desc test desc test desctest desc test desc test desc",
+        position: {
+            latLng: { lat: 25.04877825798245, lng: 121.51770848147402 },
+            address: "test address"
+        }
+    };
 
     // map
     const mapName = "modifyPOIMap";
@@ -65,9 +105,13 @@ export default function Confirm() {
             // };
 
             // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
+            
+            // test start
             await initMap(mapProps);
             const poiData = getPOIData_mock(doChangePOI);
-            addMarkers(poiData);
+            // test end
+
+            addMarkers(poiData, centerPoint.position.latLng);
         }
         doGetPOIData();
     }, []);
@@ -78,6 +122,7 @@ export default function Confirm() {
                 {/* <h1>Confirm</h1> */}
                 <div className={"mapSection " + classes.mapSection}>
                     <div id={mapProps.id} className={classes.map}></div>
+                    <CenterPointDesc data={centerPoint} />
                 </div>
                 {/* {
                     Object.entries(poiDatas).map(([poiName, poiData]) => {

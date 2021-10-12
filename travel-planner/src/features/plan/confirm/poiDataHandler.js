@@ -241,16 +241,22 @@ function getFullDetail(detail, place, bizOpenInfo) {
     return fullDetail;
 }
 
-export function addMarkers(poiDatas) {
-    const getIconUrl = (poiName) => {
-        return `/img/map-icons/${poiName}.svg`;
-    };
+export const getIconUrl = (poiName) => {
+    return `/img/map-icons/${poiName}.svg`;
+};
 
+export function addMarkers(poiDatas, centerPosition) {
     Object.entries(poiDatas).forEach(([poiName, poiData]) => {
         const marker = new google.maps.Marker({
             position: poiData.location,
             icon: getIconUrl(poiName),
             map: map
         });
+    });
+
+    const centerMarker = new google.maps.Marker({
+        position: centerPosition,
+        icon: getIconUrl("center"),
+        map: map
     });
 }

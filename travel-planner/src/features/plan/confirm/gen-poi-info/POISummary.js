@@ -8,6 +8,9 @@ import MapIcon from "../../../../common/components/MapIcon.js";
 import { lightGrey, lightColors } from "../../../../common/styles/colors.json";
 import { POIInfo } from "../../criteria/POIs.js";
 
+// React
+import React from "react";
+
 const useStyles = makeStyles((theme) => {
     return ({
         poiSummary: {
@@ -75,7 +78,7 @@ function Rating({ rating }) {
     )
 }
 
-export default function POISummary({ poiName, poiData }) {
+function POISummary({ poiName, poiData }) {
     // styles
     const classes = useStyles();
 
@@ -106,3 +109,6 @@ export default function POISummary({ poiName, poiData }) {
         </AccordionSummary>
     );
 }
+
+const POISummary_memorized = React.memo(POISummary);
+export default POISummary_memorized;

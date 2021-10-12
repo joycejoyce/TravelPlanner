@@ -223,11 +223,16 @@ function getRequest_detail(placeId) {
 function getFullDetail(detail, place, bizOpenInfo) {
     const fullDetail = {
         id: place.place_id,
+        location: {
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng()
+        },
         name: place.name,
         address: detail.formatted_address,
         rating: place.rating,
         totalRatingNum: place.user_ratings_total,
-        photo: (place.photos && place.photos.length) >= 1 ? place.photos[0] : null,
+        photo: (place.photos && place.photos.length) >= 1 ?
+            place.photos[0].getUrl({ maxWidth: 250, maxHeight: 141 }) : null,
         bizOpenPeriod: bizOpenInfo.period,
         gmapUrl: detail.url,
         bizWebsite: detail.website

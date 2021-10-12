@@ -7,8 +7,9 @@ import { CriteriaName, selectAll } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
 import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
+import { POIName } from "../criteria/POIs.js";
 
-// Redux
+// React
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
@@ -32,12 +33,12 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-export default function GenItinerary() {
+export default function Confirm() {
     // styles
     const classes = useStyles();
     const rootClassName = ["gen-itinerary", classes.genPOIs].join(" ");
 
-    // Redux
+    // React
     const dispatch = useDispatch();
     const criteria = useSelector(selectAll);
     // const poiDatas = useSelector(selectPOIData);

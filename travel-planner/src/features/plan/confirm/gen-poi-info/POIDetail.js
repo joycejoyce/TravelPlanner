@@ -8,6 +8,9 @@ import { Home as WebsiteIcon, LaunchRounded as OpenLinkIcon } from "@material-ui
 import { lightColors, lightGrey } from "../../../../common/styles/colors.json";
 import { secondary as secondaryFont } from "../../../../common/styles/fonts.json";
 
+// React
+import React from "react";
+
 const useStyles = makeStyles((theme) => {
     return ({
         poiDetails: {
@@ -72,14 +75,14 @@ function Rating({ rating, totalRatingNum }) {
     )
 }
 
-function BizImg({ id, getUrl }) {
-    let src = null;
-    if (getUrl) {
-        src = getUrl({ maxWidth: 250, maxHeight: 141 });
-    }
-    else {
-        src = "/img/for-test/breakfast_pic.jpg";
-    }
+function BizImg({ id, src }) {
+    // let src = null;
+    // if (getUrl) {
+    //     src = getUrl({ maxWidth: 250, maxHeight: 141 });
+    // }
+    // else {
+    //     src = "/img/for-test/breakfast_pic.jpg";
+    // }
 
     return (
         <img
@@ -129,7 +132,7 @@ function GMapLink({ url }) {
     )
 }
 
-export default function POIDetail({ poiData }) {
+function POIDetail({ poiData }) {
     const classes = useStyles();
 
     const {
@@ -154,12 +157,17 @@ export default function POIDetail({ poiData }) {
                     <Rating rating={rating} totalRatingNum={totalRatingNum} />
                     <div className={classes.bizOpenPeriod}>{bizOpenPeriod}</div>
                 </div>
-                <BizImg
-                    id={id}
-                    getUrl={photo.getUrl}
-                />
                 {
-                    bizWebsite ? <WebsiteLink url={bizWebsite} /> : <></>
+                    photo ? <BizImg
+                        id={id}
+                        src={photo}
+                        // getUrl={photo.getUrl}
+                    /> : null
+                }
+                {
+                    bizWebsite ? <WebsiteLink
+                        url={bizWebsite}
+                    /> : null
                 }
                 {/* <WebsiteLink
                     url={bizWebsite}
@@ -168,3 +176,6 @@ export default function POIDetail({ poiData }) {
         </AccordionDetails>
     );
 }
+
+const POIDetail_memorized = React.memo(POIDetail);
+export default POIDetail_memorized;

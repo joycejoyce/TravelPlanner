@@ -4,7 +4,7 @@ import { POITypeName } from "../criteria/POITypes";
 
 export const mock_criteria = {
     [CriteriaName.centerPoint]: {
-        desc: "",
+        desc: "Big City",
         position: {
             // latLng: { lat: 24.810059549453758, lng: 120.97512116891903 }, //Big City
             latLng: { lat: 24.786347336510058, lng: 121.010254397754 }, // 秦老大

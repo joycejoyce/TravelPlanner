@@ -7,6 +7,7 @@ import { CriteriaName, selectAll } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
 import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
+import ItineraryInfo from "./ItineraryInfo.js";
 import { POIName } from "../criteria/POIs.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 
@@ -68,7 +69,7 @@ function CenterPointDesc({ data }) {
 export default function Confirm() {
     // styles
     const classes = useStyles();
-    const rootClassName = ["gen-itinerary", classes.genPOIs].join(" ");
+    const rootClassName = ["confirm", classes.genPOIs].join(" ");
 
     // React
     const dispatch = useDispatch();
@@ -124,12 +125,8 @@ export default function Confirm() {
                     <div id={mapProps.id} className={classes.map}></div>
                     <CenterPointDesc data={centerPoint} />
                 </div>
-                {/* {
-                    Object.entries(poiDatas).map(([poiName, poiData]) => {
-                        return (<div>{poiName}</div>);
-                    })
-                } */}
                 <GenPOIInfo />
+                <ItineraryInfo />
             </div>
         </div>
     );

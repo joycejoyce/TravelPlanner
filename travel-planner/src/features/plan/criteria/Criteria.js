@@ -13,7 +13,7 @@ import { CriteriaName, selectAll } from "./criteriaSlice.js";
 import { URL } from "../Plan.js";
 import validate from "./CriteriaValidator.js";
 import { changeErrMsg } from "./validateCriteriaSlice.js";
-import { getParentPath } from "../../../common/components/PathGetter.js";
+import { getParentPath } from "../../../common/util/PathGetter.js";
 import { toNextStep } from "../stepSlice.js";
 
 // React

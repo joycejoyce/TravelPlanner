@@ -6,7 +6,7 @@ import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => {
     return ({
-        prevBtn: {
+        leftBtn: {
             // borderWidth: "1px",
             // borderStyle: "solid",
             // borderColor: theme.palette.primary.main,
@@ -15,8 +15,10 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-export default function PrevBtn({ handleClick }) {
+export default function LeftBtn({ ctrl }) {
     const classes = useStyles();
+
+    const { handleClick, text, icon } = ctrl;
 
     // return (
     //     <IconButton
@@ -31,14 +33,14 @@ export default function PrevBtn({ handleClick }) {
 
     return (
         <Button
-            className={classes.prevBtn}
+            className={classes.leftBtn}
             color="primary"
             variant="outlined"
             onClick={handleClick}
-            startIcon={<PrevIcon />}
+            startIcon={icon}
             // disabled={disabled}
         >
-            Back
+            {text}
         </Button>
     );
 }

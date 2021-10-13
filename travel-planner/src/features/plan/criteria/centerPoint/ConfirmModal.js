@@ -1,55 +1,38 @@
 // MUI
-import { Modal, Typography, TextField, Button, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography, TextField, Link } from "@material-ui/core";
 
 // my components
-import { secondary as secondaryFont } from "../../../../common/styles/fonts.json";
-import { 
+import MyModal from "../../../../common/components/MyModal";
+import { CriteriaName, selectAll, changeDesc } from "../criteriaSlice";
+import {
     setMapToReadOnly,
     setMapToModifiable,
     showInfoWindow,
     hideInfoWindow,
     changeInfoWindowPosition
 } from "./mapHandler.js";
-import { selectDesc, selectPosition, changeDesc } from "../criteriaSlice.js";
-import { selectIsOpen, closeModal } from "./modalOpenSlice.js";
+import { closeModal, selectIsOpen } from "./modalOpenSlice";
+
+// my styles
+import { secondary as secondaryFont } from "../../../../common/styles/fonts.json";
 
 // React
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
-    confirmModal: {
-
-    },
-    modalBody: {
-        width: "400px",
-        height: "350px",
-        minHeight: "fit-content",
-        background: theme.palette.background.paper,
-        borderRadius: "3px",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)"
-    },
-    modalContent: {
-        width: "298px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)"
-    },
     desc: {
         fontSize: "18px",
         color: theme.palette.text.primary,
         textAlign: "center",
         width: "fit-content",
         maxWidth: "305px"
+    },
+    address: {
+        color: theme.palette.primary.main,
+        fontSize: "16px",
+        fontFamily: secondaryFont
     },
     text: {
         width: "296px",
@@ -62,22 +45,6 @@ const useStyles = makeStyles((theme) => ({
             fontSize: "14px"
         }
     },
-    btnSection: {
-        display: "flex",
-        justifyContent: "space-between",
-        width: "297px",
-        height: "40px",
-        marginTop: "10px",
-        "& button": {
-            width: "100px",
-            fontSize: "16px"
-        }
-    },
-    address: {
-        color: theme.palette.primary.main,
-        fontSize: "16px",
-        fontFamily: secondaryFont
-    },
     chooseAnother: {
         alignSelf: "flex-start",
         marginTop: theme.spacing(3),
@@ -86,125 +53,129 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// const Body = React.forwardRef((props, ref) => {
-const Body = React.forwardRef((props) => {
-    const dispatch = useDispatch();
-    const { closeModal } = props;
+function ModalContent({ criteria, text, maxTextNum, handleChange }) {
+    // styles
     const classes = useStyles();
-    const maxTextNum = 60;
 
-    const desc = useSelector(selectDesc);
-    const position = useSelector(selectPosition);
-
-    const [text, setText] = useState(desc);
-
+    // data
+    const { position } = criteria[CriteriaName.centerPoint];
+    const { address } = position;
     const remainingTextNum = maxTextNum - text.length;
     let helperText = "remaining character number: " + remainingTextNum.toString();
 
-    const handleOnChange = (e) => {
-        const { value } = e.target;
-        setText(value.slice(0, Math.min(maxTextNum, value.length)));
-    }
+    return (
+        <>
+            <Typography
+                variant="body1"
+                className={classes.desc}
+            >
+                Write a short description for this point:
+                <div className={classes.address}>{address}</div>
+            </Typography>
+            <TextField
+                className={classes.text}
+                multiline
+                placeholder={"max character number: " + maxTextNum.toString()}
+                minRows={4}
+                variant="outlined"
+                value={text}
+                onChange={handleChange}
+                helperText={helperText}
+                inputProps={{ "data-testid": "desc" }}
+            />
+        </>
+    );
+}
 
-    const doChangeDesc = (desc) => {
-        dispatch(changeDesc(desc));
-    };
-
+function getBtnSetting(doChangeDesc, criteria, text) {
     const handleOnClickConfirm = () => {
         doChangeDesc(text);
 
         const mapOperations = () => {
             setMapToReadOnly();
 
-            const { latLng } = position;
+            const { latLng } = criteria[CriteriaName.centerPoint].position;
             changeInfoWindowPosition(latLng);
 
             showInfoWindow();
         };
         mapOperations();
+    };
 
-        closeModal();
-    }
+    return ({
+        leftBtn: {
+            callback: null,
+            text: "Cancel"
+        },
+        rightBtn: {
+            callback: handleOnClickConfirm,
+            text: "Confirm",
+            disabled: text.length === 0
+        }
+    });
+}
 
+function MyLink() {
+    // styles
+    const classes = useStyles();
+
+    // ctrl
+    const dispatch = useDispatch();
     const handleClickChooseAnother = () => {
-        doChangeDesc("");
-        
+        dispatch(changeDesc(""));
+
         const mapOperations = () => {
             setMapToModifiable();
             hideInfoWindow();
         };
         mapOperations();
 
-        closeModal();
-    }
-
-    const { address } = useSelector(selectPosition);    
+        dispatch(closeModal());
+    };
 
     return (
-        <div className={"modalBody " + classes.modalBody}>
-            <div className={"modalContent " + classes.modalContent}>
-                <Typography
-                    variant="body1"
-                    className={classes.desc}
-                >
-                    Write a short description for this point:
-                    <div className={classes.address}>{address}</div>
-                </Typography>
-                <TextField
-                    className={classes.text}
-                    multiline
-                    placeholder={"max character number: " + maxTextNum.toString()}
-                    minRows={4}
-                    variant="outlined"
-                    value={text}
-                    onChange={handleOnChange}
-                    helperText={helperText}
-                    inputProps={{ "data-testid": "desc" }}
-                />
-                <div className={"btnSection " + classes.btnSection}>
-                    <Button
-                        color="primary"
-                        variant="outlined"
-                        onClick={closeModal}
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        onClick={handleOnClickConfirm}
-                        disabled={text.length === 0}
-                    >
-                        Confirm
-                    </Button>
-                </div>
-                <Link
-                    className={"chooseAnother " + classes.chooseAnother}
-                    onClick={handleClickChooseAnother}
-                >
-                    Choose another center point
-                </Link>
-            </div>
-        </div>
+        <Link
+            className={"chooseAnother " + classes.chooseAnother}
+            onClick={handleClickChooseAnother}
+        >
+            Choose another center point
+        </Link>
     );
-});
+}
 
 export default function ConfirmModal() {
-    const classes = useStyles();
+    // data
+    const criteria = useSelector(selectAll);
+    const { desc } = criteria[CriteriaName.centerPoint];
+    const [ text, setText ] = useState(desc);
     const isOpen = useSelector(selectIsOpen);
-    const dispatch = useDispatch();
+    const maxTextNum = 60;
 
-    const handleClose = () => {
+    // ctrl
+    const dispatch = useDispatch();
+    const handleChange = (e) => {
+        const { value } = e.target;
+        setText(value.slice(0, Math.min(maxTextNum, value.length)));
+    };
+    const doChangeDesc = (desc) => {
+        dispatch(changeDesc(desc));
+    };
+    const doCloseModal = () => {
         dispatch(closeModal());
-    }
+    };
 
     return (
-        <Modal
-            className={"confirmModal " + classes.confirmModal}
-            open={isOpen}
-            onClose={handleClose}
-        >
-            <Body closeModal={handleClose} />
-        </Modal>
+        <MyModal
+            isOpen={isOpen}
+            content={<ModalContent
+                criteria={criteria}
+                text={text}
+                maxTextNum={maxTextNum}
+                handleChange={handleChange}
+            />}
+            btnSettings={getBtnSetting(doChangeDesc, criteria, text)}
+            closeModal={doCloseModal}
+            otherComponents={<MyLink />}
+        />
     );
 }

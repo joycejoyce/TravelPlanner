@@ -1,5 +1,6 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
+import { ArrowForwardOutlined as NextIcon } from "@material-ui/icons";
 
 // my component
 import CenterPoint from "./centerPoint/CenterPoint.js";
@@ -120,7 +121,11 @@ export default function Criteria({ setAnimationKey }) {
                         )
                     }
                     <ButtonSection
-                        handleClickNext={handleClickNext}
+                        rightCtrl={{
+                            handleClick: handleClickNext,
+                            text: "Next",
+                            icon: <NextIcon />
+                        }}
                     />
                 </div>
             </div>

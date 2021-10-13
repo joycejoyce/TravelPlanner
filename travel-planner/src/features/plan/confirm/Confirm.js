@@ -8,14 +8,17 @@ import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/st
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
 import { POIName } from "../criteria/POIs.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
+import { URL as RootURL } from "../../../app/InnerApp.js";
+import { openModal } from "./cancel-modal/modalOpenSlice.js";
 import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
 import ItineraryInfo from "./ItineraryInfo.js";
-import SaveBtn from "./ButtonSection.js";
+import CancelModal from "./cancel-modal/CancelModal.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import ButtonSection from "../buttonSection/ButtonSection.js";
 
 const useStyles = makeStyles((theme) => {
     const styles_mapContainer = getStyles_mapContainer(theme);
@@ -98,13 +101,23 @@ export default function Confirm({ setAnimationKey }) {
         zoom: 13
     };
 
+    // ctrl
     const doChangePOI = (poiData) => {
         dispatch(changePOI(poiData));
     };
-
     const handleClickModify = () => {
         setAnimationKey();
         history.push(`/plan/${URL.criteria}`);
+    };
+    const handleClickSave = () => {
+
+    };
+    const handleClickCancel = () => {
+        dispatch(openModal);
+    };
+    const cancelPlan = () => {
+        setAnimationKey();
+        history.push(`/${RootURL.home}`);
     };
 
     useEffect(() => {
@@ -130,13 +143,25 @@ export default function Confirm({ setAnimationKey }) {
         <div className={rootClassName}>
             <div className={["contents", classes.contents].join(" ")}>
                 {/* <h1>Confirm</h1> */}
-                {/* <div className={"mapSection " + classes.mapSection}>
-                    <div id={mapProps.id} className={classes.map}></div>
+                <div className={"mapSection " + classes.mapSection}>
+                    {/* <div id={mapProps.id} className={classes.map}></div> */}
                     <CenterPointDesc data={centerPoint} />
-                </div> */}
+                </div>
                 <GenPOIInfo handleClickModify={handleClickModify} />
+                <CancelModal doCancel={cancelPlan} />
                 <ItineraryInfo />
-                <SaveBtn />
+                <ButtonSection
+                    rightCtrl={{
+                        handleClick: handleClickSave,
+                        text: "Save",
+                        icon: null
+                    }}
+                    leftCtrl={{
+                        handleClick: handleClickCancel,
+                        text: "Cancel",
+                        icon: null
+                    }}
+                />
             </div>
         </div>
     );

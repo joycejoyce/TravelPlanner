@@ -36,15 +36,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+export const URL = {
+    home: "home",
+    plan: "plan",
+    about: "about"
+};
+
 function AnimationPart() {
     const classes = useStyles();
     const [ key, setKey ] = useState(0);
     const location = useLocation();
-    const URL = {
-        home: "home",
-        plan: "plan",
-        about: "about"
-    };
 
     const Navbar = () => {    
          const handleClick = () => {

@@ -2,29 +2,29 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my component
-import NextBtn from "./NextBtn";
-import PrevBtn from "./PrevBtn.js";
+import RightBtn from "./RightBtn";
+import LeftBtn from "./LeftBtn.js";
 
 const useStyles = makeStyles((theme) => {
     return ({
         btnSection: {
-            width: "60%",
+            width: "380px",
             alignSelf: "center",
             display: "flex",
             "& > *": {
                 // minWidth: "128px",
                 // maxWidth: "128px",
-                padding: "8px 20px",
+                padding: "6px 20px",
                 fontSize: "16px"
             }
         }
     });
 });
 
-export default function ButtonSection({handleClickNext, handleClickPrev}) {
+export default function ButtonSection({ rightCtrl, leftCtrl }) {
     const classes = useStyles();
     const styles = {
-        justifyContent: handleClickPrev ? "space-between" : "space-around"
+        justifyContent: leftCtrl ? "space-between" : "space-around"
     };
 
     return (
@@ -33,9 +33,9 @@ export default function ButtonSection({handleClickNext, handleClickPrev}) {
             style={styles}
         >
             {
-                handleClickPrev ? <PrevBtn /> : <></>
+                leftCtrl ? <LeftBtn ctrl={leftCtrl}  /> : <></>
             }
-            <NextBtn handleClick={handleClickNext} />
+            <RightBtn ctrl={rightCtrl} />
         </div>
     );
 }

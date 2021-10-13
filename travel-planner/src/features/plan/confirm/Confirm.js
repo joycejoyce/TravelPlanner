@@ -6,10 +6,11 @@ import getPOIData, { getPOIData_mock, addMarkers, initMap, getIconUrl } from "./
 import { CriteriaName, selectAll } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
-import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
-import ItineraryInfo from "./ItineraryInfo.js";
 import { POIName } from "../criteria/POIs.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
+import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
+import ItineraryInfo from "./ItineraryInfo.js";
+import SaveBtn from "./ButtonSection.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            paddingBottom: theme.spacing(6)
         },
         map: {
             ...styles_map
@@ -127,6 +129,7 @@ export default function Confirm() {
                 </div>
                 <GenPOIInfo />
                 <ItineraryInfo />
+                <SaveBtn />
             </div>
         </div>
     );

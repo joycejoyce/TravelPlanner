@@ -122,7 +122,6 @@ export default function Criteria({ setAnimationKey }) {
                     }
                     <ButtonSection
                         handleClickNext={handleClickNext}
-                        handleClickPrev={handleClickNext}
                     />
                 </div>
             </div>

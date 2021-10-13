@@ -79,7 +79,7 @@ export default function ItineraryInfo() {
                     <div className={classes.title}>Give it a name:</div>
                     <TextField
                         id="itinerary-name"
-                        label="name"
+                        // label="name"
                         defaultValue={defaultValue}
                     />
                 </div>

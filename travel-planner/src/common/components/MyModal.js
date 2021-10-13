@@ -40,9 +40,19 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-export default function MyModal({ isOpen, content, btnSettings, closeModal, otherComponents }) {
+export default function MyModal({
+        isOpen,
+        content,
+        btnSettings,
+        closeModal,
+        otherComponents,
+        modalBodyStyles,
+        modalContentStyles
+    }) {
     // styles
     const classes = useStyles();
+    modalBodyStyles = modalBodyStyles ? modalBodyStyles : {};
+    modalContentStyles = modalContentStyles ? modalContentStyles : {};
 
     // data
     const { leftBtn, rightBtn } = btnSettings;
@@ -57,12 +67,18 @@ export default function MyModal({ isOpen, content, btnSettings, closeModal, othe
 
     return (
         <Modal
-            className={"confirmModal " + classes.confirmModal}
+            className={"modal " + classes.modal}
             open={isOpen}
             onClose={closeModal}
         >
-            <div className={"modalBody " + classes.modalBody}>
-                <div className={"modalContent " + classes.modalContent}>
+            <div
+                className={"modalBody " + classes.modalBody}
+                style={modalBodyStyles}
+            >
+                <div
+                    className={"modalContent " + classes.modalContent}
+                    style={modalContentStyles}
+                >
                     {content}
                     <div className={"btnSection " + classes.btnSection}>
                         <Button

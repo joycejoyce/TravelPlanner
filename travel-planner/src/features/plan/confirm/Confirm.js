@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // my components
 import getPOIData, { getPOIData_mock, addMarkers, initMap, getIconUrl } from "./poiDataHandler.js";
-import { CriteriaName, selectAll } from "../criteria/criteriaSlice.js";
+import { CriteriaName, selectAll, resetCriteria } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
 import { POIName } from "../criteria/POIs.js";
@@ -113,11 +113,12 @@ export default function Confirm({ setAnimationKey }) {
 
     };
     const handleClickCancel = () => {
-        dispatch(openModal);
+        dispatch(openModal());
     };
     const cancelPlan = () => {
         setAnimationKey();
-        history.push(`/${RootURL.home}`);
+        dispatch(resetCriteria());
+        history.push(`/plan/${URL.criteria}`);
     };
 
     useEffect(() => {

@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const URL = {
     criteria: "criteria",
-    genPOIs: "confirm",
-    saveItinerary: "get-itinerary"
+    confirm: "confirm",
+    getItinerary: "get-itinerary"
 };
 
 export default function Plan() {
@@ -68,9 +68,9 @@ export default function Plan() {
             <div className={"navbar " + classes.navbar}>
                 <Link onClick={handleClick} to={`${url}/${URL.criteria}`}>SetCriteria</Link>
                 &nbsp;&nbsp;
-                <Link onClick={handleClick} to={`${url}/${URL.genPOIs}`}>Confirm</Link>
+                <Link onClick={handleClick} to={`${url}/${URL.confirm}`}>Confirm</Link>
                 &nbsp;&nbsp;
-                <Link onClick={handleClick} to={`${url}/${URL.saveItinerary}`}>GetItinerary</Link>
+                <Link onClick={handleClick} to={`${url}/${URL.getItinerary}`}>GetItinerary</Link>
             </div>
         )
     };
@@ -97,11 +97,11 @@ export default function Plan() {
                             render={() => (<Criteria setAnimationKey={setKey} />)}
                         />
                         <Route
-                            path={`${path}/${URL.genPOIs}`}
+                            path={`${path}/${URL.confirm}`}
                             render={() => (<Confirm setAnimationKey={setKey} />)}
                         />
                         <Route
-                            path={`${path}/${URL.saveItinerary}`}
+                            path={`${path}/${URL.getItinerary}`}
                             render={() => (<GetItinerary setAnimationKey={setKey} />)}
                         />
                         <Route

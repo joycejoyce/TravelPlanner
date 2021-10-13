@@ -1,10 +1,13 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
+import { Edit as EditIcon } from "@material-ui/icons";
 
 // my components
 import { selectPOIData } from "../poiDataSlice.js";
 import AccorndionCtrlBtn from "./AccorndionCtrlBtn.js";
 import POIAccordion from "./POIAccordion.js";
+import { primary as primaryFont } from "../../../../common/styles/fonts.json";
 
 // React
 import React, { useState } from "react";
@@ -17,11 +20,16 @@ const useStyles = makeStyles((theme) => {
             "& *": {
                 letterSpacing: ".3px"
             }
+        },
+        modifyBtn: {
+            fontFamily: primaryFont,
+            float: "right",
+            marginTop: "3px"
         }
     });
 });
 
-function GenPOIInfo() {
+function GenPOIInfo({ handleClickModify }) {
     // styles
     const classes = useStyles();
 
@@ -64,6 +72,14 @@ function GenPOIInfo() {
                     );
                 })
             }
+            <Button
+                className={classes.modifyBtn}
+                color="primary"
+                startIcon={<EditIcon />}
+                onClick={handleClickModify}
+            >
+                modify criteria
+            </Button>
         </div>
     );
 }

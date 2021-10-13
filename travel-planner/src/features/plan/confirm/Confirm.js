@@ -15,6 +15,7 @@ import SaveBtn from "./ButtonSection.js";
 // React
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
     const styles_mapContainer = getStyles_mapContainer(theme);
@@ -68,7 +69,7 @@ function CenterPointDesc({ data }) {
     )
 }
 
-export default function Confirm() {
+export default function Confirm({ setAnimationKey }) {
     // styles
     const classes = useStyles();
     const rootClassName = ["confirm", classes.genPOIs].join(" ");
@@ -85,6 +86,7 @@ export default function Confirm() {
             address: "test address"
         }
     };
+    const history = useHistory();
 
     // map
     const mapName = "modifyPOIMap";
@@ -100,6 +102,11 @@ export default function Confirm() {
         dispatch(changePOI(poiData));
     };
 
+    const handleClickModify = () => {
+        setAnimationKey();
+        history.push(`/plan/${URL.criteria}`);
+    };
+
     useEffect(() => {
         async function doGetPOIData() {
             // const reduxCtrl = {
@@ -110,11 +117,11 @@ export default function Confirm() {
             // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
             
             // test start
-            await initMap(mapProps);
+            // await initMap(mapProps);
             const poiData = getPOIData_mock(doChangePOI);
             // test end
 
-            addMarkers(poiData, centerPoint.position.latLng);
+            // addMarkers(poiData, centerPoint.position.latLng);
         }
         doGetPOIData();
     }, []);
@@ -123,11 +130,11 @@ export default function Confirm() {
         <div className={rootClassName}>
             <div className={["contents", classes.contents].join(" ")}>
                 {/* <h1>Confirm</h1> */}
-                <div className={"mapSection " + classes.mapSection}>
+                {/* <div className={"mapSection " + classes.mapSection}>
                     <div id={mapProps.id} className={classes.map}></div>
                     <CenterPointDesc data={centerPoint} />
-                </div>
-                <GenPOIInfo />
+                </div> */}
+                <GenPOIInfo handleClickModify={handleClickModify} />
                 <ItineraryInfo />
                 <SaveBtn />
             </div>

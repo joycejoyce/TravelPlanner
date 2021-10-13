@@ -6,7 +6,6 @@ import CenterPoint from "./centerPoint/CenterPoint.js";
 import Date from "./Date.js";
 import Radius from "./Radius.js";
 import POIs from "./POIs.js";
-import POITypes from "./POITypes.js";
 import Criterion from "./Criterion.js";
 import ButtonSection from "../buttonSection/ButtonSection.js";
 import { CriteriaName, selectAll } from "./criteriaSlice.js";
@@ -103,7 +102,7 @@ export default function Criteria({ setAnimationKey }) {
         if (!hasError) {
             dispatch(toNextStep());
             setAnimationKey();
-            history.push(`/plan/${URL.genPOIs}`);
+            history.push(`/plan/${URL.confirm}`);
         }
     };
 

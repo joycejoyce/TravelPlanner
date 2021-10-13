@@ -59,7 +59,8 @@ const useStyles = makeStyles((theme) => {
         },
         gmapLink: {
             position: "absolute",
-            right: theme.spacing(1)
+            right: theme.spacing(1),
+            color: lightColors.primary
         }
     });
 });

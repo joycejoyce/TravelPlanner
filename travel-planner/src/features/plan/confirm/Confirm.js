@@ -13,6 +13,8 @@ import { openModal } from "./cancel-modal/modalOpenSlice.js";
 import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
 import ItineraryInfo from "./ItineraryInfo.js";
 import CancelModal from "./cancel-modal/CancelModal.js";
+import { StepNames } from "../PlanStepper.js";
+import useStep from "../../../common/util/useStep.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -123,11 +125,6 @@ export default function Confirm({ setAnimationKey }) {
 
     useEffect(() => {
         async function doGetPOIData() {
-            // const reduxCtrl = {
-            //     dispatch,
-            //     changePOI
-            // };
-
             // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
             
             // test start
@@ -139,6 +136,8 @@ export default function Confirm({ setAnimationKey }) {
         }
         doGetPOIData();
     }, []);
+
+    useStep(StepNames.confirm);
 
     return (
         <div className={rootClassName}>

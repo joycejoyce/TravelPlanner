@@ -1,6 +1,10 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
 
+// my components
+import { StepNames } from "../PlanStepper";
+import useStep from "../../../common/util/useStep";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         
@@ -12,10 +16,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function GetItinerary() {
     const classes = useStyles();
-    const rootClassName = ["get-itinerary", classes.root].join(" ");
+    useStep(StepNames.getItinerary);
 
     return (
-        <div className={rootClassName}>
+        <div className={["get-itinerary", classes.root].join(" ")}>
             <div className={["contents", classes.contents].join(" ")}>
                 <h1>GetItinerary</h1>
             </div>

@@ -20,19 +20,30 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+export const StepNames = {
+    setCriteria: "setCriteria",
+    confirm: "confirm",
+    getItinerary: "getItinerary"
+};
+
+export const StepInfos = {
+    [StepNames.setCriteria]: {
+        label: "Set Criteria",
+        num: 0
+    },
+    [StepNames.confirm]: {
+        label: "Confirm",
+        num: 1
+    },
+    [StepNames.getItinerary]: {
+        label: "Get Itinerary",
+        num: 2
+    }
+};
+
 export default function PlanStepper() {
     const classes = useStyles();
     const activeStep = useSelector(selectActiveStep);
-
-    const getSteps = () => {
-        return [
-            "Set criteria",
-            "Confirm",
-            "Get itinerary!"
-        ]
-    };
-
-    const steps = getSteps();
 
     return (
         <Stepper
@@ -40,22 +51,14 @@ export default function PlanStepper() {
             activeStep={activeStep}
         >
             {
-                steps.map((label, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
-                    // if (isStepOptional(index)) {
-                    //     labelProps.optional = <Typography variant="caption">Optional</Typography>;
-                    // }
-                    // if (isStepSkipped(index)) {
-                    //     stepProps.completed = false;
-                    // }
+                Object.values(StepInfos).map((stepInfo) => {
+                    const { label } = stepInfo;
                     return (
                         <Step
                             key={label}
                             alternativeLabel
-                            {...stepProps}
                         >
-                            <StepLabel {...labelProps}>{label}</StepLabel>
+                            <StepLabel>{label}</StepLabel>
                         </Step>
                     );
                 })

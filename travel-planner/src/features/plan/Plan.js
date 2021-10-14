@@ -7,6 +7,8 @@ import PlanStepper from "./PlanStepper.js";
 import Criteria from "./criteria/Criteria";
 import Confirm from "./confirm/Confirm.js";
 import GetItinerary from "./get-itinerary/GetItinerary.js";
+import { StepInfos, StepNames } from "./PlanStepper.js";
+import { toStep } from "./stepSlice";
 
 // React
 import {
@@ -19,6 +21,7 @@ import {
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import React, { useState } from "react";
 import Navbar from "../navbar/Navbar";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     plan: {
@@ -58,19 +61,22 @@ export default function Plan() {
     const [key, setKey] = useState(0);
     const location = useLocation();
     const { path, url } = useRouteMatch();
+    const dispatch = useDispatch();
 
     const NavBar = () => {
-        const handleClick = () => {
+        const handleClick = (stepName) => {
             setKey(Math.random);
+            const stepNum = StepInfos[stepName].num;
+            dispatch(toStep(stepNum));
         };
 
         return (
             <div className={"navbar " + classes.navbar}>
-                <Link onClick={handleClick} to={`${url}/${URL.criteria}`}>SetCriteria</Link>
+                <Link onClick={() => handleClick(StepNames.setCriteria)} to={`${url}/${URL.criteria}`}>SetCriteria</Link>
                 &nbsp;&nbsp;
-                <Link onClick={handleClick} to={`${url}/${URL.confirm}`}>Confirm</Link>
+                <Link onClick={() => handleClick(StepNames.confirm)} to={`${url}/${URL.confirm}`}>Confirm</Link>
                 &nbsp;&nbsp;
-                <Link onClick={handleClick} to={`${url}/${URL.getItinerary}`}>GetItinerary</Link>
+                <Link onClick={() => handleClick(StepNames.getItinerary)} to={`${url}/${URL.getItinerary}`}>GetItinerary</Link>
             </div>
         )
     };

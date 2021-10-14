@@ -64,9 +64,10 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
         }
     
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
-            const err = RetObj.GmapReqFail;
-            err.additionalInfo = `status: [${status}], service: [nearbySearch]`;
-            return err;
+            // const err = RetObj.GmapReqFail;
+            // err.additionalInfo = `status: [${status}], service: [nearbySearch]`;
+            // return err;
+            continue;
         }
 
         shuffle(places);
@@ -95,9 +96,10 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
             });
 
             if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                const err = RetObj.GmapReqFail;
-                err.additionalInfo = `status: [${status}], service: [getDetails]`;
-                return err;
+                // const err = RetObj.GmapReqFail;
+                // err.additionalInfo = `status: [${status}], service: [getDetails]`;
+                // return err;
+                continue;
             }
 
             const bizOpenInfo = getBizOpenInfo(detail, POIInfo[poiName], criteria);
@@ -259,4 +261,6 @@ export function addMarkers(poiDatas, centerPosition) {
         icon: getIconUrl("center"),
         map: map
     });
+
+    map.setCenter(centerPosition);
 }

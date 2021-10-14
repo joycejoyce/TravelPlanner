@@ -14,7 +14,9 @@ import { URL } from "../Plan.js";
 import validate from "./CriteriaValidator.js";
 import { changeErrMsg } from "./validateCriteriaSlice.js";
 import { getParentPath } from "../../../common/util/PathGetter.js";
-import { toNextStep } from "../stepSlice.js";
+import { toStep } from "../stepSlice.js";
+import { StepInfos, StepNames } from "../PlanStepper.js";
+import useStep from "../../../common/util/useStep.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +24,7 @@ import {
     useHistory,
     useRouteMatch
 } from "react-router-dom";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -101,11 +104,14 @@ export default function Criteria({ setAnimationKey }) {
         const hasError = validate(criteria, dispatchErrMsg);
 
         if (!hasError) {
-            dispatch(toNextStep());
+            const stepNum = StepInfos[StepNames.confirm].num;
+            dispatch(toStep(stepNum));
             setAnimationKey();
             history.push(`/plan/${URL.confirm}`);
         }
     };
+
+    useStep(StepNames.setCriteria);
 
     return (
         <div className={rootClassName}>

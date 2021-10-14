@@ -86,7 +86,7 @@ function POISummary({ poiName, poiData, handleClick }) {
     const { name: bizName } = poiData;
 
     const getShownBizName = () => {
-        const limit = 11;
+        const limit = 20;
         let result = bizName.slice(0, limit);
         result += bizName.length > limit ? "..." : "";
         return result;

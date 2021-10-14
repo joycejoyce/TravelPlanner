@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => {
     return ({
         ctrlBtn: {
             fontFamily: primaryFont,
-            margin: "0 0 0 auto",
-            display: "flex"
+            margin: "0 0 3px auto",
+            display: "flex",
         }
     });
 });
@@ -60,6 +60,7 @@ export default function AccorndionCtrlBtn({ ctrl }) {
 
     return (
         <Button
+            variant="outlined"
             className={classes.ctrlBtn}
             endIcon={icon}
             onClick={handleClick}

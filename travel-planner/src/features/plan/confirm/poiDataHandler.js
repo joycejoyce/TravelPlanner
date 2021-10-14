@@ -240,7 +240,7 @@ function getFullDetail(detail, place, bizOpenInfo) {
         rating: place.rating,
         totalRatingNum: place.user_ratings_total,
         photo: (place.photos && place.photos.length) >= 1 ?
-            place.photos[0].getUrl({ maxWidth: 250 }) : null,
+            place.photos[0].getUrl({ maxWidth: 300 }) : null,
         bizOpenPeriod: bizOpenInfo.period,
         gmapUrl: detail.url,
         bizWebsite: detail.website

@@ -82,25 +82,24 @@ export default function Confirm({ setAnimationKey }) {
     // React
     const dispatch = useDispatch();
     const criteria = useSelector(selectAll);
-    // const poiDatas = useSelector(selectPOIData);
-    // const centerPoint = criteria[CriteriaName.centerPoint];
-    const centerPoint = {
-        desc: "test desc test desc test desctest desc test desc test desc",
-        position: {
-            latLng: { lat: 25.04877825798245, lng: 121.51770848147402 },
-            address: "test address"
-        }
-    };
+    const centerPoint = criteria[CriteriaName.centerPoint];
+    // const centerPoint = {
+    //     desc: "test desc test desc test desctest desc test desc test desc",
+    //     position: {
+    //         latLng: { lat: 25.04877825798245, lng: 121.51770848147402 },
+    //         address: "test address"
+    //     }
+    // };
     const history = useHistory();
 
     // map
     const mapName = "modifyPOIMap";
     const mapProps = {
-        // center: criteria[CriteriaName.centerPoint].position,
+        center: criteria[CriteriaName.centerPoint].position,
         // center: { lat: 24.810059549453758, lng: 120.97512116891903 }, //Big City
-        center: { lat: 25.042271471648643, lng: 121.50680555326282}, // 西門紅樓
+        // center: { lat: 25.042271471648643, lng: 121.50680555326282}, // 西門紅樓
         id: mapName,
-        zoom: 13
+        zoom: 10
     };
 
     // ctrl
@@ -125,14 +124,14 @@ export default function Confirm({ setAnimationKey }) {
 
     useEffect(() => {
         async function doGetPOIData() {
-            // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
+            const poiData = await getPOIData(mapProps, doChangePOI, criteria);
             
             // test start
             // await initMap(mapProps);
-            const poiData = getPOIData_mock(doChangePOI);
+            // const poiData = getPOIData_mock(doChangePOI);
             // test end
 
-            // addMarkers(poiData, centerPoint.position.latLng);
+            addMarkers(poiData, centerPoint.position.latLng);
         }
         doGetPOIData();
     }, []);
@@ -144,7 +143,7 @@ export default function Confirm({ setAnimationKey }) {
             <div className={["contents", classes.contents].join(" ")}>
                 {/* <h1>Confirm</h1> */}
                 <div className={"mapSection " + classes.mapSection}>
-                    {/* <div id={mapProps.id} className={classes.map}></div> */}
+                    <div id={mapProps.id} className={classes.map}></div>
                     <CenterPointDesc data={centerPoint} />
                 </div>
                 <GenPOIInfo handleClickModify={handleClickModify} />

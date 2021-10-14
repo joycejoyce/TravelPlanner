@@ -61,6 +61,10 @@ function GenPOIInfo({ handleClickModify }) {
             />
             {
                 Object.entries(poiDatas).map(([poiName, poiData]) => {
+                    if (!poiData) {
+                        return <></>;
+                    }
+
                     return (
                         <POIAccordion
                             key={poiName}

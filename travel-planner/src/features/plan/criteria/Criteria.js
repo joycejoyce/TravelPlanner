@@ -17,6 +17,7 @@ import { getParentPath } from "../../../common/util/PathGetter.js";
 import { toStep } from "../stepSlice.js";
 import { StepInfos, StepNames } from "../PlanStepper.js";
 import useStep from "../../../common/util/useStep.js";
+import { resetPOIs } from "../confirm/poiDataSlice.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -108,10 +109,12 @@ export default function Criteria({ setAnimationKey }) {
             dispatch(toStep(stepNum));
             setAnimationKey();
             history.push(`/plan/${URL.confirm}`);
+            console.log(criteria);
         }
     };
 
     useStep(StepNames.setCriteria);
+    // dispatch(resetPOIs());
 
     return (
         <div className={rootClassName}>

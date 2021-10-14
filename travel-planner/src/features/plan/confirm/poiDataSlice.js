@@ -4,10 +4,6 @@ import { POIName } from "../criteria/POIs";
 // Redux
 import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = Object.keys(POIName).reduce((accu, name) => {
-//     accu[name] = {};
-//     return accu;
-// }, {});
 const initialState = {};
 
 export const poiDataSlice = createSlice({
@@ -16,15 +12,22 @@ export const poiDataSlice = createSlice({
     reducers: {
         changePOI: (state, action) => {
             const poiData = action.payload;
-            Object.entries(poiData).forEach(([poiName, poiData]) => {
-                state[poiName] = poiData;
+            Object.keys(POIName).forEach((poiName) => {
+                state[poiName] = poiData[poiName];
             });
+            // Object.entries(poiData).forEach(([poiName, poiData]) => {
+            //     state[poiName] = poiData;
+            // });
+        },
+        resetPOIs: (state) => {
+            state = initialState;
         }
     }
 });
 
 export const {
-    changePOI
+    changePOI,
+    resetPOIs
 } = poiDataSlice.actions;
 
 export const selectPOIData = (state) => state.poiData;

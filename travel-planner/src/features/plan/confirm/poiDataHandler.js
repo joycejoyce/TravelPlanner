@@ -29,8 +29,6 @@ export function getPOIData_mock(doChangePOI) {
 }
 
 export default async function getPOIData(mapProps, doChangePOI, criteria) {
-    // criteria = mock_criteria; //for test
-
     await initMap(mapProps);
 
     const poiNames = getPOINames(criteria);
@@ -62,6 +60,9 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
                 poi2_and_poi3_nearbySearchResult.status = status;
             }
         }
+
+        const resultNum = places ? places.length : 0;
+        console.log(`[${poiName}] has [${resultNum}] places`);
     
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
             // const err = RetObj.GmapReqFail;
@@ -71,7 +72,8 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
         }
 
         shuffle(places);
-        for (let place of places) {
+        for (let i=0; i<places.length; i++) {
+            const place = places[i];
             const isPlaceUsed = Object.keys(placeId_to_placeDetail).includes(place.place_id);
             if (isPlaceUsed) {
                 continue;
@@ -106,8 +108,12 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
             if (bizOpenInfo.isOpen) {
                 poiName_to_placeId[poiName] = place_id;
                 placeId_to_placeDetail[place_id] = getFullDetail(detail, place, bizOpenInfo);
+                console.log(`get legitimate place [${poiName}]:[${i}]`);
                 break;
             }
+        }
+        if (!poiName_to_placeId[poiName]) {
+            console.log(`NOT get legitimate place [${poiName}]`);
         }
     }
 

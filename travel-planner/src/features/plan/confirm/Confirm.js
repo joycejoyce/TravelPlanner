@@ -46,14 +46,20 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             gap: theme.spacing(1),
             alignItems: "center",
+            "& > .title": {
+                width: "40px",
+                textAlign: "center",
+                fontSize: "12px",
+            },
             "& > .desc": {
                 fontFamily: secondaryFont,
                 letterSpacing: ".5px"
             },
-            "& > .title": {
-                fontSize: "14px",
-                letterSpacing: ".3px",
-                minWidth: "80px"
+            "& > .title,.address": {
+                letterSpacing: ".3px"
+            },
+            "& .address": {
+                fontSize: "14px"
             }
         }
     });
@@ -63,13 +69,15 @@ function CenterPointDesc({ data }) {
     // styles
     const classes = useStyles();
 
-    const { desc } = data;
+    const { desc, position } = data;
+    const { address } = position
 
     return (
         <div className={classes.centerPointDesc}>
             <img src={getIconUrl("center")} width="32px" />
-            <div className="title">Center Point</div>
+            {/* <div className="title">Center Point</div> */}
             <div className="desc">{desc}</div>
+            <div className="address">{address}</div>
         </div>
     )
 }

@@ -61,6 +61,15 @@ const useStyles = makeStyles((theme) => {
             position: "absolute",
             right: theme.spacing(1),
             color: lightColors.primary
+        },
+        bizImg: {
+            borderRadius: "3px"
+        },
+        address: {
+            fontSize: "14px",
+            // lineHeight: "25px",
+            maxWidth: "290px",
+            textAlign: "center"
         }
     });
 });
@@ -78,6 +87,7 @@ function Rating({ rating, totalRatingNum }) {
 }
 
 function BizImg({ id, src }) {
+    const classes = useStyles();
     // let src = null;
     // if (getUrl) {
     //     src = getUrl({ maxWidth: 250, maxHeight: 141 });
@@ -88,6 +98,7 @@ function BizImg({ id, src }) {
 
     return (
         <img
+            className={classes.bizImg}
             id={id}
             src={src}
         />
@@ -145,7 +156,8 @@ function POIDetail({ poiData }) {
         bizOpenPeriod,
         photo,
         bizWebsite,
-        gmapUrl
+        gmapUrl,
+        address
     } = poiData;
 
     return (
@@ -157,6 +169,7 @@ function POIDetail({ poiData }) {
                 <div className={classes.textInfo}>
                     <div className={classes.bizName}>{bizName}</div>
                     <Rating rating={rating} totalRatingNum={totalRatingNum} />
+                    <div className={classes.address}>{address}</div>
                     <div className={classes.bizOpenPeriod}>{bizOpenPeriod}</div>
                 </div>
                 {

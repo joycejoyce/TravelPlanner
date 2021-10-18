@@ -2,25 +2,28 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import getPOIData, { getPOIData_mock, addMarkers, initMap, getIconUrl } from "./poiDataHandler.js";
+import getPOIData, { getPOIData_mock, addMarkers, initMap } from "./poiDataHandler.js";
 import { CriteriaName, selectAll, resetCriteria } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
 import { POIName } from "../criteria/POIs.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
-import { URL as RootURL } from "../../../app/InnerApp.js";
 import { openModal } from "./cancel-modal/modalOpenSlice.js";
 import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
 import ItineraryInfo from "./ItineraryInfo.js";
 import CancelModal from "./cancel-modal/CancelModal.js";
 import { StepNames } from "../PlanStepper.js";
 import useStep from "../../../common/util/useStep.js";
+import { save } from "../get-itinerary/dataHandler.js";
+import ButtonSection from "../buttonSection/ButtonSection.js";
+import { mock_criteria } from "./mockData.js";
+import { URL } from "../Plan.js";
+import MapIcon, { MapIconUrl } from "../../../common/components/MapIcon.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import ButtonSection from "../buttonSection/ButtonSection.js";
 
 const useStyles = makeStyles((theme) => {
     const styles_mapContainer = getStyles_mapContainer(theme);
@@ -53,7 +56,8 @@ const useStyles = makeStyles((theme) => {
             },
             "& > .desc": {
                 fontFamily: secondaryFont,
-                letterSpacing: ".5px"
+                letterSpacing: ".5px",
+                fontWeight: "bold"
             },
             "& > .title,.address": {
                 letterSpacing: ".3px"
@@ -74,7 +78,7 @@ function CenterPointDesc({ data }) {
 
     return (
         <div className={classes.centerPointDesc}>
-            <img src={getIconUrl("center")} width="32px" />
+            <img src={MapIconUrl.center} width="32px" />
             {/* <div className="title">Center Point</div> */}
             <div className="desc">{desc}</div>
             <div className="address">{address}</div>
@@ -89,7 +93,9 @@ export default function Confirm({ setAnimationKey }) {
 
     // React
     const dispatch = useDispatch();
-    const criteria = useSelector(selectAll);
+    // const criteria = useSelector(selectAll);
+    const criteria = mock_criteria;
+    const poiData = useSelector(selectPOIData);
     const centerPoint = criteria[CriteriaName.centerPoint];
     // const centerPoint = {
     //     desc: "test desc test desc test desctest desc test desc test desc",
@@ -119,7 +125,9 @@ export default function Confirm({ setAnimationKey }) {
         history.push(`/plan/${URL.criteria}`);
     };
     const handleClickSave = () => {
-
+        save(criteria, poiData);
+        setAnimationKey();
+        history.push(`/plan/${URL.getItinerary}`);
     };
     const handleClickCancel = () => {
         dispatch(openModal());
@@ -132,11 +140,11 @@ export default function Confirm({ setAnimationKey }) {
 
     useEffect(() => {
         async function doGetPOIData() {
-            const poiData = await getPOIData(mapProps, doChangePOI, criteria);
+            // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
             
             // test start
-            // await initMap(mapProps);
-            // const poiData = getPOIData_mock(doChangePOI);
+            await initMap(mapProps);
+            const poiData = getPOIData_mock(doChangePOI);
             // test end
 
             addMarkers(poiData, centerPoint.position.latLng);

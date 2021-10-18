@@ -4,6 +4,7 @@ import { POIName, POIInfo } from "../criteria/POIs.js";
 import { mock_criteria, mock_poiData } from "./mockData.js";
 import { getMap } from "../../../common/map/map.js";
 import { checkIsOperational, checkIsHighlyRated, getBizOpenInfo as getBizOpenInfo } from "./bizStatusChecker.js";
+import { MapIconUrl } from "../../../common/components/MapIcon.js";
 
 // [ map controls ]
 let google = null;
@@ -37,6 +38,11 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
     const poiName_to_placeId = {};
     const placeId_to_placeDetail = {};
     let poi2_and_poi3_nearbySearchResult = null;
+    let reqNum = {
+        nearbySearch: 0,
+        getDetails: 0,
+        getUrl: 0
+    };
     for (let poiName of poiNames) {
         let places = null;
         let status = null;
@@ -48,6 +54,8 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
         else {
             const request = getRequest_nearbySearch(poiName, commonFieldsInRequest);
             const result = await new Promise((resolve) => {
+                reqNum.nearbySearch ++;
+                console.log("reqNum.nearbySearch", reqNum.nearbySearch);
                 service.nearbySearch(request, (places, status) => {
                     resolve({ places, status });
                 });
@@ -92,6 +100,8 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
             const { place_id } = place;
             const request = getRequest_detail(place_id);
             const { detail, status } = await new Promise((resolve) => {
+                reqNum.getDetails ++;
+                console.log("reqNum.getDetails", reqNum.getDetails);
                 service.getDetails(request, (detail, status) => {
                     resolve({ detail, status });
                 });
@@ -108,7 +118,11 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
             if (bizOpenInfo.isOpen) {
                 poiName_to_placeId[poiName] = place_id;
                 placeId_to_placeDetail[place_id] = getFullDetail(detail, place, bizOpenInfo);
-                console.log(`get legitimate place [${poiName}]:[${i}]`);
+
+                reqNum.getUrl ++;
+                console.log("reqNum.getUrl", reqNum.getUrl);
+
+                console.log(`get legitimate place [${poiName}] at [${i}]-th retry`);
                 break;
             }
         }
@@ -121,6 +135,8 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
         accu[poiName] = placeId_to_placeDetail[placeId];
         return accu;
     }, {});
+
+    console.log({reqNum});
 
     console.log(poiName_to_poiDetail);
     doChangePOI(poiName_to_poiDetail);
@@ -249,22 +265,18 @@ function getFullDetail(detail, place, bizOpenInfo) {
     return fullDetail;
 }
 
-export const getIconUrl = (poiName) => {
-    return `/img/map-icons/${poiName}.svg`;
-};
-
 export function addMarkers(poiDatas, centerPosition) {
     Object.entries(poiDatas).forEach(([poiName, poiData]) => {
         const marker = new google.maps.Marker({
             position: poiData.location,
-            icon: getIconUrl(poiName),
+            icon: MapIconUrl[poiName],
             map: map
         });
     });
 
     const centerMarker = new google.maps.Marker({
         position: centerPosition,
-        icon: getIconUrl("center"),
+        icon: MapIconUrl.center,
         map: map
     });
 

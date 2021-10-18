@@ -4,10 +4,9 @@ import { POITypeName } from "../criteria/POITypes";
 
 export const mock_criteria = {
     [CriteriaName.centerPoint]: {
-        desc: "Big City",
+        desc: "Zhongshan Public Elementry School",
         position: {
-            // latLng: { lat: 24.810059549453758, lng: 120.97512116891903 }, //Big City
-            latLng: { lat: 24.786347336510058, lng: 121.010254397754 }, // 秦老大
+            latLng: { lat: 25.06345199799165, lng: 121.52372144659245 }, // 秦老大
             address: ""
         }
     },

@@ -12,6 +12,7 @@ import { err as heartColor } from "../../../../common/styles/colors.json";
 import { ItineraryFieldName, selectErrMsg, changeErrMsg } from "../validate-itinerary/validateItinerarySlice.js";
 import ErrMsg from "../../../../common/components/ErrMsg.js";
 import { ItineraryInfoFieldName, changeItineraryInfo } from "./itineraryInfoSlice.js";
+import { lightRed } from "../../../../common/styles/colors.json";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -19,8 +20,19 @@ import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => {
     return ({
+        root: {
+            position: "relative",
+            width: "390px",
+            height: "350px",
+            background: lightRed,
+            borderRadius: "3px",
+            margin: "8px 0 32px 0"
+        },
         itineraryInfo: {
-            marginTop: theme.spacing(6),
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -31,7 +43,6 @@ const useStyles = makeStyles((theme) => {
         },
         contents: {
             marginTop: theme.spacing(4),
-            marginBottom: theme.spacing(6),
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -121,31 +132,33 @@ export default function ItineraryInfo() {
     }, []);
 
     return (
-        <div className={["itineraryInfo", classes.itineraryInfo].join(" ")}>
-            <img className={classes.likeImg} src={src} />
-            <div className={classes.contents}>
-                <div className={classes.section}>
-                    <div className={classes.title}>Give it a name:</div>
-                    <TextField
-                        id="itinerary-name"
-                        // label="name"
-                        defaultValue={defaultValue}
-                        onChange={handleChangeName}
-                    />
-                    <ErrMsg errMsg={errMsg[ItineraryFieldName.name]} />
-                </div>
-                <div className={classes.section}>
-                    <div className={classes.title}>How much do you like it?</div>
-                    <StyledRating
-                        className={classes.rating}
-                        name="customized-color"
-                        defaultValue={0}
-                        getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
-                        // precision={0.5}
-                        // max={5}
-                        icon={<HeartIcon fontSize="24px" />}
-                        onChange={handleChangeRating}
-                    />
+        <div className={classes.root}>
+            <div className={["itineraryInfo", classes.itineraryInfo].join(" ")}>
+                <img className={classes.likeImg} src={src} />
+                <div className={classes.contents}>
+                    <div className={classes.section}>
+                        <div className={classes.title}>Give it a name:</div>
+                        <TextField
+                            id="itinerary-name"
+                            // label="name"
+                            defaultValue={defaultValue}
+                            onChange={handleChangeName}
+                        />
+                        <ErrMsg errMsg={errMsg[ItineraryFieldName.name]} />
+                    </div>
+                    <div className={classes.section}>
+                        <div className={classes.title}>How much do you like it?</div>
+                        <StyledRating
+                            className={classes.rating}
+                            name="customized-color"
+                            defaultValue={0}
+                            getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
+                            // precision={0.5}
+                            // max={5}
+                            icon={<HeartIcon fontSize="24px" />}
+                            onChange={handleChangeRating}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

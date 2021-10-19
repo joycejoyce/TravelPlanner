@@ -144,11 +144,11 @@ export default function Confirm({ setAnimationKey }) {
             // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
             
             // test start
-            await initMap(mapProps);
+            // await initMap(mapProps);
             const poiData = getPOIData_mock(doChangePOI);
             // test end
 
-            addMarkers(poiData, centerPoint.position.latLng);
+            // addMarkers(poiData, centerPoint.position.latLng);
         }
         doGetPOIData();
     }, []);
@@ -160,7 +160,7 @@ export default function Confirm({ setAnimationKey }) {
             <div className={["contents", classes.contents].join(" ")}>
                 {/* <h1>Confirm</h1> */}
                 <div className={"mapSection " + classes.mapSection}>
-                    <div id={mapProps.id} className={classes.map}></div>
+                    {/* <div id={mapProps.id} className={classes.map}></div> */}
                     <CenterPointDesc data={centerPoint} />
                 </div>
                 <GenPOIInfo handleClickModify={handleClickModify} />

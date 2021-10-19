@@ -63,7 +63,8 @@ const useStyles = makeStyles((theme) => {
             color: lightColors.primary
         },
         bizImg: {
-            borderRadius: "3px"
+            borderRadius: "3px",
+            maxWidth: "300px"
         },
         address: {
             fontSize: "14px",

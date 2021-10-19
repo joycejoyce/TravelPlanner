@@ -16,5 +16,6 @@
     },
     "err": "#F15353",
     "errBK": "#FDE7E7",
-    "lightGrey": "#9C9C9C"
+    "lightGrey": "#9C9C9C",
+    "lightRed": "#fbecec"
 }

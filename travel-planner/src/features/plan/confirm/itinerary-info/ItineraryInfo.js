@@ -9,12 +9,13 @@ import { getImgPath } from "../../../../common/util/PathGetter.js";
 import { selectAll } from "../../criteria/criteriaSlice.js";
 import { mock_criteria } from "../mockData.js";
 import { err as heartColor } from "../../../../common/styles/colors.json";
-import { ItineraryFieldName, selectErrMsg } from "../validate-itinerary/validateItinerarySlice.js";
+import { ItineraryFieldName, selectErrMsg, changeErrMsg } from "../validate-itinerary/validateItinerarySlice.js";
 import ErrMsg from "../../../../common/components/ErrMsg.js";
 import { ItineraryInfoFieldName, changeItineraryInfo } from "./itineraryInfoSlice.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -87,12 +88,20 @@ export default function ItineraryInfo() {
 
     // ctrl
     const dispatch = useDispatch();
+    const resetErrMsg = (fieldName) => {
+        const input = {
+            name: fieldName,
+            errMsg: ""
+        };
+        dispatch(changeErrMsg(input));
+    }
     const handleChangeName = (e) => {
         const { value } = e.target;
         const input = {
             fieldName: ItineraryInfoFieldName.name,
             value
         };
+        resetErrMsg(ItineraryFieldName.name);
         dispatch(changeItineraryInfo(input));
     };
     const handleChangeRating = (e, value) => {
@@ -102,6 +111,14 @@ export default function ItineraryInfo() {
         };
         dispatch(changeItineraryInfo(input));
     };
+
+    useEffect(() => {
+        const input = {
+            fieldName: ItineraryInfoFieldName.name,
+            value: defaultValue
+        };
+        dispatch(changeItineraryInfo(input));
+    }, []);
 
     return (
         <div className={["itineraryInfo", classes.itineraryInfo].join(" ")}>

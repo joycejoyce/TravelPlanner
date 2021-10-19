@@ -6,10 +6,10 @@ import { POIName } from "../plan/criteria/POIs.js";
 
 const FieldName = "itinerary"
 
-export function save(criteria, poiData) {
+export function save(itineraryInfo, criteria, poiData) {
     const { latLng } = criteria[CriteriaName.centerPoint].position;
     const staticMapUrl = getStaticMapUrl(latLng, poiData);
-    const data = { criteria, poiData, staticMapUrl };
+    const data = { itineraryInfo, criteria, poiData, staticMapUrl };
     const jsonStr = JSON.stringify(data);
     localStorage.setItem(FieldName, jsonStr);
 }

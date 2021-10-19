@@ -12,24 +12,25 @@ export default function (validateData, changeErrMsg) {
             }
             return accu;
         }, 0);
+        let errMsg = "";
+        const name = ItineraryFieldName.poiNumber;
         if (poiNum === 0) {
-            const errMsg = "No point-of interests were generated!\nPlease re-set the criteria.";
-            const name = ItineraryFieldName.poiNumber;
-            changeErrMsg({name, errMsg});
+            errMsg = "No point-of interests were generated!\nPlease re-set the criteria.";
             hasErr = true;
         }
-        
+        changeErrMsg({name, errMsg});
     };
 
     const validateItineraryName = () => {
         const { itineraryInfo } = validateData;
         const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
+        let errMsg = "";
+        const name = ItineraryFieldName.name;
         if (!itineraryName || itineraryName.length === 0) {
-            const errMsg = "Please give this itinerary a name.";
-            const name = ItineraryFieldName.name;
-            changeErrMsg({name, errMsg});
+            errMsg = "Please give this itinerary a name.";
             hasErr = true;
         }
+        changeErrMsg({name, errMsg});
     };
 
     validatePoiData();

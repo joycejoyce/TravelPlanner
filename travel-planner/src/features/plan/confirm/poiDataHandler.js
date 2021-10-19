@@ -25,6 +25,7 @@ const RetObj = {
 
 export function getPOIData_mock(doChangePOI) {
     const poiData = mock_poiData;
+    // const poiData = {};
     doChangePOI(poiData);
     return poiData;
 }

@@ -125,7 +125,7 @@ export default function Confirm({ setAnimationKey }) {
         };
         const hasError = validate({poiData, itineraryInfo}, doChangeErrMsg);
         if (!hasError) {
-            save(criteria, poiData);
+            save(itineraryInfo, criteria, poiData);
             setAnimationKey();
             history.push(`/plan/${URL.getItinerary}`);
         }
@@ -145,8 +145,7 @@ export default function Confirm({ setAnimationKey }) {
             
             // test start
             await initMap(mapProps);
-            // const poiData = getPOIData_mock(doChangePOI);
-            const poiData = {};
+            const poiData = getPOIData_mock(doChangePOI);
             // test end
 
             addMarkers(poiData, centerPoint.position.latLng);

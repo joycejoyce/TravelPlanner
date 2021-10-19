@@ -1,4 +1,4 @@
-import { ItineraryInfoFieldName } from "./itinerary-info/itineraryInfoSlice.js";
+import { ItineraryInfoFieldName } from "../itinerary-info/itineraryInfoSlice.js";
 import { ItineraryFieldName } from "./validateItinerarySlice";
 
 export default function (validateData, changeErrMsg) {

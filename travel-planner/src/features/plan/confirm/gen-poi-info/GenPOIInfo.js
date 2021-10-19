@@ -9,7 +9,7 @@ import AccorndionCtrlBtn from "./AccorndionCtrlBtn.js";
 import POIAccordion from "./POIAccordion.js";
 import { primary as primaryFont } from "../../../../common/styles/fonts.json";
 import ErrMsg from "../../../../common/components/ErrMsg.js";
-import { ItineraryFieldName, selectErrMsg } from "../validateItinerarySlice.js";
+import { ItineraryFieldName, selectErrMsg } from "../validate-itinerary/validateItinerarySlice.js";
 
 // React
 import React, { useState } from "react";

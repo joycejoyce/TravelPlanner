@@ -20,9 +20,8 @@ import { mock_criteria } from "./mockData.js";
 import { URL } from "../Plan.js";
 import { MapIconUrl } from "../../../common/components/MapIcon.js";
 import { selectItineraryInfo } from "./itinerary-info/itineraryInfoSlice.js";
-import { ItineraryFieldName, selectErrMsg, changeErrMsg } from "./validateItinerarySlice.js";
-import ErrMsg from "../../../common/components/ErrMsg.js";
-import validate from "./itineraryValidator.js";
+import { changeErrMsg } from "./validate-itinerary/validateItinerarySlice.js";
+import validate from "./validate-itinerary/itineraryValidator.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -102,7 +101,6 @@ export default function Confirm({ setAnimationKey }) {
     const poiData = useSelector(selectPOIData);
     const centerPoint = criteria[CriteriaName.centerPoint];
     const itineraryInfo = useSelector(selectItineraryInfo);
-    const errMsg = useSelector(selectErrMsg);
     const history = useHistory();
 
     // map

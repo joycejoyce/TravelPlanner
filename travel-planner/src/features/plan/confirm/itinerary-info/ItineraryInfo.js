@@ -9,7 +9,7 @@ import { getImgPath } from "../../../../common/util/PathGetter.js";
 import { selectAll } from "../../criteria/criteriaSlice.js";
 import { mock_criteria } from "../mockData.js";
 import { err as heartColor } from "../../../../common/styles/colors.json";
-import { ItineraryFieldName, selectErrMsg } from "../validateItinerarySlice.js";
+import { ItineraryFieldName, selectErrMsg } from "../validate-itinerary/validateItinerarySlice.js";
 import ErrMsg from "../../../../common/components/ErrMsg.js";
 import { ItineraryInfoFieldName, changeItineraryInfo } from "./itineraryInfoSlice.js";
 

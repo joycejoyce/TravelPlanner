@@ -8,6 +8,8 @@ import { selectPOIData } from "../poiDataSlice.js";
 import AccorndionCtrlBtn from "./AccorndionCtrlBtn.js";
 import POIAccordion from "./POIAccordion.js";
 import { primary as primaryFont } from "../../../../common/styles/fonts.json";
+import ErrMsg from "../../../../common/components/ErrMsg.js";
+import { ItineraryFieldName, selectErrMsg } from "../validateItinerarySlice.js";
 
 // React
 import React, { useState } from "react";
@@ -47,6 +49,7 @@ function GenPOIInfo({ handleClickModify }) {
         }, {})
     );
     const poiDatas = useSelector(selectPOIData);
+    const errMsg = useSelector(selectErrMsg);
 
     // ctrl
     const handleClickAcc = (poiName) => {
@@ -56,6 +59,7 @@ function GenPOIInfo({ handleClickModify }) {
 
     return (
         <div className={["genPOIInfo", classes.root].join(" ")}>
+            <ErrMsg errMsg={errMsg[ItineraryFieldName.poiNumber]} />
             <AccorndionCtrlBtn
                 ctrl={{ expanded, setExpanded }}
             />

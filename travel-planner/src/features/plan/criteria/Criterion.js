@@ -5,11 +5,14 @@ import { useSelector } from "react-redux";
 // my components
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { selectErrMsg } from "./validateCriteriaSlice";
-import ErrMsg from "./ErrMsg";
+import ErrMsg from "../../../common/components/ErrMsg";
 
 const useStyles = makeStyles((theme) => {
     return ({
         criterion: {
+            "& .errMsg": {
+                marginLeft: "80px"
+            }
         },
         summary: {
             display: "flex",

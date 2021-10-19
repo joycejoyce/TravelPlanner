@@ -10,7 +10,7 @@ import { POIName } from "../criteria/POIs.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { openModal } from "./cancel-modal/modalOpenSlice.js";
 import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
-import ItineraryInfo from "./ItineraryInfo.js";
+import ItineraryInfo from "./itinerary-info/ItineraryInfo.js";
 import CancelModal from "./cancel-modal/CancelModal.js";
 import { StepNames } from "../PlanStepper.js";
 import useStep from "../../../common/util/useStep.js";
@@ -19,6 +19,10 @@ import ButtonSection from "../buttonSection/ButtonSection.js";
 import { mock_criteria } from "./mockData.js";
 import { URL } from "../Plan.js";
 import { MapIconUrl } from "../../../common/components/MapIcon.js";
+import { selectItineraryInfo } from "./itinerary-info/itineraryInfoSlice.js";
+import { ItineraryFieldName, selectErrMsg, changeErrMsg } from "./validateItinerarySlice.js";
+import ErrMsg from "../../../common/components/ErrMsg.js";
+import validate from "./itineraryValidator.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -97,6 +101,8 @@ export default function Confirm({ setAnimationKey }) {
     const criteria = mock_criteria;
     const poiData = useSelector(selectPOIData);
     const centerPoint = criteria[CriteriaName.centerPoint];
+    const itineraryInfo = useSelector(selectItineraryInfo);
+    const errMsg = useSelector(selectErrMsg);
     const history = useHistory();
 
     // map
@@ -116,9 +122,15 @@ export default function Confirm({ setAnimationKey }) {
         history.push(`/plan/${URL.criteria}`);
     };
     const handleClickSave = () => {
-        save(criteria, poiData);
-        setAnimationKey();
-        history.push(`/plan/${URL.getItinerary}`);
+        const doChangeErrMsg = (errMsgObj) => {
+            dispatch(changeErrMsg(errMsgObj));
+        };
+        const hasError = validate({poiData, itineraryInfo}, doChangeErrMsg);
+        if (!hasError) {
+            save(criteria, poiData);
+            setAnimationKey();
+            history.push(`/plan/${URL.getItinerary}`);
+        }
     };
     const handleClickCancel = () => {
         dispatch(openModal());
@@ -135,7 +147,8 @@ export default function Confirm({ setAnimationKey }) {
             
             // test start
             await initMap(mapProps);
-            const poiData = getPOIData_mock(doChangePOI);
+            // const poiData = getPOIData_mock(doChangePOI);
+            const poiData = {};
             // test end
 
             addMarkers(poiData, centerPoint.position.latLng);

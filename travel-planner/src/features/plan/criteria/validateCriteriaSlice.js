@@ -1,4 +1,7 @@
+// Redux
 import { createSlice } from "@reduxjs/toolkit";
+
+// my components
 import { CriteriaName } from "./criteriaSlice.js";
 
 const initialState = Object.keys(CriteriaName).reduce((accu, name) => {

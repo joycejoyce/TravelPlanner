@@ -5,6 +5,8 @@ import validateCriteriaReducer from "../features/plan/criteria/validateCriteriaS
 import stepReducer from "../features/plan/stepSlice.js";
 import poiDataReducer from "../features/plan/confirm/poiDataSlice.js";
 import modalOpenReducer_confirmPage from "../features/plan/confirm/cancel-modal/modalOpenSlice.js";
+import itineraryInfoReducer from "../features/plan/confirm/itinerary-info/itineraryInfoSlice.js";
+import validateItineraryReducer from "../features/plan/confirm/validateItinerarySlice.js";
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +15,8 @@ export const store = configureStore({
         criteria: criteriaReducer,
         validateCriteria: validateCriteriaReducer,
         step: stepReducer,
-        poiData: poiDataReducer
+        poiData: poiDataReducer,
+        itineraryInfo: itineraryInfoReducer,
+        validateItinerary: validateItineraryReducer
     }
 });

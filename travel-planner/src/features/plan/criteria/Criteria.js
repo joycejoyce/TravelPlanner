@@ -11,7 +11,7 @@ import Criterion from "./Criterion.js";
 import ButtonSection from "../buttonSection/ButtonSection.js";
 import { CriteriaName, selectAll } from "./criteriaSlice.js";
 import { URL } from "../Plan.js";
-import validate from "./CriteriaValidator.js";
+import validate from "./criteriaValidator.js";
 import { changeErrMsg } from "./validateCriteriaSlice.js";
 import { getParentPath } from "../../../common/util/PathGetter.js";
 import { toStep } from "../stepSlice.js";

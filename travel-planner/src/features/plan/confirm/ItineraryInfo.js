@@ -16,7 +16,14 @@ import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => {
     return ({
         itineraryInfo: {
-            marginTop: theme.spacing(6)
+            marginTop: theme.spacing(6),
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            "& #itinerary-name": {
+                width: "280px",
+                paddingLeft: theme.spacing(0.5)
+            }
         },
         contents: {
             marginTop: theme.spacing(4),
@@ -38,6 +45,9 @@ const useStyles = makeStyles((theme) => {
         },
         rating: {
             gap: "10px"
+        },
+        likeImg: {
+            width: "253px"
         }
     });
 });
@@ -64,7 +74,7 @@ export default function ItineraryInfo() {
         const { desc } = centerPoint;
         const dateStr = [(date.getMonth() + 1), date.getDate()].join("/");
 
-        const defaultValue = [dateStr, desc].join(" - ");
+        const defaultValue = [desc].join(" - ");
         return defaultValue;
     };
 
@@ -73,7 +83,7 @@ export default function ItineraryInfo() {
 
     return (
         <div className={["itineraryInfo", classes.itineraryInfo].join(" ")}>
-            <img src={src} />
+            <img className={classes.likeImg} src={src} />
             <div className={classes.contents}>
                 <div className={classes.section}>
                     <div className={classes.title}>Give it a name:</div>

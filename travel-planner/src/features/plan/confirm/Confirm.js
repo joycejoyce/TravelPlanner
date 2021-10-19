@@ -14,11 +14,11 @@ import ItineraryInfo from "./ItineraryInfo.js";
 import CancelModal from "./cancel-modal/CancelModal.js";
 import { StepNames } from "../PlanStepper.js";
 import useStep from "../../../common/util/useStep.js";
-import { save } from "../get-itinerary/dataHandler.js";
+import { save } from "../../my-itineraries/dataHandler.js";
 import ButtonSection from "../buttonSection/ButtonSection.js";
 import { mock_criteria } from "./mockData.js";
 import { URL } from "../Plan.js";
-import MapIcon, { MapIconUrl } from "../../../common/components/MapIcon.js";
+import { MapIconUrl } from "../../../common/components/MapIcon.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -97,21 +97,12 @@ export default function Confirm({ setAnimationKey }) {
     const criteria = mock_criteria;
     const poiData = useSelector(selectPOIData);
     const centerPoint = criteria[CriteriaName.centerPoint];
-    // const centerPoint = {
-    //     desc: "test desc test desc test desctest desc test desc test desc",
-    //     position: {
-    //         latLng: { lat: 25.04877825798245, lng: 121.51770848147402 },
-    //         address: "test address"
-    //     }
-    // };
     const history = useHistory();
 
     // map
     const mapName = "modifyPOIMap";
     const mapProps = {
         center: criteria[CriteriaName.centerPoint].position,
-        // center: { lat: 24.810059549453758, lng: 120.97512116891903 }, //Big City
-        // center: { lat: 25.042271471648643, lng: 121.50680555326282}, // 西門紅樓
         id: mapName,
         zoom: 10
     };

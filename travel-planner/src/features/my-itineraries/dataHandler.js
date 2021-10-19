@@ -1,8 +1,8 @@
 // my components
-import { MapIconUrl } from "../../../common/components/MapIcon.js";
-import { myApiKey } from "../../../config.json";
-import { CriteriaName } from "../criteria/criteriaSlice";
-import { POIName } from "../criteria/POIs.js";
+import { MapIconUrl } from "../../common/components/MapIcon.js";
+import { myApiKey } from "../../config.json";
+import { CriteriaName } from "../plan/criteria/criteriaSlice";
+import { POIName } from "../plan/criteria/POIs.js";
 
 const FieldName = "itinerary"
 

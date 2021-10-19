@@ -6,6 +6,7 @@ import "./InnerApp.css";
 import Home from "../features/home/Home.js";
 import Plan from "../features/plan/Plan";
 import About from "../features/about/About.js";
+import MyItineraries from "../features/my-itineraries/MyItineraries";
 
 // React
 import {
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export const URL = {
     home: "home",
     plan: "plan",
+    myItineraries: "my-itineraries",
     about: "about"
 };
 
@@ -57,6 +59,8 @@ function AnimationPart() {
                 <Link onClick={handleClick} to={`/${URL.home}`}>Home</Link>
                 &nbsp;&nbsp;
                 <Link onClick={handleClick} to={`/${URL.plan}`}>Plan</Link>
+                &nbsp;&nbsp;
+                <Link onClick={handleClick} to={`/${URL.myItineraries}`}>My Itineraries</Link>
                 &nbsp;&nbsp;
                 <Link onClick={handleClick} to={`/${URL.about}`}>About</Link>
             </div>
@@ -84,6 +88,10 @@ function AnimationPart() {
                         <Route
                             path={`/${URL.plan}`}
                             render={() => <Plan />}
+                        />
+                        <Route
+                            path={`/${URL.myItineraries}`}
+                            render={() => <MyItineraries />}
                         />
                         <Route
                             path={`/${URL.about}`}

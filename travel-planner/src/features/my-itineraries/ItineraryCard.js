@@ -12,6 +12,9 @@ import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 import { MapIconUrl } from "../../common/components/MapIcon.js";
 import { POIName } from "../plan/criteria/POIs.js";
 
+// React
+import { useHistory, useRouteMatch } from "react-router";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: "272px",
@@ -88,9 +91,14 @@ export function ItineraryCard({ itinerary }) {
     // styles
     const classes = useStyles();
 
+    // routing data
+    const { path, url } = useRouteMatch();
+    const history = useHistory();
+
     // main data
     const { criteria, itineraryInfo, poiData } = itinerary;
     const centerPoint = criteria[CriteriaName.centerPoint];
+    const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
 
     // ctrl
     const getCenterPointAddr = () => {
@@ -98,7 +106,6 @@ export function ItineraryCard({ itinerary }) {
         return address;
     };
     const getTitle = () => {
-        const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
         return itineraryName;
     };
     const getDate = () => {
@@ -128,8 +135,13 @@ export function ItineraryCard({ itinerary }) {
     const rating = getRating();
     const bkImgUrl = getBKImgUrl();
 
+    // ctrl
+    const handleClick = () => {
+        history.push(`${path}/${itineraryName}`);
+    };
+
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} onClick={handleClick}>
             <CardContent className={classes.contents}>
                 <img className={classes.bkImg} src={bkImgUrl} />
                 <div className={classes.title}>{title}</div>

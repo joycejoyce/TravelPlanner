@@ -22,33 +22,39 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import React, { useState } from "react";
 import Navbar from "../navbar/Navbar";
 import { useDispatch } from "react-redux";
+import { getStyles_routingPage } from "../../common/styles/styles";
 
-const useStyles = makeStyles((theme) => ({
-    plan: {
-    },
-    navbar: {
-        position: "fixed",
-        top: "20px",
-        zIndex: "10"
-    },
-    animationPart: {
-        position: "absolute",
-        width: "100vw",
-        top: "22vh",
-        "& > *": { // Criteria / GenPOIs / ... 
-            // animationPart cannot set translateX or it'll effect animation
-            // therefore, to center the content, wrap up the contents in ".contents" and center it
-            position: "relative",
-            width: "100vw",
-            "& > .contents": {
-                position: "absolute",
-                width: "fit-content",
-                left: "50%",
-                transform: "translateX(-50%)"
-            }
+const useStyles = makeStyles((theme) => {
+    const animationPartStyles = getStyles_routingPage();
+
+    return ({
+        plan: {
+        },
+        navbar: {
+            position: "fixed",
+            top: "20px",
+            zIndex: "10"
+        },
+        animationPart: {
+            ...animationPartStyles
+            // position: "absolute",
+            // width: "100vw",
+            // top: "22vh",
+            // "& > *": { // Criteria / Confirm / GetItinerary
+            //     // animationPart cannot set translateX or it'll effect animation
+            //     // therefore, to center the content, wrap up the contents in ".contents" and center it
+            //     position: "relative",
+            //     width: "100vw",
+            //     "& > .contents": {
+            //         position: "absolute",
+            //         width: "fit-content",
+            //         left: "50%",
+            //         transform: "translateX(-50%)"
+            //     }
+            // }
         }
-    }
-}));
+    });
+});
 
 export const URL = {
     criteria: "criteria",

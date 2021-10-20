@@ -1,45 +1,51 @@
-// // MUI
-// import { makeStyles } from "@material-ui/core/styles";
+// MUI
+import { makeStyles } from "@material-ui/styles";
 
-// // my components
-// import { StepNames } from "../plan/PlanStepper";
-// import useStep from "../../common/util/useStep";
-// import { get } from "./dataHandler.js";
+// my components
+import ItineraryDetail from "./ItineraryDetail";
+import AllItineraryCards from "./AllItineraryCards.js";
+import { getStyles_routingPage } from "../../common/styles/styles.js";
 
-// // React
-// import { useEffect } from "react";
+// React
+import {
+    Switch,
+    Route,
+    useRouteMatch
+} from "react-router-dom";
+import Navbar from "../navbar/Navbar";
 
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-        
-//     },
-//     contents: {
-//         // background: "green"
-//     }
-// }));
+const useStyles = makeStyles((theme) => {
+    const animationPartStyles = getStyles_routingPage();
 
-// export default function MyItineraries() {
-//     const classes = useStyles();
-//     useStep(StepNames.getItinerary);
+    return ({
+        animationPart: {
+            ...animationPartStyles
+        }
+    });
+});
 
-//     let itineraryObj = null;
-//     useEffect(() => {
-//         itineraryObj = get();
-//         console.log({itineraryObj});
-//     }, []);
+export default function MyItineraries() {
+    // styles
+    const classes = useStyles();
 
-//     const getMapUrl = () => {
-//         const obj = get();
-//         return obj.staticMapUrl;
-//     }
+    // routing data
+    const { path, url } = useRouteMatch();
 
-//     return (
-//         <div className={["my-itineraries", classes.root].join(" ")}>
-//             <div className={["contents", classes.contents].join(" ")}>
-//                 <h1>MyItinerary</h1>
-//                 <img src={getMapUrl()} />
-//                 {/* <div className={["map", classes.map].join(" ")} /> */}
-//             </div>
-//         </div>
-//     );
-// }
+    return (
+        <div>
+            <Navbar />
+            <div className={classes.animationPart}>
+                <Switch>
+                    <Route
+                        path={`${path}/:itineraryName`}
+                        render={() => (<ItineraryDetail />)}
+                    />
+                    <Route
+                        path={`${path}`}
+                        render={() => (<AllItineraryCards />)}
+                    />
+                </Switch>
+            </div>
+        </div>
+    );
+}

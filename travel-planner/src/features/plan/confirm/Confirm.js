@@ -18,10 +18,10 @@ import { save } from "../../my-itineraries/dataHandler.js";
 import ButtonSection from "../buttonSection/ButtonSection.js";
 import { mock_criteria } from "./mockData.js";
 import { URL } from "../Plan.js";
-import { MapIconUrl } from "../../../common/components/MapIcon.js";
 import { ItineraryInfoFieldName, selectItineraryInfo } from "./itinerary-info/itineraryInfoSlice.js";
 import { changeErrMsg } from "./validate-itinerary/validateItinerarySlice.js";
 import validate from "./validate-itinerary/itineraryValidator.js";
+import CenterPointDesc from "../../../common/components/CenterPointDesc.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -46,40 +46,40 @@ const useStyles = makeStyles((theme) => {
         map: {
             ...styles_map
         },
-        centerPointDesc: {
-            marginTop: theme.spacing(1),
-            width: "380px",
-            display: "flex",
-            gap: theme.spacing(1),
-            alignItems: "center",
-            "& > .desc": {
-                fontFamily: secondaryFont,
-                letterSpacing: ".5px",
-                fontWeight: "bold"
-            },
-            "& .address": {
-                letterSpacing: ".3px",
-                fontSize: "14px"
-            }
-        }
+        // centerPointDesc: {
+        //     marginTop: theme.spacing(1),
+        //     width: "380px",
+        //     display: "flex",
+        //     gap: theme.spacing(1),
+        //     alignItems: "center",
+        //     "& > .desc": {
+        //         fontFamily: secondaryFont,
+        //         letterSpacing: ".5px",
+        //         fontWeight: "bold"
+        //     },
+        //     "& .address": {
+        //         letterSpacing: ".3px",
+        //         fontSize: "14px"
+        //     }
+        // }
     });
 });
 
-function CenterPointDesc({ data }) {
-    // styles
-    const classes = useStyles();
+// function CenterPointDesc({ data }) {
+//     // styles
+//     const classes = useStyles();
 
-    const { desc, position } = data;
-    const { address } = position
+//     const { desc, position } = data;
+//     const { address } = position
 
-    return (
-        <div className={classes.centerPointDesc}>
-            <img src={MapIconUrl.center} width="32px" />
-            <div className="desc">{desc}</div>
-            <div className="address">{address}</div>
-        </div>
-    )
-}
+//     return (
+//         <div className={classes.centerPointDesc}>
+//             <img src={MapIconUrl.center} width="32px" />
+//             <div className="desc">{desc}</div>
+//             <div className="address">{address}</div>
+//         </div>
+//     )
+// }
 
 export default function Confirm({ setAnimationKey }) {
     // styles

@@ -13,9 +13,10 @@ import {
     getRating,
     getDate
 } from "./dataHandler.js";
+import { URL } from "../../app/InnerApp.js";
 
 // React
-import { useHistory, useRouteMatch } from "react-router";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -94,7 +95,6 @@ export default function ItineraryCard({ itinerary }) {
     const classes = useStyles();
 
     // routing data
-    const { path, url } = useRouteMatch();
     const history = useHistory();
 
     // main data
@@ -130,7 +130,8 @@ export default function ItineraryCard({ itinerary }) {
 
     // ctrl
     const handleClick = () => {
-        history.push(`${path}/${itineraryName}`);
+        const path = `/${URL.myItineraries}/${itineraryName}`;
+        history.push(path);
     };
 
     return (

@@ -6,11 +6,13 @@ import { Favorite as HeartIcon } from "@material-ui/icons";
 // my components
 import MyRating from "../../common/components/MyRating.js";
 import { CriteriaName } from "../plan/criteria/criteriaSlice";
-import { getDateStr } from "../../common/util/DateUtil.js";
 import { ItineraryInfoFieldName } from "../plan/confirm/itinerary-info/itineraryInfoSlice.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 import { MapIconUrl } from "../../common/components/MapIcon.js";
-import { POIName } from "../plan/criteria/POIs.js";
+import {
+    getRating,
+    getDate
+} from "./dataHandler.js";
 
 // React
 import { useHistory, useRouteMatch } from "react-router";
@@ -87,7 +89,7 @@ function CenterPointDesc({ addr }) {
     );
 }
 
-export function ItineraryCard({ itinerary }) {
+export default function ItineraryCard({ itinerary }) {
     // styles
     const classes = useStyles();
 
@@ -108,15 +110,6 @@ export function ItineraryCard({ itinerary }) {
     const getTitle = () => {
         return itineraryName;
     };
-    const getDate = () => {
-        const dateObj = criteria[CriteriaName.date];
-        const dateStr = getDateStr(dateObj);
-        return dateStr;
-    };
-    const getRating = () => {
-        const rating = itineraryInfo[ItineraryInfoFieldName.rating];
-        return rating;
-    };
     const getBKImgUrl = () => {
         const poiItems = Object.values(poiData);
         for (let item of poiItems) {
@@ -131,8 +124,8 @@ export function ItineraryCard({ itinerary }) {
     // data
     const centerPointAddr = getCenterPointAddr();
     const title = getTitle();
-    const date = getDate();
-    const rating = getRating();
+    const date = getDate(criteria);
+    const rating = getRating(itineraryInfo);
     const bkImgUrl = getBKImgUrl();
 
     // ctrl

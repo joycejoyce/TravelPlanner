@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // my components
 import { StepNames } from "../PlanStepper.js";
 import useStep from "../../../common/util/useStep.js";
-import { ItineraryCard } from "../../my-itineraries/ItineraryCard.js";
+import ItineraryCard from "../../my-itineraries/ItineraryCard.js";
 import { getItinerary } from "../../my-itineraries/dataHandler";
 import ButtonSection from "../buttonSection/ButtonSection.js";
 

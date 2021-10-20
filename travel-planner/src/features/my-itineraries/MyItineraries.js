@@ -2,7 +2,7 @@
 import { makeStyles } from "@material-ui/styles";
 
 // my components
-import ItineraryDetail from "./ItineraryDetail";
+import ItineraryDetailWrapper from "./ItineraryDetailWrapper.js";
 import AllItineraryCards from "./AllItineraryCards.js";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
 
@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => {
     return ({
         animationPart: {
             ...animationPartStyles,
-            top: "150px"
+            top: "110px",
+            [theme.breakpoints.up('md')]: {
+                top: "150px"
+            }
         }
     });
 });
@@ -39,7 +42,7 @@ export default function MyItineraries() {
                 <Switch>
                     <Route
                         path={`${path}/:itineraryName`}
-                        render={() => (<ItineraryDetail />)}
+                        render={() => (<ItineraryDetailWrapper />)}
                     />
                     <Route
                         path={`${path}`}

@@ -1,13 +1,9 @@
 // MUI
 import { makeStyles } from "@material-ui/styles";
-import { useLayoutEffect } from "react";
 
 // my components
 import { getAllItineraries } from "./dataHandler.js";
-import { ItineraryCard } from "./ItineraryCard.js";
-
-// React
-import { useState } from "react";
+import ItineraryCard from "./ItineraryCard.js";
 
 const useStyles = makeStyles((theme) => {
     console.log({theme});

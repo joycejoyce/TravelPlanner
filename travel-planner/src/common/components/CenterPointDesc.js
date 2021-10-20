@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => {
         centerPointDesc: {
             marginTop: theme.spacing(1),
             width: "380px",
+            [theme.breakpoints.up('md')]: {
+                width: "600px"
+            },
             display: "flex",
             gap: theme.spacing(1),
             alignItems: "center",

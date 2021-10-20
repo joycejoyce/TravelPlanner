@@ -4,8 +4,16 @@ import { myApiKey } from "../../config.json";
 import { CriteriaName } from "../plan/criteria/criteriaSlice";
 import { POIName } from "../plan/criteria/POIs.js";
 import { ItineraryInfoFieldName } from "../plan/confirm/itinerary-info/itineraryInfoSlice.js";
+import { getDateStr } from "../../common/util/DateUtil.js";
 
 const FieldName = "itinerary";
+
+export const SavedItiFiledName = {
+    itineraryInfo: "itineraryInfo",
+    criteria: "criteria",
+    poiData: "poiData",
+    staticMapUrl: "staticMapUrl"
+};
 
 export function save(itineraryInfo, criteria, poiData) {
     const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
@@ -13,7 +21,12 @@ export function save(itineraryInfo, criteria, poiData) {
     const getItineraryObj = () => {
         const { latLng } = criteria[CriteriaName.centerPoint].position;
         const staticMapUrl = getStaticMapUrl(latLng, poiData);
-        const obj = { itineraryInfo, criteria, poiData, staticMapUrl };
+        const obj = {
+            [SavedItiFiledName.itineraryInfo]: itineraryInfo,
+            [SavedItiFiledName.criteria]: criteria,
+            [SavedItiFiledName.poiData]: poiData,
+            [SavedItiFiledName.staticMapUrl]: staticMapUrl
+        };
         return obj;
     };
     const getNewItineraryObj = (addItem, origItems) => {
@@ -77,32 +90,67 @@ function getStaticMapUrl(center, poiData) {
         [POIName.poi3]: {
             color: "0x023AFF",
             label: "3"
+        },
+        center: {
+            color: "0xC10101",
+            label: "C"
         }
     }
+
+    const getCenterLatLng = () => {
+        let latLng = null;
+        if (center.lat) {
+            latLng = [center.lat, center.lng];
+        }
+        else if (center.lat()) {
+            latLng = [center.lat(), center.lng()];
+        }
+        return latLng;
+    };
+
+    const getMarkersStrTemplate = (color, label, lat, lng) => {
+        return `&markers=scale:4|color:${color}|label:${label}|${lat},${lng}`;
+    }
+
+    const getInitMarkersStr = () => {
+        const [ lat, lng ] = getCenterLatLng();
+        const { color, label } = iconStyles.center;
+        const str = getMarkersStrTemplate(color, label, lat, lng);
+        return str;
+    };
+
     const markersStrs = Object.keys(poiData).reduce((accu, poiName) => {
         const { lat, lng } = poiData[poiName].location;
         const { color, label } = iconStyles[poiName];
-        const str = `&markers=scale:4|color:${color}|label:${label}|${lat},${lng}`
+        // const str = `&markers=scale:4|color:${color}|label:${label}|${lat},${lng}`
+        const str = getMarkersStrTemplate(color, label, lat, lng);
         accu += str;
         return accu;
-    }, "");
+    }, getInitMarkersStr());
 
-    let centerStr = null;
-    if (center.lat) {
-        centerStr = [center.lat, center.lng].join(",");
-    }
-    else if (center.lat()) {
-        centerStr = [center.lat(), center.lng()].join(",");
-    }
 
     const url = encodeURI("http://maps.googleapis.com/maps/api/staticmap?" +
-        // `&center=${centerStr}` +
         "&size=600x400" + 
         `&key=${myApiKey}` +
-        // "&zoom=10" +
         markersStrs);
 
     console.log("static map URL: ", url);
 
     return url;
+}
+
+export function getRating(itineraryInfo) {
+    const rating = itineraryInfo[ItineraryInfoFieldName.rating];
+    return rating;
+}
+
+export function getDate(criteria) {
+    const dateObj = criteria[CriteriaName.date];
+    const dateStr = getDateStr(dateObj);
+    return dateStr;
+};
+
+export function getRadius(criteria) {
+    const radius = criteria[CriteriaName.radius];
+    return radius;
 }

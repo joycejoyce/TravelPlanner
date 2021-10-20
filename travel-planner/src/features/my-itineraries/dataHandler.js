@@ -3,22 +3,53 @@ import { MapIconUrl } from "../../common/components/MapIcon.js";
 import { myApiKey } from "../../config.json";
 import { CriteriaName } from "../plan/criteria/criteriaSlice";
 import { POIName } from "../plan/criteria/POIs.js";
+import { ItineraryInfoFieldName } from "../plan/confirm/itinerary-info/itineraryInfoSlice.js";
 
-const FieldName = "itinerary"
+const FieldName = "itinerary";
 
 export function save(itineraryInfo, criteria, poiData) {
-    const { latLng } = criteria[CriteriaName.centerPoint].position;
-    const staticMapUrl = getStaticMapUrl(latLng, poiData);
-    const data = { itineraryInfo, criteria, poiData, staticMapUrl };
-    const jsonStr = JSON.stringify(data);
+    const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
+
+    const getItineraryObj = () => {
+        const { latLng } = criteria[CriteriaName.centerPoint].position;
+        const staticMapUrl = getStaticMapUrl(latLng, poiData);
+        const obj = { itineraryInfo, criteria, poiData, staticMapUrl };
+        return obj;
+    };
+    const getNewItineraryObj = (addItem, origItems) => {
+        const addItemKey = itineraryName;
+        let newObj = { [addItemKey]: addItem };
+        if (origItems) {
+            newObj = { ...origItems, ...newObj }
+        };
+        return newObj;
+    };
+
+    const itineraryObj = getItineraryObj();
+    const origItineraryObj = getAllItineraries();
+    const newItineraryObj = getNewItineraryObj(itineraryObj, origItineraryObj);
+
+    const jsonStr = JSON.stringify(newItineraryObj);
     localStorage.setItem(FieldName, jsonStr);
 }
 
-export function get() {
+export function getAllItineraries() {
     const jsonStr = localStorage.getItem(FieldName);
+    if (!jsonStr) {
+        return null;
+    }
     const obj = JSON.parse(jsonStr);
-
     return obj;
+}
+
+export function getItinerary(name) {
+    const allItineraries = getAllItineraries();
+    if (!allItineraries) {
+        return null;
+    }
+    const itinerary = allItineraries[name];
+
+    return itinerary;
 }
 
 function getStaticMapUrl(center, poiData) {

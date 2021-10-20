@@ -7,7 +7,7 @@ export const mock_criteria = {
         desc: "Zhongshan Public Elementry School",
         position: {
             latLng: { lat: 25.06345199799165, lng: 121.52372144659245 }, // 秦老大
-            address: ""
+            address: "No. 69, Section 1, Minquan E Rd, Zhongshan District, Taipei City, 10491"
         }
     },
     [CriteriaName.date]: new Date(),

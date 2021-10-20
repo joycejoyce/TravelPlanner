@@ -1,18 +1,18 @@
 // MUI
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { TextField } from "@material-ui/core";
-import { Rating } from "@material-ui/lab";
 import { Favorite as HeartIcon } from "@material-ui/icons";
 
 // my components
 import { getImgPath } from "../../../../common/util/PathGetter.js";
 import { selectAll } from "../../criteria/criteriaSlice.js";
 import { mock_criteria } from "../mockData.js";
-import { err as heartColor } from "../../../../common/styles/colors.json";
+import MyRating from "../../../../common/components/MyRating.js";
 import { ItineraryFieldName, selectErrMsg, changeErrMsg } from "../validate-itinerary/validateItinerarySlice.js";
 import ErrMsg from "../../../../common/components/ErrMsg.js";
 import { ItineraryInfoFieldName, changeItineraryInfo } from "./itineraryInfoSlice.js";
 import { lightRed } from "../../../../common/styles/colors.json";
+import { getDateStr } from "../../../../common/util/DateUtil.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -67,15 +67,6 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-const StyledRating = withStyles({
-    iconFilled: {
-        color: heartColor,
-    },
-    iconHover: {
-        color: heartColor,
-    },
-})(Rating);
-
 export default function ItineraryInfo() {
     // styles
     const classes = useStyles();
@@ -87,7 +78,7 @@ export default function ItineraryInfo() {
     const getDefaultValue = () => {
         const { centerPoint, date } = criteria;
         const { desc } = centerPoint;
-        const dateStr = [(date.getMonth() + 1), date.getDate()].join("/");
+        const dateStr = getDateStr(date);
 
         const defaultValue = [desc].join(" - ");
         return defaultValue;
@@ -148,13 +139,9 @@ export default function ItineraryInfo() {
                     </div>
                     <div className={classes.section}>
                         <div className={classes.title}>How much do you like it?</div>
-                        <StyledRating
+                        <MyRating
                             className={classes.rating}
-                            name="customized-color"
                             defaultValue={0}
-                            getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
-                            // precision={0.5}
-                            // max={5}
                             icon={<HeartIcon fontSize="24px" />}
                             onChange={handleChangeRating}
                         />

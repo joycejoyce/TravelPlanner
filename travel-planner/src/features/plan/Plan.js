@@ -107,6 +107,10 @@ export default function Plan() {
                             render={() => (<Confirm setAnimationKey={setKey} />)}
                         />
                         <Route
+                            path={`${path}/${URL.getItinerary}/:itineraryName`}
+                            render={() => (<GetItinerary setAnimationKey={setKey} />)}
+                        />
+                        <Route
                             path={`${path}/${URL.getItinerary}`}
                             render={() => (<GetItinerary setAnimationKey={setKey} />)}
                         />

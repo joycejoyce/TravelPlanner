@@ -19,7 +19,7 @@ import ButtonSection from "../buttonSection/ButtonSection.js";
 import { mock_criteria } from "./mockData.js";
 import { URL } from "../Plan.js";
 import { MapIconUrl } from "../../../common/components/MapIcon.js";
-import { selectItineraryInfo } from "./itinerary-info/itineraryInfoSlice.js";
+import { ItineraryInfoFieldName, selectItineraryInfo } from "./itinerary-info/itineraryInfoSlice.js";
 import { changeErrMsg } from "./validate-itinerary/validateItinerarySlice.js";
 import validate from "./validate-itinerary/itineraryValidator.js";
 
@@ -127,7 +127,8 @@ export default function Confirm({ setAnimationKey }) {
         if (!hasError) {
             save(itineraryInfo, criteria, poiData);
             setAnimationKey();
-            history.push(`/plan/${URL.getItinerary}`);
+            const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
+            history.push(`/plan/${URL.getItinerary}/${itineraryName}`);
         }
     };
     const handleClickCancel = () => {

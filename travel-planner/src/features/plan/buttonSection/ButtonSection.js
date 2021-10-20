@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => {
 export default function ButtonSection({ rightCtrl, leftCtrl }) {
     const classes = useStyles();
     const styles = {
-        justifyContent: leftCtrl ? "space-between" : "space-around"
+        justifyContent: (rightCtrl && leftCtrl) ? "space-between" : "space-around"
     };
 
     return (
@@ -35,7 +35,9 @@ export default function ButtonSection({ rightCtrl, leftCtrl }) {
             {
                 leftCtrl ? <LeftBtn ctrl={leftCtrl}  /> : <></>
             }
-            <RightBtn ctrl={rightCtrl} />
+            {
+                rightCtrl ? <RightBtn ctrl={rightCtrl} /> : <></>
+            }
         </div>
     );
 }

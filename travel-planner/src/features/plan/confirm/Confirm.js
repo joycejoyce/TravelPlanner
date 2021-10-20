@@ -52,20 +52,13 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             gap: theme.spacing(1),
             alignItems: "center",
-            "& > .title": {
-                width: "40px",
-                textAlign: "center",
-                fontSize: "12px",
-            },
             "& > .desc": {
                 fontFamily: secondaryFont,
                 letterSpacing: ".5px",
                 fontWeight: "bold"
             },
-            "& > .title,.address": {
-                letterSpacing: ".3px"
-            },
             "& .address": {
+                letterSpacing: ".3px",
                 fontSize: "14px"
             }
         }
@@ -82,7 +75,6 @@ function CenterPointDesc({ data }) {
     return (
         <div className={classes.centerPointDesc}>
             <img src={MapIconUrl.center} width="32px" />
-            {/* <div className="title">Center Point</div> */}
             <div className="desc">{desc}</div>
             <div className="address">{address}</div>
         </div>

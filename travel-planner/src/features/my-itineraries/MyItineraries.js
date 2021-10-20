@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => {
 
     return ({
         animationPart: {
-            ...animationPartStyles
+            ...animationPartStyles,
+            top: "150px"
         }
     });
 });

@@ -14,6 +14,7 @@ import {
     getRadius
 } from "./dataHandler.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
+import DeleteSection from "./DeleteSection.js";
 
 // React
 import { useState, useLayoutEffect } from "react";
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     section: {
         display: "grid",
-        gridTemplateColumns: "1fr 1fr",
+        gridTemplateColumns: "1fr 1.5fr",
         width: "152px",
         gap: theme.spacing(.8)
     },
@@ -91,12 +92,13 @@ export default function ({ name: itineraryName }) {
     const classes = useStyles();
 
     // major data
+    const itinerary = getItinerary(itineraryName);
     let {
         itineraryInfo,
         criteria,
         poiData,
         staticMapUrl
-    } = getItinerary(itineraryName);
+    } = itinerary;
 
     // data
     const title = itineraryName;
@@ -124,10 +126,11 @@ export default function ({ name: itineraryName }) {
                 <div>{radius}</div>
             </div>
             <div className={classes.mapSection}>
-                <img className={classes.map} src={mapUrl} alt="static map" />
+                {/* <img className={classes.map} src={mapUrl} alt="static map" /> */}
                 <CenterPointDesc data={centerPoint} />
             </div>
             <POIDisplayPart poiDatas={poiData} />
+            <DeleteSection itinerary={itinerary} />
         </div>
     );
 }

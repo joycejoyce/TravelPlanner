@@ -7,9 +7,11 @@ import useStep from "../../../common/util/useStep.js";
 import ItineraryCard from "../../my-itineraries/ItineraryCard.js";
 import { getItinerary } from "../../my-itineraries/dataHandler";
 import ButtonSection from "../buttonSection/ButtonSection.js";
+import { URL } from "../../../app/InnerApp.js";
 
 // React
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,17 +35,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function GetItinerary({ setAnimationKey }) {
+    // styles
     const classes = useStyles();
 
-    useStep(StepNames.getItinerary);
-
+    // data
     const { itineraryName } = useParams();
     const itinerary = getItinerary(itineraryName);
 
+    // routing data
+    const history = useHistory();
+
     // ctrl
     const handleClickBtn = () => {
-
+        setAnimationKey();
+        history.push(`/${URL.myItineraries}`);
     };
+
+    // use hooks
+    useStep(StepNames.getItinerary);
 
     return (
         <div className={["get-itinerary", classes.root].join(" ")}>
@@ -52,7 +61,6 @@ export default function GetItinerary({ setAnimationKey }) {
                 <ItineraryCard itinerary={itinerary} />
                 <div className={classes.btn}>
                     <ButtonSection
-                        
                         leftCtrl={{
                             handleClick: handleClickBtn,
                             text: "My Itineraries",

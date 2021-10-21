@@ -87,7 +87,7 @@ function AnimationPart() {
                         />
                         <Route
                             path={`/${URL.plan}`}
-                            render={() => <Plan />}
+                            render={() => <Plan setAnimationKey={setKey} />}
                         />
                         <Route
                             path={`/${URL.myItineraries}`}

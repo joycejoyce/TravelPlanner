@@ -62,7 +62,7 @@ export const URL = {
     getItinerary: "get-itinerary"
 };
 
-export default function Plan() {
+export default function Plan({ setAnimationKey: setParentAnimationKey }) {
     const classes = useStyles();
     const [key, setKey] = useState(0);
     const location = useLocation();
@@ -114,7 +114,7 @@ export default function Plan() {
                         />
                         <Route
                             path={`${path}/${URL.getItinerary}/:itineraryName`}
-                            render={() => (<GetItinerary setAnimationKey={setKey} />)}
+                            render={() => (<GetItinerary setAnimationKey={setParentAnimationKey} />)}
                         />
                         <Route
                             path={`${path}/${URL.getItinerary}`}

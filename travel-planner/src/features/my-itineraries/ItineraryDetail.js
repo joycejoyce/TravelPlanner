@@ -11,13 +11,17 @@ import {
     getItinerary,
     getRating,
     getDate,
-    getRadius
+    getRadius,
+    getAllItineraries,
+    changeItineraries
 } from "./dataHandler.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 import DeleteSection from "./DeleteSection.js";
+import { URL } from "../../app/InnerApp.js";
 
 // React
 import { useState, useLayoutEffect } from "react";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     itiDetail: {
@@ -107,6 +111,17 @@ export default function ({ name: itineraryName }) {
     const radius = getRadius(criteria) + " km";
     const centerPoint = criteria[CriteriaName.centerPoint];
     const mapUrl = useMapUrl(staticMapUrl);
+    
+    // routing data
+    const history = useHistory();
+
+    // ctrl
+    const deleteItinerary = () => {
+        const allItineraries = getAllItineraries();
+        delete allItineraries[itineraryName];
+        changeItineraries(allItineraries);
+        history.push(`/${URL.myItineraries}`);
+    };
 
     return (
         <div className={classes.itiDetail}>
@@ -130,7 +145,10 @@ export default function ({ name: itineraryName }) {
                 <CenterPointDesc data={centerPoint} />
             </div>
             <POIDisplayPart poiDatas={poiData} />
-            <DeleteSection itinerary={itinerary} />
+            <DeleteSection
+                deleteItinerary={deleteItinerary}
+                itinerary={itinerary}
+            />
         </div>
     );
 }

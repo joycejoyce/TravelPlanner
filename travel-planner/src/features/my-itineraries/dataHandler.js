@@ -15,6 +15,11 @@ export const SavedItiFiledName = {
     staticMapUrl: "staticMapUrl"
 };
 
+export function changeItineraries(newItineraryObj) {
+    const jsonStr = JSON.stringify(newItineraryObj);
+    localStorage.setItem(FieldName, jsonStr);
+}
+
 export function save(itineraryInfo, criteria, poiData) {
     const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
 
@@ -42,8 +47,9 @@ export function save(itineraryInfo, criteria, poiData) {
     const origItineraryObj = getAllItineraries();
     const newItineraryObj = getNewItineraryObj(itineraryObj, origItineraryObj);
 
-    const jsonStr = JSON.stringify(newItineraryObj);
-    localStorage.setItem(FieldName, jsonStr);
+    changeItineraries(newItineraryObj);
+    // const jsonStr = JSON.stringify(newItineraryObj);
+    // localStorage.setItem(FieldName, jsonStr);
 }
 
 export function getAllItineraries() {

@@ -22,6 +22,7 @@ import { ItineraryInfoFieldName, selectItineraryInfo } from "./itinerary-info/it
 import { changeErrMsg } from "./validate-itinerary/validateItinerarySlice.js";
 import validate from "./validate-itinerary/itineraryValidator.js";
 import CenterPointDesc from "../../../common/components/CenterPointDesc.js";
+import Loading from "../../../common/components/Loading.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
@@ -90,9 +91,10 @@ export default function Confirm({ setAnimationKey }) {
     // React
     const [isOpen_replaceItiModal, setIsOpen_replaceItiModal] = useState(false);
     const [itiToReplace, setItiToReplace] = useState("");
+    const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
-    // const criteria = useSelector(selectAll);
-    const criteria = mock_criteria;
+    const criteria = useSelector(selectAll);
+    // const criteria = mock_criteria;
     const poiData = useSelector(selectPOIData);
     const centerPoint = criteria[CriteriaName.centerPoint];
     const itineraryInfo = useSelector(selectItineraryInfo);
@@ -137,7 +139,7 @@ export default function Confirm({ setAnimationKey }) {
         const doChangeErrMsg = (errMsgObj) => {
             dispatch(changeErrMsg(errMsgObj));
         };
-        const hasError = validate({poiData, itineraryInfo}, doChangeErrMsg);
+        const hasError = validate({ poiData, itineraryInfo }, doChangeErrMsg);
         if (!hasError) {
             save(itineraryInfo, criteria, poiData);
             goToNextPage();
@@ -164,55 +166,114 @@ export default function Confirm({ setAnimationKey }) {
 
     useEffect(() => {
         async function doGetPOIData() {
-            // const poiData = await getPOIData(mapProps, doChangePOI, criteria);
-            
+            document.getElementById("app").scrollTo(0,0);
+
+            const poiData = await getPOIData(mapProps, doChangePOI, criteria);
+
             // test start
-            // await initMap(mapProps);
-            const poiData = getPOIData_mock(doChangePOI);
+            // // await initMap(mapProps);
+            // const poiData = getPOIData_mock(doChangePOI);
             // test end
 
-            // addMarkers(poiData, centerPoint.position.latLng);
+            addMarkers(poiData, centerPoint.position.latLng);
+            await new Promise(r => setTimeout(r, 3000));
+
+            setLoaded(true);
         }
+        
         doGetPOIData();
     }, []);
 
     useStep(StepNames.confirm);
 
     return (
-        <div className={rootClassName}>
+        <div id="confirm" className={rootClassName}>
             <div className={["contents", classes.contents].join(" ")}>
                 {/* <h1>Confirm</h1> */}
                 <div className={"mapSection " + classes.mapSection}>
-                    {/* <div id={mapProps.id} className={classes.map}></div> */}
-                    <CenterPointDesc data={centerPoint} />
+                    <div id={mapProps.id} className={classes.map}></div>
+                    {
+                        loaded ?
+                        <CenterPointDesc data={centerPoint} /> :
+                        <></>
+                    }
                 </div>
-                <GenPOIInfo handleClickModify={handleClickModify} />
-                <CancelModal doCancel={cancelPlan} />
-                <ItineraryInfo />
-                <ButtonSection
-                    rightCtrl={{
-                        handleClick: handleClickSave,
-                        text: "Save",
-                        icon: null
-                    }}
-                    leftCtrl={{
-                        handleClick: handleClickCancel,
-                        text: "Cancel",
-                        icon: null
-                    }}
-                />
-                <ReplaceItineraryModal
-                    ctrl={{
-                        isOpen: isOpen_replaceItiModal,
-                        closeModal: closeModal_replaceIti
-                    }}
-                    replaceItinerary={replaceItinerary}
-                    itiToReplaceCtrl={{
-                        value: itiToReplace,
-                        onChange: handleChangeItiToReplace
-                    }}
-                />
+                {
+                    loaded ?
+                    <>
+                        <GenPOIInfo handleClickModify={handleClickModify} />
+                        <CancelModal doCancel={cancelPlan} />
+                        <ItineraryInfo />
+                        <ButtonSection
+                            rightCtrl={{
+                                handleClick: handleClickSave,
+                                text: "Save",
+                                icon: null
+                            }}
+                            leftCtrl={{
+                                handleClick: handleClickCancel,
+                                text: "Cancel",
+                                icon: null
+                            }}
+                        />
+                        <ReplaceItineraryModal
+                            ctrl={{
+                                isOpen: isOpen_replaceItiModal,
+                                closeModal: closeModal_replaceIti
+                            }}
+                            replaceItinerary={replaceItinerary}
+                            itiToReplaceCtrl={{
+                                value: itiToReplace,
+                                onChange: handleChangeItiToReplace
+                            }}
+                        />
+                    </> : <Loading />
+                }
             </div>
         </div>
     );
+
+    // if (loaded) {
+    //     return (
+    //         <div className={rootClassName}>
+    //             <div className={["contents", classes.contents].join(" ")}>
+    //                 {/* <h1>Confirm</h1> */}
+    //                 <div className={"mapSection " + classes.mapSection}>
+    //                     <div id={mapProps.id} className={classes.map}></div>
+    //                     <CenterPointDesc data={centerPoint} />
+    //                 </div>
+    //                 <GenPOIInfo handleClickModify={handleClickModify} />
+    //                 <CancelModal doCancel={cancelPlan} />
+    //                 <ItineraryInfo />
+    //                 <ButtonSection
+    //                     rightCtrl={{
+    //                         handleClick: handleClickSave,
+    //                         text: "Save",
+    //                         icon: null
+    //                     }}
+    //                     leftCtrl={{
+    //                         handleClick: handleClickCancel,
+    //                         text: "Cancel",
+    //                         icon: null
+    //                     }}
+    //                 />
+    //                 <ReplaceItineraryModal
+    //                     ctrl={{
+    //                         isOpen: isOpen_replaceItiModal,
+    //                         closeModal: closeModal_replaceIti
+    //                     }}
+    //                     replaceItinerary={replaceItinerary}
+    //                     itiToReplaceCtrl={{
+    //                         value: itiToReplace,
+    //                         onChange: handleChangeItiToReplace
+    //                     }}
+    //                 />
+    //             </div>
+    //         </div>
+    //     )
+    // }
+
+    // return (
+    //     <Loading />
+    // );
 }

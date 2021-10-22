@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: "absolute",
     height: "100vh",
-    width: "100vw"
+    width: "100vw",
+    overflowY: "overlay"
   }
 }));
 
@@ -95,7 +96,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Paper className={"app " + classes.root}>
+      <Paper id="app" className={"app " + classes.root}>
         {/* <Loading /> */}
         <InnerApp />
       </Paper>

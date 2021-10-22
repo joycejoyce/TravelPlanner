@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
             // background: "lightGreen",
             width: "100vw",
             height: "100vh",
-            overflowY: "overlay",
             position: "absolute",
             top: "0",
             left: "0"

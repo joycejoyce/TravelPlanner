@@ -1,19 +1,12 @@
 import styled, { keyframes } from "styled-components";
-import { pageBackground } from "../../colors.json";
+import { lightColors } from "../styles/colors.json";
 
 const LoaderWrapper = styled.div`
-    height: 100vh;
-    width: 100vw;
-    background: pink;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10000;
 `;
 
 const Container = styled.div`
     position: absolute;
-    top: 50%;
+    top: 20vh;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -38,10 +31,9 @@ const animation = keyframes`
 
 const Part1 = styled.img`
     position: absolute;
-    top: -50px;
-    width: 80%;
-    height: 80%;
-    animation: ${animation} 1s ease-out;
+    top: -38px;
+    left: 13px;
+    animation: ${animation} 1.5s infinite;
 `;
 
 const Part2 = styled.img`
@@ -49,12 +41,12 @@ const Part2 = styled.img`
 
 export default function Loading() {
     Part1.defaultProps = {
-        src: "img/logo_part1.svg",
+        src: "/img/logo_part1.svg",
         alt: "logo_part1"
     };
 
     Part2.defaultProps = {
-        src: "img/logo_part2.svg",
+        src: "/img/logo_part2.svg",
         alt: "logo_part2"
     };
 

@@ -141,7 +141,7 @@ export default function ({ name: itineraryName }) {
                 <div>{radius}</div>
             </div>
             <div className={classes.mapSection}>
-                {/* <img className={classes.map} src={mapUrl} alt="static map" /> */}
+                <img className={classes.map} src={mapUrl} alt="static map" />
                 <CenterPointDesc data={centerPoint} />
             </div>
             <POIDisplayPart poiDatas={poiData} />

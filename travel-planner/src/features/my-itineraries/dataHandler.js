@@ -146,14 +146,17 @@ function getStaticMapUrl(center, poiData) {
     };
 
     const markersStrs = Object.keys(poiData).reduce((accu, poiName) => {
-        const { lat, lng } = poiData[poiName].location;
+        const data = poiData[poiName];
+        if (!data) {
+            return accu;
+        }
+        const { lat, lng } = data.location;
         const { color, label } = iconStyles[poiName];
         // const str = `&markers=scale:4|color:${color}|label:${label}|${lat},${lng}`
         const str = getMarkersStrTemplate(color, label, lat, lng);
         accu += str;
         return accu;
     }, getInitMarkersStr());
-
 
     const url = encodeURI("http://maps.googleapis.com/maps/api/staticmap?" +
         "&size=600x400" + 

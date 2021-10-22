@@ -88,7 +88,7 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
     };
 
     return (
-        <div className={"plan " + classes.plan}>
+        <div id="plan" className={"plan " + classes.plan}>
             <Navbar />
             {/* <h1>Plan</h1> */}
             <NavBar />

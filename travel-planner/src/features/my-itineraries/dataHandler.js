@@ -20,20 +20,20 @@ export function changeItineraries(newItineraryObj) {
     localStorage.setItem(FieldName, jsonStr);
 }
 
+export function getItineraryObj(itineraryInfo, criteria, poiData) {
+    const { latLng } = criteria[CriteriaName.centerPoint].position;
+    const staticMapUrl = getStaticMapUrl(latLng, poiData);
+    const obj = {
+        [SavedItiFiledName.itineraryInfo]: itineraryInfo,
+        [SavedItiFiledName.criteria]: criteria,
+        [SavedItiFiledName.poiData]: poiData,
+        [SavedItiFiledName.staticMapUrl]: staticMapUrl
+    };
+    return obj;
+};
+
 export function save(itineraryInfo, criteria, poiData) {
     const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
-
-    const getItineraryObj = () => {
-        const { latLng } = criteria[CriteriaName.centerPoint].position;
-        const staticMapUrl = getStaticMapUrl(latLng, poiData);
-        const obj = {
-            [SavedItiFiledName.itineraryInfo]: itineraryInfo,
-            [SavedItiFiledName.criteria]: criteria,
-            [SavedItiFiledName.poiData]: poiData,
-            [SavedItiFiledName.staticMapUrl]: staticMapUrl
-        };
-        return obj;
-    };
     const getNewItineraryObj = (addItem, origItems) => {
         const addItemKey = itineraryName;
         let newObj = { [addItemKey]: addItem };
@@ -43,7 +43,7 @@ export function save(itineraryInfo, criteria, poiData) {
         return newObj;
     };
 
-    const itineraryObj = getItineraryObj();
+    const itineraryObj = getItineraryObj(itineraryInfo, criteria, poiData);
     const origItineraryObj = getAllItineraries();
     const newItineraryObj = getNewItineraryObj(itineraryObj, origItineraryObj);
 
@@ -52,13 +52,33 @@ export function save(itineraryInfo, criteria, poiData) {
     // localStorage.setItem(FieldName, jsonStr);
 }
 
+export const MaxItineraryNum = 3;
 export function getAllItineraries() {
     const jsonStr = localStorage.getItem(FieldName);
     if (!jsonStr) {
-        return null;
+        return {};
     }
-    const obj = JSON.parse(jsonStr);
+    let obj = JSON.parse(jsonStr);
+    const itiNum = Object.keys(obj).length;
+    if (itiNum > MaxItineraryNum) {
+        obj = Object.entries(obj).reduce((accu, [key, value], index) => {
+            if (index < MaxItineraryNum) {
+                accu[key] = value;
+            }
+            return accu;
+        }, {});
+    }
     return obj;
+}
+
+export function checkItiNumOverLimit() {
+    const allItiNum = Object.keys(getAllItineraries()).length;
+    return allItiNum >= MaxItineraryNum;
+}
+
+export function getFirstItiName() {
+    const firstItiName = Object.keys(getAllItineraries())[0];
+    return firstItiName;
 }
 
 export function getItinerary(name) {

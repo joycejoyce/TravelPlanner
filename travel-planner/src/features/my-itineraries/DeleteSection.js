@@ -1,34 +1,18 @@
 // MUI
 import { Button } from "@material-ui/core";
-import { ThemeProvider, createTheme, makeStyles } from "@material-ui/core/styles";
+import { ThemeProvider, makeStyles } from "@material-ui/core/styles";
 
 // my components
-import { err as errColor, lightColors } from "../../common/styles/colors.json";
+import { lightColors } from "../../common/styles/colors.json";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 import MyModal from "../../common/components/MyModal.js";
+import { deleteBtnTheme } from "../../common/styles/styles";
 
 // React
 import { useState } from "react";
 import { CriteriaName } from "../plan/criteria/criteriaSlice";
 import { getDate, getRadius } from "./dataHandler";
 import { ItineraryInfoFieldName } from "../plan/confirm/itinerary-info/itineraryInfoSlice";
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: errColor
-        },
-        text: {
-            primary: lightColors.text
-        },
-    },
-    typography: {
-        button: {
-            textTransform: "none",
-            fontFamily: secondaryFont,
-        }
-    }
-});
 
 const useStyles = makeStyles((theme) => ({
     btn: {
@@ -159,7 +143,7 @@ export default function DeleteSection({ deleteItinerary, itinerary }) {
     };
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={deleteBtnTheme}>
             <Button
                 className={classes.btn}
                 variant="contained"
@@ -176,8 +160,6 @@ export default function DeleteSection({ deleteItinerary, itinerary }) {
                 otherComponents={null}
                 modalBodyStyles={getModalBodyStyles()}
                 modalContentStyles={null}
-                // modalBodyStyles={getModalBodyStyles()}
-                // modalContentStyles={getModalContentStyles()}
             />
         </ThemeProvider>
     );

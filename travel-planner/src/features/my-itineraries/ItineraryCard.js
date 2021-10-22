@@ -90,7 +90,7 @@ function CenterPointDesc({ addr }) {
     );
 }
 
-export default function ItineraryCard({ itinerary }) {
+export default function ItineraryCard({ itinerary, disableClick }) {
     // styles
     const classes = useStyles();
 
@@ -130,6 +130,9 @@ export default function ItineraryCard({ itinerary }) {
 
     // ctrl
     const handleClick = () => {
+        if (disableClick) {
+            return;
+        }
         const path = `/${URL.myItineraries}/${itineraryName}`;
         history.push(path);
     };

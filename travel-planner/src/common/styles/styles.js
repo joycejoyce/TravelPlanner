@@ -1,3 +1,10 @@
+// MUI
+import { createTheme } from "@material-ui/core/styles";
+
+// my components
+import { err as errColor, lightColors } from "../styles/colors.json";
+import { secondary as secondaryFont } from "../styles/fonts.json";
+
 export function getStyles_mapContainer(theme) {
     return ({
         "& > *:not(.MuiButtonBase-root)": {
@@ -39,3 +46,20 @@ export function getStyles_routingPage() {
         }
     })
 }
+
+export const deleteBtnTheme = createTheme({
+    palette: {
+        primary: {
+            main: errColor
+        },
+        text: {
+            primary: lightColors.text
+        },
+    },
+    typography: {
+        button: {
+            textTransform: "none",
+            fontFamily: secondaryFont,
+        }
+    }
+});

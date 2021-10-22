@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme) => {
 
     return ({
         allItiCards: {
-
         },
         contents: {
             textAlign: "center",
@@ -37,7 +36,8 @@ const useStyles = makeStyles((theme) => {
             },
             [theme.breakpoints.up('lg')]: {
                 gridTemplateColumns: "1fr 1fr 1fr"
-            }
+            },
+            marginBottom: "10vh"
         }
     });
 });

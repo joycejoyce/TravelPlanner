@@ -14,7 +14,7 @@ import ItineraryInfo from "./itinerary-info/ItineraryInfo.js";
 import CancelModal from "./cancel-modal/CancelModal.js";
 import { StepNames } from "../PlanStepper.js";
 import useStep from "../../../common/util/useStep.js";
-import { save } from "../../my-itineraries/dataHandler.js";
+import { getAllItineraries, getItinerary, save, checkItiNumOverLimit, getFirstItiName, changeItineraries } from "../../my-itineraries/dataHandler.js";
 import ButtonSection from "../buttonSection/ButtonSection.js";
 import { mock_criteria } from "./mockData.js";
 import { URL } from "../Plan.js";
@@ -25,8 +25,9 @@ import CenterPointDesc from "../../../common/components/CenterPointDesc.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import ReplaceItineraryModal from "../../my-itineraries/ReplaceItineraryModal.js";
 
 const useStyles = makeStyles((theme) => {
     const styles_mapContainer = getStyles_mapContainer(theme);
@@ -87,6 +88,8 @@ export default function Confirm({ setAnimationKey }) {
     const rootClassName = ["confirm", classes.genPOIs].join(" ");
 
     // React
+    const [isOpen_replaceItiModal, setIsOpen_replaceItiModal] = useState(false);
+    const [itiToReplace, setItiToReplace] = useState("");
     const dispatch = useDispatch();
     // const criteria = useSelector(selectAll);
     const criteria = mock_criteria;
@@ -104,23 +107,43 @@ export default function Confirm({ setAnimationKey }) {
     };
 
     // ctrl
+    const closeModal_replaceIti = () => {
+        setIsOpen_replaceItiModal(false);
+    };
     const doChangePOI = (poiData) => {
         dispatch(changePOI(poiData));
+    };
+    const handleChangeItiToReplace = (e) => {
+        const { value } = e.target;
+        setItiToReplace(value);
     };
     const handleClickModify = () => {
         setAnimationKey();
         history.push(`/plan/${URL.criteria}`);
     };
+    const goToNextPage = () => {
+        setAnimationKey();
+        const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
+        history.push(`/plan/${URL.getItinerary}/${itineraryName}`);
+    }
     const handleClickSave = () => {
+        const isItiNumOverLimit = checkItiNumOverLimit();
+        if (isItiNumOverLimit) {
+            setItiToReplace(getFirstItiName());
+            setIsOpen_replaceItiModal(true);
+            return;
+        }
+
         const doChangeErrMsg = (errMsgObj) => {
             dispatch(changeErrMsg(errMsgObj));
         };
         const hasError = validate({poiData, itineraryInfo}, doChangeErrMsg);
         if (!hasError) {
             save(itineraryInfo, criteria, poiData);
-            setAnimationKey();
-            const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
-            history.push(`/plan/${URL.getItinerary}/${itineraryName}`);
+            goToNextPage();
+            // setAnimationKey();
+            // const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
+            // history.push(`/plan/${URL.getItinerary}/${itineraryName}`);
         }
     };
     const handleClickCancel = () => {
@@ -130,6 +153,13 @@ export default function Confirm({ setAnimationKey }) {
         setAnimationKey();
         dispatch(resetCriteria());
         history.push(`/plan/${URL.criteria}`);
+    };
+    const replaceItinerary = () => {
+        const allItineraries = getAllItineraries();
+        delete allItineraries[itiToReplace];
+        changeItineraries(allItineraries);
+        save(itineraryInfo, criteria, poiData);
+        goToNextPage();
     };
 
     useEffect(() => {
@@ -169,6 +199,17 @@ export default function Confirm({ setAnimationKey }) {
                         handleClick: handleClickCancel,
                         text: "Cancel",
                         icon: null
+                    }}
+                />
+                <ReplaceItineraryModal
+                    ctrl={{
+                        isOpen: isOpen_replaceItiModal,
+                        closeModal: closeModal_replaceIti
+                    }}
+                    replaceItinerary={replaceItinerary}
+                    itiToReplaceCtrl={{
+                        value: itiToReplace,
+                        onChange: handleChangeItiToReplace
                     }}
                 />
             </div>

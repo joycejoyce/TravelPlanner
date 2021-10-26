@@ -3,6 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { IconButton, Popper, Fade, Paper, Typography } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 
+// my components
+import { lightColors } from "../../common/styles/colors.json";
+
 // React
 import { useState } from "react";
 
@@ -12,7 +15,7 @@ const useStyles = makeStyles((theme) => {
 
         },
         btn: {
-            color: "#0027B2",
+            color: lightColors.navbarBlue,
             cursor: "pointer"
         },
         popper: {

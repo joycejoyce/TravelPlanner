@@ -2,6 +2,9 @@
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { Switch } from "@material-ui/core";
 
+// my components
+import { lightColors } from "../../common/styles/colors.json";
+
 // React
 import { useState } from "react";
 
@@ -19,10 +22,10 @@ const MySwitch = withStyles({
     switchBase: {
         color: "#B3C3FF",
         "&$checked": {
-            color: "#0027B2",
+            color: lightColors.navbarBlue,
         },
         "&$checked + $track": {
-            backgroundColor: "#0027B2",
+            backgroundColor: lightColors.navbarBlue,
         },
     },
     checked: {},

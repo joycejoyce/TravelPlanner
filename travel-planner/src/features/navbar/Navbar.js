@@ -4,7 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 // my components
 import DarkModeSwitch from "./DarkModeSwitch";
 import Logo from "../../common/components/Logo.js";
-import ViewItineraryPopper from "./ViewItineraryPopper";
+import ViewItineraryPopper from "./ViewItineraryPopper.js";
+import Quota from "./Quota.js";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -33,6 +34,7 @@ export default function Navbar() {
 
     return (
         <div className={["navbar", classes.navbar].join(" ")}>
+            <Quota />
             <Logo
                 className="logo"
                 width="60px"

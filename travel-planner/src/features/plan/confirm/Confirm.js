@@ -52,17 +52,21 @@ const useStyles = makeStyles((theme) => {
 });
 
 export default function Confirm({ setAnimationKey }) {
+    const isTesting = false;
+
     // styles
     const classes = useStyles();
     const rootClassName = ["confirm", classes.genPOIs].join(" ");
 
     // React
+    let criteria = useSelector(selectAll);
+    if (isTesting) {
+        criteria = mock_criteria;
+    }
     const [isOpen_replaceItiModal, setIsOpen_replaceItiModal] = useState(false);
     const [itiToReplace, setItiToReplace] = useState("");
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
-    // const criteria = useSelector(selectAll);
-    const criteria = mock_criteria;
     const poiData = useSelector(selectPOIData);
     const centerPoint = criteria[CriteriaName.centerPoint];
     const itineraryInfo = useSelector(selectItineraryInfo);
@@ -137,7 +141,6 @@ export default function Confirm({ setAnimationKey }) {
     };
 
     useEffect(() => {
-        const isTesting = true;
         async function doGetPOIData() {
             document.getElementById("app").scrollTo(0,0);
 

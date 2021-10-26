@@ -3,8 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 
 // my components
-import { lightColors, err as errColor, lightGrey } from "../../common/styles/colors.json";
+import { err as errColor, lightGrey } from "../../common/styles/colors.json";
 import { primary as primaryFont } from "../../common/styles/fonts.json";
+import QuotaInfoModal from "./QuotaInfoModal.js";
+
+// React
+import { useState } from "react";
 
 const initialColor = lightGrey;
 const DailyQuotaLimit = 90;
@@ -17,6 +21,9 @@ const QuotaFieldName = {
 const useStyles = makeStyles((theme) => {
     return ({
         quota: {
+            
+        },
+        btn: {
             position: "absolute",
             left: "300px",
             top: "-20px",
@@ -24,16 +31,16 @@ const useStyles = makeStyles((theme) => {
             border: ".5px solid black",
             borderColor: lightGrey,
             borderRadius: "14px",
-            fontFamily: primaryFont,
-            letterSpacing: ".3px",
-            height: "28px"
-        },
-        contents: {
-            display: "flex",
-            alignItems: "center",
-            gap: theme.spacing(.5),
-            color: initialColor,
-            fontSize: "12px"
+            height: "28px",
+            "& .MuiButton-label": {
+                display: "flex",
+                alignItems: "center",
+                gap: theme.spacing(.5),
+                color: initialColor,
+                fontSize: "12px",
+                fontFamily: primaryFont,
+                letterSpacing: ".3px"
+            }
         },
         curQuota: {
             fontSize: "14px",
@@ -45,6 +52,18 @@ const useStyles = makeStyles((theme) => {
 export default function Quota() {
     const classes = useStyles();
 
+    // React
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // ctrl
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    // data
     const quotaStr = localStorage.getItem(FieldName);
     let quota = JSON.parse(quotaStr);
     if (!quota ||
@@ -65,10 +84,13 @@ export default function Quota() {
     };
 
     return (
-        <Button
+        <div
             className={classes.quota}
         >
-            <div className={classes.contents}>
+            <Button
+                className={classes.btn}
+                onClick={openModal}
+            >
                 <div
                     className={classes.curQuota}
                     style={curQuotaStyle}
@@ -77,7 +99,12 @@ export default function Quota() {
                 </div>
                 <div>/</div>
                 <div>{DailyQuotaLimit}</div>
-            </div>
-        </Button>
+            </Button>
+            <QuotaInfoModal
+                isOpen={isModalOpen}
+                closeModal={closeModal}
+                quotaLimit={DailyQuotaLimit}
+            />
+        </div>
     )
 }

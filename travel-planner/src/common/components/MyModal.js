@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => {
         },
         btnSection: {
             display: "flex",
-            justifyContent: "space-between",
+            // justifyContent: "space-between",
             width: "297px",
             height: "40px",
             marginTop: "10px",
@@ -56,6 +56,9 @@ export default function MyModal({
 
     // data
     const { leftBtn, rightBtn } = btnSettings;
+    const btnStyle = {
+        justifyContent: (leftBtn && rightBtn) ? "space-between" : "space-around"
+    };
 
     // ctrl
     const handleClick = (cb) => {
@@ -80,22 +83,25 @@ export default function MyModal({
                     style={modalContentStyles}
                 >
                     {content}
-                    <div className={"btnSection " + classes.btnSection}>
-                        <Button
+                    <div
+                        className={"btnSection " + classes.btnSection}
+                        style={btnStyle}
+                    >
+                        {leftBtn && (<Button
                             color="primary"
                             variant="outlined"
                             onClick={() => handleClick(leftBtn.callback)}
                         >
                             {leftBtn.text}
-                        </Button>
-                        <Button
+                        </Button>)}
+                        {rightBtn && (<Button
                             color="primary"
                             variant="contained"
                             onClick={() => handleClick(rightBtn.callback)}
                             disabled={rightBtn.disabled}
                         >
                             {rightBtn.text}
-                        </Button>
+                        </Button>)}
                     </div>
                     {otherComponents}
                 </div>

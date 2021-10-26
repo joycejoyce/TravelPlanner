@@ -25,11 +25,14 @@ const useStyles = makeStyles((theme) => {
                 letterSpacing: ".3px",
                 fontSize: "14px"
             }
+        },
+        img: {
+            cursor: "pointer"
         }
     });
 });
 
-export default function CenterPointDesc({ data }) {
+export default function CenterPointDesc({ data, handleClick }) {
     // styles
     const classes = useStyles();
 
@@ -37,8 +40,15 @@ export default function CenterPointDesc({ data }) {
     const { address } = position
 
     return (
-        <div className={classes.centerPointDesc}>
-            <img src={MapIconUrl.center} width="32px" />
+        <div
+            className={classes.centerPointDesc}            
+        >
+            <img
+                className={classes.img}
+                src={MapIconUrl.center}
+                width="32px"
+                onClick={handleClick}
+            />
             <div className="desc">{desc}</div>
             <div className="address">{address}</div>
         </div>

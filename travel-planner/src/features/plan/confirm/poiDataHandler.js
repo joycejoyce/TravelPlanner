@@ -284,3 +284,10 @@ export function addMarkers(poiDatas, centerPosition) {
 
     map.setCenter(centerPosition);
 }
+
+export function resetMap(latLng) {
+    map.setOptions({
+        center: latLng,
+        zoom: 12
+    });
+}

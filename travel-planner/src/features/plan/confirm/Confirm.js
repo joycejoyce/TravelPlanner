@@ -2,7 +2,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import getPOIData, { getPOIData_mock, addMarkers, initMap } from "./poiDataHandler.js";
+import getPOIData, { getPOIData_mock, addMarkers, initMap, resetMap } from "./poiDataHandler.js";
 import { CriteriaName, selectAll, resetCriteria, changePOIs } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
@@ -61,8 +61,8 @@ export default function Confirm({ setAnimationKey }) {
     const [itiToReplace, setItiToReplace] = useState("");
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
-    const criteria = useSelector(selectAll);
-    // const criteria = mock_criteria;
+    // const criteria = useSelector(selectAll);
+    const criteria = mock_criteria;
     const poiData = useSelector(selectPOIData);
     const centerPoint = criteria[CriteriaName.centerPoint];
     const itineraryInfo = useSelector(selectItineraryInfo);
@@ -131,6 +131,10 @@ export default function Confirm({ setAnimationKey }) {
         save(itineraryInfo, criteria, poiData);
         goToNextPage();
     };
+    const handleClickCenter = () => {
+        const { latLng } = centerPoint.position;
+        resetMap(latLng);
+    };
 
     useEffect(() => {
         const isTesting = true;
@@ -139,7 +143,7 @@ export default function Confirm({ setAnimationKey }) {
 
             let poiData = null;
             if (isTesting) {
-                // await initMap(mapProps);
+                await initMap(mapProps);
                 const doChangeCriteria_POIs = () => {
                     const poiCriteria = criteria[CriteriaName.pois];
                     Object.entries(poiCriteria).forEach(([poiName, hasPOI]) => {
@@ -171,7 +175,10 @@ export default function Confirm({ setAnimationKey }) {
                     <div id={mapProps.id} className={classes.map}></div>
                     {
                         loaded ?
-                        <CenterPointDesc data={centerPoint} /> :
+                        <CenterPointDesc
+                            data={centerPoint}
+                            handleClick={handleClickCenter}
+                        /> :
                         <></>
                     }
                 </div>

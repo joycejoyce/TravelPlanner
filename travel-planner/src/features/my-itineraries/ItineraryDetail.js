@@ -110,6 +110,7 @@ export default function ({ name: itineraryName }) {
     const date = getDate(criteria);
     const radius = getRadius(criteria) + " km";
     const centerPoint = criteria[CriteriaName.centerPoint];
+    const poiCriteria = criteria[CriteriaName.pois];
     const mapUrl = useMapUrl(staticMapUrl);
     
     // routing data
@@ -144,7 +145,10 @@ export default function ({ name: itineraryName }) {
                 <img className={classes.map} src={mapUrl} alt="static map" />
                 <CenterPointDesc data={centerPoint} />
             </div>
-            <POIDisplayPart poiDatas={poiData} />
+            <POIDisplayPart
+                poiDatas={poiData}
+                poiCriteria={poiCriteria}
+            />
             <DeleteSection
                 deleteItinerary={deleteItinerary}
                 itinerary={itinerary}

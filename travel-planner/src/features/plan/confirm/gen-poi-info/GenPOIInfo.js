@@ -8,11 +8,12 @@ import { selectPOIData } from "../poiDataSlice.js";
 import { primary as primaryFont } from "../../../../common/styles/fonts.json";
 import ErrMsg from "../../../../common/components/ErrMsg.js";
 import { ItineraryFieldName, selectErrMsg } from "../validate-itinerary/validateItinerarySlice.js";
+import { selectPOIs } from "../../criteria/criteriaSlice.js";
+import POIDisplayPart from "./POIDisplayPart.js";
 
 // React
 import React from "react";
 import { useSelector } from "react-redux";
-import POIDisplayPart from "./POIDisplayPart.js";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -35,6 +36,7 @@ function GenPOIInfo({ handleClickModify }) {
     
     // data
     const poiDatas = useSelector(selectPOIData);
+    const poiCriteria = useSelector(selectPOIs);
     const errMsg = useSelector(selectErrMsg);
 
     return (
@@ -42,6 +44,7 @@ function GenPOIInfo({ handleClickModify }) {
             <ErrMsg errMsg={errMsg[ItineraryFieldName.poiNumber]} />
             <POIDisplayPart
                 poiDatas={poiDatas}
+                poiCriteria={poiCriteria}
             />
             <Button
                 className={classes.modifyBtn}

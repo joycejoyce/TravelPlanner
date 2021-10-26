@@ -5,7 +5,7 @@ import { ExpandMore as ExpandMoreIcon, Star as StarIcon } from "@material-ui/ico
 
 // my components
 import MapIcon from "../../../../common/components/MapIcon.js";
-import { lightGrey, lightColors } from "../../../../common/styles/colors.json";
+import { lightGrey, lightColors, err as Red } from "../../../../common/styles/colors.json";
 import { POIInfo } from "../../criteria/POIs.js";
 
 // React
@@ -50,6 +50,10 @@ const useStyles = makeStyles((theme) => {
         },
         star: {
             color: theme.palette.secondary.main
+        },
+        notFound: {
+            color: Red,
+            fontWeight: "bold"
         }
     });
 });
@@ -78,12 +82,12 @@ function Rating({ rating }) {
     )
 }
 
-function POISummary({ poiName, poiData, handleClick }) {
+function POISummary({ poiName, poiData, handleClick, isNotFound }) {
     // styles
     const classes = useStyles();
 
     // React
-    const { name: bizName } = poiData;
+    const bizName = poiData ? poiData.name : null;
 
     const getShownBizName = () => {
         const limit = 20;
@@ -92,21 +96,39 @@ function POISummary({ poiName, poiData, handleClick }) {
         return result;
     }
 
+    // ctrl
+    const doHandleClick = () => {
+        if (handleClick) {
+            handleClick(poiName);
+        }
+    };
+
     return (
         <AccordionSummary
             className={["poiSummary", classes.poiSummary].join(" ")}
-            expandIcon={<ExpandMoreIcon />}
-            onClick={() => handleClick(poiName)}
+            expandIcon={isNotFound ? null : <ExpandMoreIcon />}
+            onClick={doHandleClick}
         >
             <MapIcon name={poiName} />
             <POINameAndTime poiName={poiName} />
-            <Typography
-                variant="h6"
-                className={classes.bizName}
-            >
-                {getShownBizName()}
-            </Typography>
-            <Rating rating={poiData.rating} />
+            {
+                isNotFound ?
+                (
+                    <div className={classes.notFound}>Not Found</div>
+                ) :
+                (
+                    <>
+                        <Typography
+                            variant="h6"
+                            className={classes.bizName}
+                        >
+                            {getShownBizName()}
+                        </Typography>
+                        <Rating rating={poiData.rating} />
+                    </>
+                )
+            }
+            
         </AccordionSummary>
     );
 }

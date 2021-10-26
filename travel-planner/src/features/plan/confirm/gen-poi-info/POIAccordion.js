@@ -14,8 +14,22 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-export default function POIAccordion({ expanded, handleClick, poiName, poiData }) {
+export default function POIAccordion({ expanded, handleClick, poiName, poiData, isNotFound }) {
     const classes = useStyles();
+
+    if (isNotFound) {
+        return (
+            <Accordion
+                className={classes.accordion}
+                expanded={expanded}
+            >
+                <POISummary
+                    poiName={poiName}
+                    isNotFound={true}
+                />
+            </Accordion>
+        );
+    }
 
     return (
         <Accordion

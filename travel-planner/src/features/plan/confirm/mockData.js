@@ -15,8 +15,8 @@ export const mock_criteria = {
     [CriteriaName.pois]: Object.keys(POIName).reduce((accu, name) => {
         if (
             false ||
-            // name === POIName.breakfast ||
-            // name === POIName.lunch ||
+            name === POIName.breakfast ||
+            name === POIName.lunch ||
             // name === POIName.dinner ||
             // name === POIName.poi1 ||
             name === POIName.poi2 ||
@@ -117,6 +117,41 @@ export const mock_poiData = {
         "gmapUrl": "https://maps.google.com/?cid=8949821639858373061",
         "bizWebsite": "http://www.redhouse.org.tw/"
     },
+    "poi2": {
+        "id": "ChIJbSR3CAmpQjQRaGSNghiSyrw",
+        "location": {
+            "lat": 25.0427953,
+            "lng": 121.5063267
+        },
+        "name": "臺北天后宮",
+        "address": "10844台灣台北市萬華區成都路51號",
+        "rating": 4.6,
+        "totalRatingNum": 536,
+        // "photo": "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAap_uEDp7r66jFRZiKl0zQ3ZL_5GPeZkqJwRVDFiTYDmZMlbYbkhhXrp-gyJ6FBXwKbgX66ez2cjxgTutZN0uaivu48SLqMBWaM5NYU0qzFbRSu-92h9L86GtNojXq24kt2vl9FAjwGNMqBymjO4q5PHd5jPPw736zgm5C6UthYJ4cLM9yVy&3u250&4u141&5m1&2e1&callback=none&key=AIzaSyAvQs1MLlXdQ4l5KIA6FnGmfe9pLaalq_4&token=37523",
+        "photo": "https://drive.google.com/uc?export=view&id=1_QnQrCjYPosL2E9gUsORhxyLTz42mgN_",
+        "bizOpenPeriod": "06:00 ~ 22:00",
+        "gmapUrl": "https://maps.google.com/?cid=13603846258393179240",
+        "bizWebsite": "http://台北天后宮.tw/history_01.html"
+    },
+    "poi3": {
+        "id": "ChIJ85xGkFSpQjQRzTIFvt5DcmU",
+        "location": {
+            "lat": 25.0720021,
+            "lng": 121.5303702
+        },
+        "name": "林安泰古厝",
+        "address": "10491台灣台北市中山區濱江街5號",
+        "rating": 4.5,
+        "totalRatingNum": 4248,
+        // "photo": "https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAap_uECvQj5JFE-exUQ1Ox2KZIWg1cpGjuaFsPyiSw8kv7bdea-YQ3GG_0dsGAapiSLfBdV_FPmvOvA862sJC3GcSnTB9I0QxiPJ_WU98BG9jIPEuDDu75ykkSpK2M3sJVXt_FRyy4pil8xw8bqyfazZ6aOCkOwV9dekPwT6oR0c2yP2wRE&3u250&4u141&5m1&2e1&callback=none&key=AIzaSyAvQs1MLlXdQ4l5KIA6FnGmfe9pLaalq_4&token=268",
+        "photo": "https://drive.google.com/uc?export=view&id=1vzX8UcZ6V-D2ctXuk7ONt9cu92u9nSGV",
+        "bizOpenPeriod": "09:00 ~ 17:00",
+        "gmapUrl": "https://maps.google.com/?cid=7309979769125548749",
+        "bizWebsite": "http://linantai.taipei/"
+    }
+}
+
+export const mock_poiData_poi2And3Only = {
     "poi2": {
         "id": "ChIJbSR3CAmpQjQRaGSNghiSyrw",
         "location": {

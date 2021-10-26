@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // my components
 import getPOIData, { getPOIData_mock, addMarkers, initMap } from "./poiDataHandler.js";
-import { CriteriaName, selectAll, resetCriteria } from "../criteria/criteriaSlice.js";
+import { CriteriaName, selectAll, resetCriteria, changePOIs } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
 import { POIName } from "../criteria/POIs.js";
@@ -47,41 +47,9 @@ const useStyles = makeStyles((theme) => {
         },
         map: {
             ...styles_map
-        },
-        // centerPointDesc: {
-        //     marginTop: theme.spacing(1),
-        //     width: "380px",
-        //     display: "flex",
-        //     gap: theme.spacing(1),
-        //     alignItems: "center",
-        //     "& > .desc": {
-        //         fontFamily: secondaryFont,
-        //         letterSpacing: ".5px",
-        //         fontWeight: "bold"
-        //     },
-        //     "& .address": {
-        //         letterSpacing: ".3px",
-        //         fontSize: "14px"
-        //     }
-        // }
+        }
     });
 });
-
-// function CenterPointDesc({ data }) {
-//     // styles
-//     const classes = useStyles();
-
-//     const { desc, position } = data;
-//     const { address } = position
-
-//     return (
-//         <div className={classes.centerPointDesc}>
-//             <img src={MapIconUrl.center} width="32px" />
-//             <div className="desc">{desc}</div>
-//             <div className="address">{address}</div>
-//         </div>
-//     )
-// }
 
 export default function Confirm({ setAnimationKey }) {
     // styles
@@ -165,19 +133,28 @@ export default function Confirm({ setAnimationKey }) {
     };
 
     useEffect(() => {
+        const isTesting = true;
         async function doGetPOIData() {
             document.getElementById("app").scrollTo(0,0);
 
-            const poiData = await getPOIData(mapProps, doChangePOI, criteria);
-
-            // test start
-            // // await initMap(mapProps);
-            // const poiData = getPOIData_mock(doChangePOI);
-            // test end
+            let poiData = null;
+            if (isTesting) {
+                // await initMap(mapProps);
+                const doChangeCriteria_POIs = () => {
+                    const poiCriteria = criteria[CriteriaName.pois];
+                    Object.entries(poiCriteria).forEach(([poiName, hasPOI]) => {
+                        dispatch(changePOIs({ name: poiName, checked: hasPOI }));
+                    });
+                };
+                doChangeCriteria_POIs();
+                poiData = getPOIData_mock(doChangePOI);
+                // await new Promise(r => setTimeout(r, 3000));
+            }
+            else {
+                poiData = await getPOIData(mapProps, doChangePOI, criteria);
+            }
 
             addMarkers(poiData, centerPoint.position.latLng);
-            await new Promise(r => setTimeout(r, 3000));
-
             setLoaded(true);
         }
         
@@ -232,48 +209,4 @@ export default function Confirm({ setAnimationKey }) {
             </div>
         </div>
     );
-
-    // if (loaded) {
-    //     return (
-    //         <div className={rootClassName}>
-    //             <div className={["contents", classes.contents].join(" ")}>
-    //                 {/* <h1>Confirm</h1> */}
-    //                 <div className={"mapSection " + classes.mapSection}>
-    //                     <div id={mapProps.id} className={classes.map}></div>
-    //                     <CenterPointDesc data={centerPoint} />
-    //                 </div>
-    //                 <GenPOIInfo handleClickModify={handleClickModify} />
-    //                 <CancelModal doCancel={cancelPlan} />
-    //                 <ItineraryInfo />
-    //                 <ButtonSection
-    //                     rightCtrl={{
-    //                         handleClick: handleClickSave,
-    //                         text: "Save",
-    //                         icon: null
-    //                     }}
-    //                     leftCtrl={{
-    //                         handleClick: handleClickCancel,
-    //                         text: "Cancel",
-    //                         icon: null
-    //                     }}
-    //                 />
-    //                 <ReplaceItineraryModal
-    //                     ctrl={{
-    //                         isOpen: isOpen_replaceItiModal,
-    //                         closeModal: closeModal_replaceIti
-    //                     }}
-    //                     replaceItinerary={replaceItinerary}
-    //                     itiToReplaceCtrl={{
-    //                         value: itiToReplace,
-    //                         onChange: handleChangeItiToReplace
-    //                     }}
-    //                 />
-    //             </div>
-    //         </div>
-    //     )
-    // }
-
-    // return (
-    //     <Loading />
-    // );
 }

@@ -1,8 +1,12 @@
 import { ItineraryInfoFieldName } from "../itinerary-info/itineraryInfoSlice.js";
 import { ItineraryFieldName } from "./validateItinerarySlice";
+import { getAllItineraries } from "../../../my-itineraries/dataHandler.js";
 
 export default function (validateData, changeErrMsg) {
     let hasErr = false;
+
+    const { itineraryInfo } = validateData;
+    const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
 
     const validatePoiData = () => {
         const { poiData } = validateData;
@@ -22,8 +26,6 @@ export default function (validateData, changeErrMsg) {
     };
 
     const validateItineraryName = () => {
-        const { itineraryInfo } = validateData;
-        const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
         let errMsg = "";
         const name = ItineraryFieldName.name;
         if (!itineraryName || itineraryName.length === 0) {
@@ -33,8 +35,22 @@ export default function (validateData, changeErrMsg) {
         changeErrMsg({name, errMsg});
     };
 
+    const validateItineraryNameExisted = () => {
+        const allItineraries = getAllItineraries();
+        if (allItineraries) {
+            const allItiNames = Object.keys(allItineraries);
+            if (allItiNames.includes(itineraryName)) {
+                const name = ItineraryFieldName.name;
+                const errMsg = "The same itinerary name already exists. Please input another";
+                hasErr = true;
+                changeErrMsg({name, errMsg});
+            }
+        }
+    };
+
     validatePoiData();
     validateItineraryName();
+    validateItineraryNameExisted();
 
     return hasErr;
 }

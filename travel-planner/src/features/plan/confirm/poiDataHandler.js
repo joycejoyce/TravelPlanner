@@ -1,7 +1,7 @@
 // my components
 import { CriteriaName } from "../criteria/criteriaSlice.js";
 import { POIName, POIInfo } from "../criteria/POIs.js";
-import { mock_criteria, mock_poiData } from "./mockData.js";
+import { mock_criteria, mock_poiData, mock_poiData_poi2And3Only } from "./mockData.js";
 import { getMap } from "../../../common/map/map.js";
 import { checkIsOperational, checkIsHighlyRated, getBizOpenInfo as getBizOpenInfo } from "./bizStatusChecker.js";
 import { MapIconUrl } from "../../../common/components/MapIcon.js";
@@ -24,7 +24,8 @@ const RetObj = {
 };
 
 export function getPOIData_mock(doChangePOI) {
-    const poiData = mock_poiData;
+    const poiData = mock_poiData_poi2And3Only;
+    // const poiData = mock_poiData;
     // const poiData = {};
     doChangePOI(poiData);
     return poiData;

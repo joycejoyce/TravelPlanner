@@ -13,7 +13,6 @@ import { CriteriaName, selectAll } from "./criteriaSlice.js";
 import { URL } from "../Plan.js";
 import validate from "./criteriaValidator.js";
 import { changeErrMsg } from "./validateCriteriaSlice.js";
-import { getParentPath } from "../../../common/util/PathGetter.js";
 import { toStep } from "../stepSlice.js";
 import { StepInfos, StepNames } from "../PlanStepper.js";
 import useStep from "../../../common/util/useStep.js";
@@ -25,7 +24,6 @@ import {
     useHistory,
     useRouteMatch
 } from "react-router-dom";
-import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -87,7 +85,6 @@ export default function Criteria({ setAnimationKey }) {
     // React Route
     const history = useHistory();
     const { path } = useRouteMatch();
-    const parentPath = getParentPath(path);
 
     // Redyx
     const dispatch = useDispatch();

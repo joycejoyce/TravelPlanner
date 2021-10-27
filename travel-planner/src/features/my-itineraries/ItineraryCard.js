@@ -14,9 +14,12 @@ import {
     getDate
 } from "./dataHandler.js";
 import { URL } from "../../app/InnerApp.js";
+import { changeQuota } from "../navbar/quota/quotaSlice.js";
 
 // React
 import { useHistory } from "react-router";
+import React from "react";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -89,6 +92,23 @@ function CenterPointDesc({ addr }) {
     );
 }
 
+function BizImg({ src }) {
+    // styles
+    const classes = useStyles();
+
+    const dispatch = useDispatch();
+    const quotaInput = {
+        amount: 1,
+        source: "BizImg_ItineraryCard"
+    };
+    dispatch(changeQuota(quotaInput));
+
+    return (
+        <img className={classes.bkImg} src={src} />
+    );
+}
+const BizImg_memorized = React.memo(BizImg);
+
 export default function ItineraryCard({ itinerary, disableClick }) {
     // styles
     const classes = useStyles();
@@ -139,7 +159,8 @@ export default function ItineraryCard({ itinerary, disableClick }) {
     return (
         <Card className={classes.root} onClick={handleClick}>
             <CardContent className={classes.contents}>
-                <img className={classes.bkImg} src={bkImgUrl} />
+                <BizImg_memorized src={bkImgUrl} />
+                {/* <img className={classes.bkImg} src={bkImgUrl} /> */}
                 <div className={classes.title}>{title}</div>
                 <div className={classes.date}>{date}</div>
                 <MyRating

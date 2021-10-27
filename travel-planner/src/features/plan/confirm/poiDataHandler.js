@@ -23,7 +23,7 @@ const RetObj = {
     }
 };
 
-export function getPOIData_mock(doChangePOI) {
+export function getPOIData_mock({ doChangePOI, doChangeQuota }) {
     const poiData = mock_poiData_poi2And3Only;
     // const poiData = mock_poiData;
     // const poiData = {};
@@ -31,7 +31,7 @@ export function getPOIData_mock(doChangePOI) {
     return poiData;
 }
 
-export default async function getPOIData(mapProps, doChangePOI, criteria) {
+export default async function getPOIData(mapProps, criteria, { doChangePOI, doChangeQuota }) {
     await initMap(mapProps);
 
     const poiNames = getPOINames(criteria);
@@ -57,6 +57,7 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
             const request = getRequest_nearbySearch(poiName, commonFieldsInRequest);
             const result = await new Promise((resolve) => {
                 reqNum.nearbySearch ++;
+                doChangeQuota(1, "nearbySearch");
                 console.log("reqNum.nearbySearch", reqNum.nearbySearch);
                 service.nearbySearch(request, (places, status) => {
                     resolve({ places, status });
@@ -103,6 +104,7 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
             const request = getRequest_detail(place_id);
             const { detail, status } = await new Promise((resolve) => {
                 reqNum.getDetails ++;
+                doChangeQuota(1, "getDetails");
                 console.log("reqNum.getDetails", reqNum.getDetails);
                 service.getDetails(request, (detail, status) => {
                     resolve({ detail, status });
@@ -122,6 +124,7 @@ export default async function getPOIData(mapProps, doChangePOI, criteria) {
                 placeId_to_placeDetail[place_id] = getFullDetail(detail, place, bizOpenInfo);
 
                 reqNum.getUrl ++;
+                doChangeQuota(1, "getUrl");
                 console.log("reqNum.getUrl", reqNum.getUrl);
 
                 console.log(`get legitimate place [${poiName}] at [${i}]-th retry`);

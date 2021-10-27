@@ -88,7 +88,7 @@ function useMapUrl(origUrl) {
     return url;
 }
 
-export default function ({ name: itineraryName }) {
+export default function ItineraryDetail({ name: itineraryName }) {
     // styles
     const classes = useStyles();
 

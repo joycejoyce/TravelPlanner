@@ -7,7 +7,7 @@ import Home from "../features/home/Home.js";
 import Plan from "../features/plan/Plan";
 import About from "../features/about/About.js";
 import MyItineraries from "../features/my-itineraries/MyItineraries";
-import ExceedQuotaModal from "../features/navbar/ExceedQuotaModal.js";
+import ExceedQuotaModal from "../features/navbar/quota/ExceedQuotaModal.js";
 
 // React
 import {
@@ -18,7 +18,7 @@ import {
     useLocation
 } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
     animationPart: {
@@ -45,6 +45,7 @@ export const URL = {
 };
 
 function AnimationPart() {
+// function AnimationPart({ key, setKey }) {
     const classes = useStyles();
     const [ key, setKey ] = useState(0);
     const location = useLocation();
@@ -109,11 +110,16 @@ function AnimationPart() {
     )
 }
 
+// const AnimationPart_memorized = React.memo(AnimationPart);
+
 export default function InnerApp() {
     const classes = useStyles();
 
+    // const [ key, setKey ] = useState(0);
+
     return (
         <Router>
+            {/* <AnimationPart_memorized key={key} setKey={setKey} /> */}
             <AnimationPart />
         </Router>
     );

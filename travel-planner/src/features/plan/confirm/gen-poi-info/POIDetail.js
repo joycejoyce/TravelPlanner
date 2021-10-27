@@ -7,9 +7,11 @@ import { Home as WebsiteIcon, LaunchRounded as OpenLinkIcon } from "@material-ui
 // my components
 import { lightColors, lightGrey } from "../../../../common/styles/colors.json";
 import { primary as primaryFont, secondary as secondaryFont } from "../../../../common/styles/fonts.json";
+import { changeQuota } from "../../../navbar/quota/quotaSlice.js";
 
 // React
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -89,13 +91,14 @@ function Rating({ rating, totalRatingNum }) {
 
 function BizImg({ id, src }) {
     const classes = useStyles();
-    // let src = null;
-    // if (getUrl) {
-    //     src = getUrl({ maxWidth: 250, maxHeight: 141 });
-    // }
-    // else {
-    //     src = "/img/for-test/breakfast_pic.jpg";
-    // }
+    
+    const dispatch = useDispatch();
+
+    const quotaInput = {
+        amount: 1,
+        source: "BizImg_POIDetail"
+    };
+    dispatch(changeQuota(quotaInput));
 
     return (
         <img
@@ -105,6 +108,7 @@ function BizImg({ id, src }) {
         />
     );
 }
+const BizImg_memorized = React.memo(BizImg);
 
 function WebsiteLink({ url }) {
     const classes = useStyles();
@@ -174,7 +178,7 @@ function POIDetail({ poiData }) {
                     <div className={classes.bizOpenPeriod}>{bizOpenPeriod}</div>
                 </div>
                 {
-                    photo ? <BizImg
+                    photo ? <BizImg_memorized
                         id={id}
                         src={photo}
                         // getUrl={photo.getUrl}

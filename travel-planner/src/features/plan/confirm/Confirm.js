@@ -23,12 +23,13 @@ import { changeErrMsg } from "./validate-itinerary/validateItinerarySlice.js";
 import validate from "./validate-itinerary/itineraryValidator.js";
 import CenterPointDesc from "../../../common/components/CenterPointDesc.js";
 import Loading from "../../../common/components/Loading.js";
+import ReplaceItineraryModal from "../../my-itineraries/ReplaceItineraryModal.js";
+import { changeQuota } from "../../navbar/quota/quotaSlice.js";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import ReplaceItineraryModal from "../../my-itineraries/ReplaceItineraryModal.js";
 
 const useStyles = makeStyles((theme) => {
     const styles_mapContainer = getStyles_mapContainer(theme);
@@ -139,12 +140,23 @@ export default function Confirm({ setAnimationKey }) {
         const { latLng } = centerPoint.position;
         resetMap(latLng);
     };
+    const doChangeQuota = (amount, source) => {
+        const quotaInput = {
+            amount,
+            source
+        };
+        dispatch(changeQuota(quotaInput));
+    }
 
     useEffect(() => {
         async function doGetPOIData() {
             document.getElementById("app").scrollTo(0,0);
 
             let poiData = null;
+            const reduxCtrl = {
+                doChangePOI,
+                doChangeQuota,
+            }
             if (isTesting) {
                 await initMap(mapProps);
                 const doChangeCriteria_POIs = () => {
@@ -154,11 +166,11 @@ export default function Confirm({ setAnimationKey }) {
                     });
                 };
                 doChangeCriteria_POIs();
-                poiData = getPOIData_mock(doChangePOI);
+                poiData = getPOIData_mock(reduxCtrl);
                 // await new Promise(r => setTimeout(r, 3000));
             }
             else {
-                poiData = await getPOIData(mapProps, doChangePOI, criteria);
+                poiData = await getPOIData(mapProps, criteria, reduxCtrl);
             }
 
             addMarkers(poiData, centerPoint.position.latLng);

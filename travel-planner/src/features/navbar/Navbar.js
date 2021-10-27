@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import DarkModeSwitch from "./DarkModeSwitch";
 import Logo from "../../common/components/Logo.js";
 import ViewItineraryPopper from "./ViewItineraryPopper.js";
-import Quota from "./Quota.js";
+import Quota from "./quota/Quota.js";
 
 const useStyles = makeStyles((theme) => {
     return ({

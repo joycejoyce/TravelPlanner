@@ -2,7 +2,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import MyModal from "../../common/components/MyModal.js";
+import MyModal from "../../../common/components/MyModal.js";
 
 const useStyles = makeStyles((theme) => {
     return ({

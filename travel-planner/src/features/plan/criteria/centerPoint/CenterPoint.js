@@ -9,6 +9,7 @@ import { openModal } from "./modalOpenSlice.js";
 import { places } from "../../../../common/map/place.js";
 import Explanation from "./Explanation.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../../common/styles/styles.js";
+import { changeQuota } from "../../../navbar/quota/quotaSlice.js";
 
 // React
 import { useEffect } from "react";
@@ -42,6 +43,22 @@ const useStyles = makeStyles((theme) => {
         }
     });
 });
+
+function Map({ id }) {
+    const classes = useStyles();
+
+    const dispatch = useDispatch();
+
+    const quotaInput = {
+        amount: 1,
+        source: "initMap"
+    };
+    dispatch(changeQuota(quotaInput));
+
+    return (
+        <div id={id} className={classes.map}></div>
+    );
+}
 
 export default function CenterPoint() {
     const classes = useStyles();
@@ -85,7 +102,8 @@ export default function CenterPoint() {
     return (
         <div className={"centerPoint " + classes.centerPoint}>
             <Explanation />
-            <div id={mapProps.id} className={classes.map}></div>
+            <Map id={mapProps.id} />
+            {/* <div id={mapProps.id} className={classes.map}></div> */}
             <div 
                 id={infoWindowProps.id}
                 className={classes.popupContainer}

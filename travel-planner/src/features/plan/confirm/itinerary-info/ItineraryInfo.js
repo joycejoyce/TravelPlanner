@@ -71,8 +71,8 @@ export default function ItineraryInfo() {
     const classes = useStyles();
 
     // React
-    // const criteria = useSelector(selectAll);
-    const criteria = mock_criteria;
+    const criteria = useSelector(selectAll);
+    // const criteria = mock_criteria;
 
     const getDefaultValue = () => {
         const { centerPoint, date } = criteria;

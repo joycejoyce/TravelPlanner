@@ -3,20 +3,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 
 // my components
-import { err as errColor, lightGrey } from "../../common/styles/colors.json";
-import { primary as primaryFont } from "../../common/styles/fonts.json";
+import { err as errColor, lightGrey } from "../../../common/styles/colors.json";
+import { primary as primaryFont } from "../../../common/styles/fonts.json";
 import QuotaInfoModal from "./QuotaInfoModal.js";
+import { checkIsExceedThreshold, DailyQuotaLimit } from "./quotaHandler.js";
 
 // React
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectQuota } from "./quotaSlice";
 
 const initialColor = lightGrey;
-const DailyQuotaLimit = 90;
-const FieldName = "quota";
-const QuotaFieldName = {
-    curQuota: "curQuota",
-    timeStamp: "timeStamp" 
-};
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -53,6 +50,7 @@ export default function Quota() {
 
     // React
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const quota = useSelector(selectQuota);
 
     // ctrl
     const openModal = () => {
@@ -63,23 +61,9 @@ export default function Quota() {
     };
 
     // data
-    const quotaStr = localStorage.getItem(FieldName);
-    let quota = JSON.parse(quotaStr);
-    if (!quota ||
-        quota[QuotaFieldName.curQuota] === undefined ||
-        quota[QuotaFieldName.timeStamp] === undefined) {
-        const obj = {
-            [QuotaFieldName.curQuota]: 0,
-            [QuotaFieldName.timeStamp]: new Date()
-        }
-        const str = JSON.stringify(obj);
-        localStorage.setItem(FieldName, str);
-
-        quota = obj;
-    }
-    const curQuota = quota[QuotaFieldName.curQuota];
+    const isExceedThreshold = checkIsExceedThreshold();
     const curQuotaStyle = {
-        color: curQuota > DailyQuotaLimit*0.9 ? errColor : "inherit"
+        color: isExceedThreshold ? errColor : "inherit"
     };
 
     return (
@@ -94,7 +78,7 @@ export default function Quota() {
                     className={classes.curQuota}
                     style={curQuotaStyle}
                 >
-                    {curQuota}
+                    {quota}
                 </div>
                 <div>/</div>
                 <div>{DailyQuotaLimit}</div>

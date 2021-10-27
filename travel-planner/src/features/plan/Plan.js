@@ -9,6 +9,7 @@ import Confirm from "./confirm/Confirm.js";
 import GetItinerary from "./get-itinerary/GetItinerary.js";
 import { StepInfos, StepNames } from "./PlanStepper.js";
 import { toStep } from "./stepSlice";
+import { getStyles_routingPage } from "../../common/styles/styles.js";
 
 // React
 import {
@@ -22,7 +23,6 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import React, { useState } from "react";
 import Navbar from "../navbar/Navbar";
 import { useDispatch } from "react-redux";
-import { getStyles_routingPage } from "../../common/styles/styles";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -37,21 +37,6 @@ const useStyles = makeStyles((theme) => {
         },
         animationPart: {
             ...animationPartStyles
-            // position: "absolute",
-            // width: "100vw",
-            // top: "22vh",
-            // "& > *": { // Criteria / Confirm / GetItinerary
-            //     // animationPart cannot set translateX or it'll effect animation
-            //     // therefore, to center the content, wrap up the contents in ".contents" and center it
-            //     position: "relative",
-            //     width: "100vw",
-            //     "& > .contents": {
-            //         position: "absolute",
-            //         width: "fit-content",
-            //         left: "50%",
-            //         transform: "translateX(-50%)"
-            //     }
-            // }
         }
     });
 });

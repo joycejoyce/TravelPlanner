@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => {
     return ({
         modalContent: {
             color: theme.palette.primary.main,
-            letterSpacing: ".3px",
             fontSize: "18px",
             textAlign: "center"
         },

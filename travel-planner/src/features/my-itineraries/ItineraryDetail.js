@@ -28,10 +28,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: theme.spacing(.5),
-        "& *": {
-            letterSpacing: ".3px"
-        }
+        gap: theme.spacing(.5)
     },
     title: {
         fontSize: "28px",

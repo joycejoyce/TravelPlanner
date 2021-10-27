@@ -17,11 +17,6 @@ import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     return ({
-        root: {
-            "& *": {
-                letterSpacing: ".3px"
-            }
-        },
         modifyBtn: {
             fontFamily: primaryFont,
             float: "right",

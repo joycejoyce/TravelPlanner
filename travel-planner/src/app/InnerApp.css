@@ -1,3 +1,6 @@
+* {
+    letter-spacing: .3px;
+}
 /* fade */
 .fade-enter {
     opacity: 0;

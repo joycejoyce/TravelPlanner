@@ -7,6 +7,7 @@ import Home from "../features/home/Home.js";
 import Plan from "../features/plan/Plan";
 import About from "../features/about/About.js";
 import MyItineraries from "../features/my-itineraries/MyItineraries";
+import ExceedQuotaModal from "../features/navbar/ExceedQuotaModal.js";
 
 // React
 import {
@@ -69,6 +70,7 @@ function AnimationPart() {
     return (
         <>
             <Navbar />
+            <ExceedQuotaModal />
             <TransitionGroup
                 className={"animationPart-innerApp " + classes.animationPart}
             >

@@ -39,8 +39,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         padding: "18px",
         "& > *": {
-            textAlign: "center",
-            letterSpacing: ".3px"
+            textAlign: "center"
         }
     },
     title: {

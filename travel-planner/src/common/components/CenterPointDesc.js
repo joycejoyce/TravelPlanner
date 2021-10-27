@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => {
                 fontWeight: "bold"
             },
             "& .address": {
-                letterSpacing: ".3px",
                 fontSize: "14px"
             }
         },

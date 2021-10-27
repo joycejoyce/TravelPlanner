@@ -13,7 +13,6 @@ import ItineraryCard from "./ItineraryCard.js";
 const useStyles = makeStyles((theme) => ({
     modalContent: {
         textAlign: "center",
-        letterSpacing: ".3px",
         display: "flex",
         flexDirection: "column",
         gap: "14px"

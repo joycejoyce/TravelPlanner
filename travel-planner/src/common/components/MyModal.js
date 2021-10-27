@@ -28,12 +28,11 @@ const useStyles = makeStyles((theme) => {
         },
         btnSection: {
             display: "flex",
-            // justifyContent: "space-between",
             width: "297px",
             height: "40px",
             marginTop: "10px",
             "& button": {
-                width: "100px",
+                minWidth: "100px",
                 fontSize: "16px"
             }
         }

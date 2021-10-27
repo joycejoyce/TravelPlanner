@@ -21,9 +21,6 @@ const useStyles = makeStyles((theme) => ({
         letterSpacing: "1px",
         margin: "45px 0"
     },
-    modalContent: {
-        letterSpacing: ".3px"
-    },
     question: {
         width: "255px",
         textAlign: "center",

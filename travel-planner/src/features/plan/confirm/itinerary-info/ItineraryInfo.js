@@ -55,8 +55,7 @@ const useStyles = makeStyles((theme) => {
             gap: theme.spacing(2)
         },
         title: {
-            fontSize: "20px",
-            letterSpacing: ".3px"
+            fontSize: "20px"
         },
         rating: {
             gap: "10px"

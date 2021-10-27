@@ -38,8 +38,7 @@ const useStyles = makeStyles((theme) => {
                 gap: theme.spacing(.5),
                 color: initialColor,
                 fontSize: "12px",
-                fontFamily: primaryFont,
-                letterSpacing: ".3px"
+                fontFamily: primaryFont
             }
         },
         curQuota: {

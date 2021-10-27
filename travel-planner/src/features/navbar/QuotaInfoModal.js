@@ -7,7 +7,21 @@ import MyModal from "../../common/components/MyModal.js";
 const useStyles = makeStyles((theme) => {
     return ({
         modalContent: {
-
+            color: theme.palette.primary.main,
+            letterSpacing: ".3px",
+            fontSize: "18px",
+            textAlign: "center"
+        },
+        desc: {
+            width: "340px"
+        },
+        limitDesc: {
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(6)
+        },
+        limitNum: {
+            fontSize: "20px",
+            fontWeight: "bold"
         }
     });
 });
@@ -17,7 +31,12 @@ function ModalContent({ quotaLimit }) {
 
     return (
         <div className={classes.modalContent}>
-
+            <div className={classes.desc}>
+                Due to using Google Maps APIs is costly,<br/>the daily quota of using them is:
+            </div>
+            <div className={classes.limitDesc}>
+                <span className={classes.limitNum}>90</span> requests per IP
+            </div>
         </div>
     );
 }

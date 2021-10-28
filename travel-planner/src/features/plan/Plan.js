@@ -10,6 +10,7 @@ import GetItinerary from "./get-itinerary/GetItinerary.js";
 import { StepInfos, StepNames } from "./PlanStepper.js";
 import { toStep } from "./stepSlice";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
+import { URL as RootURL } from "../../app/InnerApp.js";
 import useExceedQuotaNotification from "../navbar/quota/useExceedQuotaNotification.js";
 
 // React
@@ -21,10 +22,12 @@ import {
     useLocation
 } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { checkQuotaExceeded, getCurQuota } from "../navbar/quota/quotaHandler";
+import { openModal } from "../navbar/quota/exceedQuotaSlice";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -75,49 +78,104 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
     };
 
     const history = useHistory();
-    const quotaExceeded = useExceedQuotaNotification(history);
+    const quotaExceeded = checkQuotaExceeded();
+    useEffect(() => {
+        if (quotaExceeded) {
+            history.push(`/${RootURL.about}`);
+            setParentAnimationKey();
+            dispatch(openModal());
+        }
+    }, [quotaExceeded]);
+
+    if (!quotaExceeded) {
+        return (
+            <div id="plan" className={"plan " + classes.plan}>
+                <Navbar />
+                <NavBar />
+                <PlanStepper />
+                <TransitionGroup
+                    className={"animationPart-plan " + classes.animationPart}
+                >
+                    <CSSTransition
+                        timeout={300}
+                        classNames="swipe"
+                        key={key}
+                    >
+                        <Switch
+                            location={location}
+                        >
+                            <Route
+                                path={`${path}/${URL.criteria}`}
+                                render={() => (<Criteria setAnimationKey={setKey} />)}
+                            />
+                            <Route
+                                path={`${path}/${URL.confirm}`}
+                                render={() => (<Confirm setAnimationKey={setKey} />)}
+                            />
+                            <Route
+                                path={`${path}/${URL.getItinerary}/:itineraryName`}
+                                render={() => (<GetItinerary setAnimationKey={setParentAnimationKey} />)}
+                            />
+                            <Route
+                                path={`${path}/${URL.getItinerary}`}
+                                render={() => (<GetItinerary setAnimationKey={setKey} />)}
+                            />
+                            <Route
+                                path={`${path}`}
+                                render={() => (<Criteria setAnimationKey={setKey} />)}
+                            />
+                        </Switch>
+                    </CSSTransition>
+                </TransitionGroup>
+            </div>
+        );
+    }
 
     return (
-        quotaExceeded && (<div id="plan" className={"plan " + classes.plan}>
-            <Navbar />
-            {/* <h1>Plan</h1> */}
-            <NavBar />
-            <PlanStepper />
-            <TransitionGroup
-                className={"animationPart-plan " + classes.animationPart}
-            >
-                <CSSTransition
-                    timeout={300}
-                    classNames="swipe"
-                    key={key}
-                >
-                    <Switch
-                        location={location}
-                    >
-                        <Route
-                            path={`${path}/${URL.criteria}`}
-                            render={() => (<Criteria setAnimationKey={setKey} />)}
-                        />
-                        <Route
-                            path={`${path}/${URL.confirm}`}
-                            render={() => (<Confirm setAnimationKey={setKey} />)}
-                        />
-                        <Route
-                            path={`${path}/${URL.getItinerary}/:itineraryName`}
-                            render={() => (<GetItinerary setAnimationKey={setParentAnimationKey} />)}
-                        />
-                        <Route
-                            path={`${path}/${URL.getItinerary}`}
-                            render={() => (<GetItinerary setAnimationKey={setKey} />)}
-                        />
-                        <Route
-                            path={`${path}`}
-                            render={() => (<Criteria setAnimationKey={setKey} />)}
-                            // render={() => (<GenPOIs setAnimationKey={setKey} />)}
-                        />
-                    </Switch>
-                </CSSTransition>
-            </TransitionGroup>
-        </div>
-    ));
+        <></>
+    );
+
+    // return (
+    //     !quotaExceeded &&
+    //     (<div id="plan" className={"plan " + classes.plan}>
+    //         <Navbar />
+    //         <NavBar />
+    //         <PlanStepper />
+    //         <TransitionGroup
+    //             className={"animationPart-plan " + classes.animationPart}
+    //         >
+    //             <CSSTransition
+    //                 timeout={300}
+    //                 classNames="swipe"
+    //                 key={key}
+    //             >
+    //                 <Switch
+    //                     location={location}
+    //                 >
+    //                     <Route
+    //                         path={`${path}/${URL.criteria}`}
+    //                         render={() => (<Criteria setAnimationKey={setKey} />)}
+    //                     />
+    //                     <Route
+    //                         path={`${path}/${URL.confirm}`}
+    //                         render={() => (<Confirm setAnimationKey={setKey} />)}
+    //                     />
+    //                     <Route
+    //                         path={`${path}/${URL.getItinerary}/:itineraryName`}
+    //                         render={() => (<GetItinerary setAnimationKey={setParentAnimationKey} />)}
+    //                     />
+    //                     <Route
+    //                         path={`${path}/${URL.getItinerary}`}
+    //                         render={() => (<GetItinerary setAnimationKey={setKey} />)}
+    //                     />
+    //                     <Route
+    //                         path={`${path}`}
+    //                         render={() => (<Criteria setAnimationKey={setKey} />)}
+    //                     // render={() => (<GenPOIs setAnimationKey={setKey} />)}
+    //                     />
+    //                 </Switch>
+    //             </CSSTransition>
+    //         </TransitionGroup>
+    //     </div>)
+    // );
 }

@@ -6,7 +6,9 @@ import ItineraryDetailWrapper from "./ItineraryDetailWrapper.js";
 import AllItineraryCards from "./AllItineraryCards.js";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
 import Navbar from "../navbar/Navbar.js";
-import useExceedQuotaNotification from "../navbar/quota/useExceedQuotaNotification.js";
+import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
+import { URL as RootURL } from "../../app/InnerApp.js";
+import { openModal } from "../navbar/quota/exceedQuotaSlice.js";
 
 // React
 import {
@@ -15,6 +17,8 @@ import {
     useRouteMatch
 } from "react-router-dom";
 import { useHistory } from "react-router";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -30,31 +34,64 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-export default function MyItineraries() {
+export default function MyItineraries({ setAnimationKey: setParentAnimationKey }) {
     // styles
     const classes = useStyles();
 
     // routing data
-    const { path, url } = useRouteMatch();
+    const { path } = useRouteMatch();
 
+    const dispatch = useDispatch();
     const history = useHistory();
-    const quotaExceeded = useExceedQuotaNotification(history);
+    const quotaExceeded = checkQuotaExceeded();
+    useEffect(() => {
+        if (quotaExceeded) {
+            history.push(`/${RootURL.about}`);
+            setParentAnimationKey();
+            dispatch(openModal());
+        }
+    }, [quotaExceeded]);
+
+    if (!quotaExceeded) {
+        return (
+            <div>
+                <Navbar />
+                <div className={classes.animationPart}>
+                    <Switch>
+                        <Route
+                            path={`${path}/:itineraryName`}
+                            render={() => (<ItineraryDetailWrapper />)}
+                        />
+                        <Route
+                            path={`${path}`}
+                            render={() => (<AllItineraryCards />)}
+                        />
+                    </Switch>
+                </div>
+            </div>
+        );
+    }
 
     return (
-        quotaExceeded && (<div>
-            <Navbar />
-            <div className={classes.animationPart}>
-                <Switch>
-                    <Route
-                        path={`${path}/:itineraryName`}
-                        render={() => (<ItineraryDetailWrapper />)}
-                    />
-                    <Route
-                        path={`${path}`}
-                        render={() => (<AllItineraryCards />)}
-                    />
-                </Switch>
-            </div>
-        </div>
-    ));
+        <></>
+    );
+
+    // return (
+    //     !quotaExceeded &&
+    //     (<div>
+    //         <Navbar />
+    //         <div className={classes.animationPart}>
+    //             <Switch>
+    //                 <Route
+    //                     path={`${path}/:itineraryName`}
+    //                     render={() => (<ItineraryDetailWrapper />)}
+    //                 />
+    //                 <Route
+    //                     path={`${path}`}
+    //                     render={() => (<AllItineraryCards />)}
+    //                 />
+    //             </Switch>
+    //         </div>
+    //     </div>)
+    // );
 }

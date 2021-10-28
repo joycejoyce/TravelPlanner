@@ -1,9 +1,3 @@
-// my components
-import { changeQuota } from "./quotaSlice.js";
-
-// React
-import { useDispatch } from "react-redux";
-
 export const DailyQuotaLimit = 90;
 const FieldName = "quota";
 const QuotaFieldName = {
@@ -27,15 +21,23 @@ export function getCurQuota() {
 
 function getQuotaObj() {
     let str = localStorage.getItem(FieldName);
+
+    let obj = null;
     if (!str) {
-        return null;
+        obj = genInitObj();
+        str = JSON.stringify(obj);
     }
 
-    let obj = JSON.parse(str);
+    obj = JSON.parse(str);
     if (obj[QuotaFieldName.curQuota] === undefined ||
         obj[QuotaFieldName.timeStamp] === undefined) {
         obj = genInitObj();
     }
+
+    if (checkTimeStampExpired(obj[QuotaFieldName.timeStamp])) {
+        obj = genInitObj();
+    }
+
     return obj;
 }
 
@@ -55,6 +57,13 @@ function getInitObj() {
         [QuotaFieldName.curQuota]: 0,
         [QuotaFieldName.timeStamp]: new Date()
     };
+}
+
+function checkTimeStampExpired(timeStampStr) {
+    const timeStamp = new Date(timeStampStr);
+    const curTimeStamp = new Date();
+    const diffHours = Math.floor(Math.abs(curTimeStamp - timeStamp) / 36e5);
+    return diffHours >= 24;
 }
 
 export function changeQuota_inLocalStorage(newQuota, source) {

@@ -93,7 +93,7 @@ function AnimationPart() {
                         />
                         <Route
                             path={`/${URL.myItineraries}`}
-                            render={() => <MyItineraries />}
+                            render={() => <MyItineraries setAnimationKey={setKey} />}
                         />
                         <Route
                             path={`/${URL.about}`}

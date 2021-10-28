@@ -7,15 +7,16 @@ import useStep from "../../../common/util/useStep.js";
 import ItineraryCard from "../../my-itineraries/ItineraryCard.js";
 import { getItinerary } from "../../my-itineraries/dataHandler";
 import ButtonSection from "../buttonSection/ButtonSection.js";
-import { URL } from "../../../app/InnerApp.js";
+import { RootURL } from "../../../config.json";
 
 // React
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        
+
     },
     contents: {
         display: "flex",
@@ -48,7 +49,7 @@ export default function GetItinerary({ setAnimationKey }) {
     // ctrl
     const handleClickBtn = () => {
         setAnimationKey();
-        history.push(`/${URL.myItineraries}`);
+        history.push(`/${RootURL.myItineraries}`);
     };
 
     // use hooks
@@ -57,17 +58,28 @@ export default function GetItinerary({ setAnimationKey }) {
     return (
         <div className={["get-itinerary", classes.root].join(" ")}>
             <div className={["contents", classes.contents].join(" ")}>
-                <div className={classes.desc}>Check out the itinerary:</div>
-                <ItineraryCard itinerary={itinerary} />
-                <div className={classes.btn}>
-                    <ButtonSection
-                        leftCtrl={{
-                            handleClick: handleClickBtn,
-                            text: "My Itineraries",
-                            icon: null
-                        }}
-                    />
-                </div>
+                {
+                    itineraryName ?
+                        (
+                            <>
+                                <div className={classes.desc}>Check out the itinerary:</div>
+                                <ItineraryCard itinerary={itinerary} />
+                                <div className={classes.btn}>
+                                    <ButtonSection
+                                        leftCtrl={{
+                                            handleClick: handleClickBtn,
+                                            text: "My Itineraries",
+                                            icon: null
+                                        }}
+                                    />
+                                </div>
+                            </>
+                        ) :
+                        (
+                            <></>
+                        )
+                }
+
             </div>
         </div>
     );

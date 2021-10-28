@@ -10,8 +10,9 @@ import GetItinerary from "./get-itinerary/GetItinerary.js";
 import { StepInfos, StepNames } from "./PlanStepper.js";
 import { toStep } from "./stepSlice";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
-import { URL as RootURL } from "../../app/InnerApp.js";
-import useExceedQuotaNotification from "../navbar/quota/useExceedQuotaNotification.js";
+import { RootURL } from "../../config.json";
+import { NavItem } from "../navbar/ViewItineraryPopper.js";
+import { changeIdx } from "../navbar/navSlice.js";
 
 // React
 import {
@@ -23,7 +24,6 @@ import {
 } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import React, { useEffect, useState } from "react";
-import Navbar from "../navbar/Navbar";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { checkQuotaExceeded, getCurQuota } from "../navbar/quota/quotaHandler";
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => {
     return ({
         plan: {
         },
-        navbar: {
+        tempNavbar: {
             position: "fixed",
             top: "20px",
             zIndex: "10"
@@ -59,7 +59,7 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
     const { path, url } = useRouteMatch();
     const dispatch = useDispatch();
 
-    const NavBar = () => {
+    const TempNavbar = () => {
         const handleClick = (stepName) => {
             setKey(Math.random);
             const stepNum = StepInfos[stepName].num;
@@ -67,7 +67,7 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
         };
 
         return (
-            <div className={"navbar " + classes.navbar}>
+            <div className={"tempNavbar " + classes.tempNavbar}>
                 <Link onClick={() => handleClick(StepNames.setCriteria)} to={`${url}/${URL.criteria}`}>SetCriteria</Link>
                 &nbsp;&nbsp;
                 <Link onClick={() => handleClick(StepNames.confirm)} to={`${url}/${URL.confirm}`}>Confirm</Link>
@@ -87,11 +87,13 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
         }
     }, [quotaExceeded]);
 
+    const navIdx = NavItem[RootURL.plan].idx;
+    dispatch(changeIdx(navIdx));
+
     if (!quotaExceeded) {
         return (
             <div id="plan" className={"plan " + classes.plan}>
-                <Navbar />
-                <NavBar />
+                <TempNavbar />
                 <PlanStepper />
                 <TransitionGroup
                     className={"animationPart-plan " + classes.animationPart}

@@ -1,15 +1,17 @@
 // MUI
-import { Typography, Link, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { ArrowForward as ArrowIcon } from '@material-ui/icons';
+import { Typography, Link, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { ArrowForward as ArrowIcon } from "@material-ui/icons";
 
 // my components
-import Logo from "../../common/components/Logo.js";
+import { NavItem } from "../navbar/ViewItineraryPopper.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
-import { resetCriteria } from '../plan/criteria/criteriaSlice.js';
+import { resetCriteria } from "../plan/criteria/criteriaSlice.js";
+import { RootURL } from "../../config.json";
+import { changeIdx } from "../navbar/navSlice.js";
 
 // React
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import {
     Link as RouterLink,
     useHistory
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            [theme.breakpoints.up('md')]: {
+            [theme.breakpoints.up("md")]: {
                 width: "480px",
                 height: "800px"
             }
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => {
         paragraph: {
             marginTop: theme.spacing(8),
             alignSelf: "flex-start",
-            [theme.breakpoints.up('md')]: {
+            [theme.breakpoints.up("md")]: {
                 marginTop: theme.spacing(12),
                 "& h5": {
                     fontSize: "36px"
@@ -60,7 +62,7 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: ".5px",
             fontSize: "14px",
             alignSelf: "flex-start",
-            [theme.breakpoints.up('md')]: {
+            [theme.breakpoints.up("md")]: {
                 fontSize: "16px"
             }
         },
@@ -106,15 +108,12 @@ export default function Home({ setAnimationKey }) {
         history.push("/plan");
     }
 
+    const navIdx = NavItem[RootURL.home].idx;
+    dispatch(changeIdx(navIdx));
+
     return (
         <div className={"home " + classes.home}>
             <div className={"contents " + classes.contents}>
-                <Logo
-                    className="logo"
-                    width="70px"
-                    margin="0 auto"
-                    isDarkMode={isDarkMode}
-                />
                 <Paragraph className="paragraph" />
                 <Button
                     variant="contained"

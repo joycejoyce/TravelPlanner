@@ -7,6 +7,7 @@ import poiDataReducer from "../features/plan/confirm/poiDataSlice.js";
 import itineraryInfoReducer from "../features/plan/confirm/itinerary-info/itineraryInfoSlice.js";
 import validateItineraryReducer from "../features/plan/confirm/validate-itinerary/validateItinerarySlice.js";
 import quotaReducer from "../features/navbar/quota/quotaSlice.js";
+import navReducer from "../features/navbar/navSlice.js";
 
 //modal
 import modalOpenReducer from "../features/plan/criteria/centerPoint/modalOpenSlice.js";
@@ -22,6 +23,7 @@ export const store = configureStore({
         itineraryInfo: itineraryInfoReducer,
         validateItinerary: validateItineraryReducer,
         quota: quotaReducer,
+        nav: navReducer,
         modalOpen: modalOpenReducer,
         modalOpen_confirmPage: modalOpenReducer_confirmPage,
         modalOpen_exceedQuota: modalOpenReducer_exceedQuota

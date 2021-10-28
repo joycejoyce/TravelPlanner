@@ -1,3 +1,9 @@
 {
-    "myApiKey": "AIzaSyAvQs1MLlXdQ4l5KIA6FnGmfe9pLaalq_4"
+    "myApiKey": "AIzaSyAvQs1MLlXdQ4l5KIA6FnGmfe9pLaalq_4",
+    "RootURL": {
+        "home": "home",
+        "plan": "plan",
+        "myItineraries": "my-itineraries",
+        "about": "about"
+    }
 }

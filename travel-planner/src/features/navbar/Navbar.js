@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => {
     return ({
         navbar: {
             position: "relative",
-            width: "100vw"
+            width: "100vw",
+            zIndex: "9"
         },
         ctrlSection: {
             gap: "0px",

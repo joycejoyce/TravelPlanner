@@ -22,7 +22,7 @@ import {
 } from "./dataHandler.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 import DeleteSection from "./DeleteSection.js";
-import { URL } from "../../app/InnerApp.js";
+import { RootURL } from "../../config.json";
 
 // React
 import { useState, useLayoutEffect } from "react";
@@ -136,15 +136,15 @@ export default function ItineraryDetail({ name: itineraryName, setParentAnimatio
         const allItineraries = getAllItineraries();
         delete allItineraries[itineraryName];
         changeItineraries(allItineraries);
-        history.push(`/${URL.myItineraries}`);
+        history.push(`/${RootURL.myItineraries}`);
     };
     const handleClickView = () => {
         setParentAnimationKey();
-        history.push(`/${URL.myItineraries}`);
+        history.push(`/${RootURL.myItineraries}`);
     };
     const handleClickGen = () => {
         setParentAnimationKey();
-        history.push(`/${URL.plan}`);
+        history.push(`/${RootURL.plan}`);
     };
 
     return (

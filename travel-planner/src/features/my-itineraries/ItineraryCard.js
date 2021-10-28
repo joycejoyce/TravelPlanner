@@ -13,7 +13,7 @@ import {
     getRating,
     getDate
 } from "./dataHandler.js";
-import { URL } from "../../app/InnerApp.js";
+import { RootURL } from "../../config.json";
 import { changeQuota } from "../navbar/quota/quotaSlice.js";
 
 // React
@@ -152,7 +152,7 @@ export default function ItineraryCard({ itinerary, disableClick }) {
         if (disableClick) {
             return;
         }
-        const path = `/${URL.myItineraries}/${itineraryName}`;
+        const path = `/${RootURL.myItineraries}/${itineraryName}`;
         history.push(path);
     };
 

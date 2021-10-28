@@ -5,9 +5,8 @@ import { makeStyles } from "@material-ui/styles";
 import ItineraryDetailWrapper from "./ItineraryDetailWrapper.js";
 import AllItineraryCards from "./AllItineraryCards.js";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
-import Navbar from "../navbar/Navbar.js";
 import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
-import { URL as RootURL } from "../../app/InnerApp.js";
+import { RootURL } from "../../config.json";
 import { openModal } from "../navbar/quota/exceedQuotaSlice.js";
 
 // React
@@ -19,6 +18,8 @@ import {
 import { useHistory } from "react-router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { changeIdx } from "../navbar/navSlice.js";
+import { NavItem } from "../navbar/ViewItineraryPopper.js";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -52,10 +53,12 @@ export default function MyItineraries({ setAnimationKey: setParentAnimationKey }
         }
     }, [quotaExceeded]);
 
+    const navIdx = NavItem[RootURL.myItineraries].idx;
+    dispatch(changeIdx(navIdx));
+
     if (!quotaExceeded) {
         return (
             <div>
-                <Navbar />
                 <div className={classes.animationPart}>
                     <Switch>
                         <Route

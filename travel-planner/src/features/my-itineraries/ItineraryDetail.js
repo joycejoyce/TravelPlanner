@@ -1,9 +1,14 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
-import { Favorite as HeartIcon } from "@material-ui/icons";
-import CenterPointDesc from "../../common/components/CenterPointDesc.js";
+import {
+    Favorite as HeartIcon,
+    ViewModule as ViewIcon,
+    ArrowForward as GoIcon
+} from "@material-ui/icons";
+import { Button } from "@material-ui/core";
 
 // my components
+import CenterPointDesc from "../../common/components/CenterPointDesc.js";
 import MyRating from "../../common/components/MyRating.js";
 import POIDisplayPart from "../plan/confirm/gen-poi-info/POIDisplayPart.js";
 import { CriteriaName } from "../plan/criteria/criteriaSlice.js";
@@ -60,6 +65,19 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         margin: "16px 0"
+    },
+    btnSection: {
+        alignSelf: "flex-start",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "start",
+        "& button": {
+            fontSize: "16px"
+        },
+        "& .MuiSvgIcon-root": {
+            fontSize: "28px"
+        },
+        marginBottom: "10vh"
     }
 }));
 
@@ -88,7 +106,7 @@ function useMapUrl(origUrl) {
     return url;
 }
 
-export default function ItineraryDetail({ name: itineraryName }) {
+export default function ItineraryDetail({ name: itineraryName, setParentAnimationKey }) {
     // styles
     const classes = useStyles();
 
@@ -109,7 +127,7 @@ export default function ItineraryDetail({ name: itineraryName }) {
     const centerPoint = criteria[CriteriaName.centerPoint];
     const poiCriteria = criteria[CriteriaName.pois];
     const mapUrl = useMapUrl(staticMapUrl);
-    
+
     // routing data
     const history = useHistory();
 
@@ -119,6 +137,14 @@ export default function ItineraryDetail({ name: itineraryName }) {
         delete allItineraries[itineraryName];
         changeItineraries(allItineraries);
         history.push(`/${URL.myItineraries}`);
+    };
+    const handleClickView = () => {
+        setParentAnimationKey();
+        history.push(`/${URL.myItineraries}`);
+    };
+    const handleClickGen = () => {
+        setParentAnimationKey();
+        history.push(`/${URL.plan}`);
     };
 
     return (
@@ -150,6 +176,24 @@ export default function ItineraryDetail({ name: itineraryName }) {
                 deleteItinerary={deleteItinerary}
                 itinerary={itinerary}
             />
+            <div className={classes.btnSection}>
+                <Button
+                    color="primary"
+                    className={classes.viewBtn}
+                    endIcon={<ViewIcon />}
+                    onClick={handleClickView}
+                >
+                    My Itineraries
+                </Button>
+                <Button
+                    color="primary"
+                    className={classes.goBtn}
+                    endIcon={<GoIcon />}
+                    onClick={handleClickGen}
+                >
+                    Generate another itinerary
+                </Button>
+            </div>
         </div>
     );
 }

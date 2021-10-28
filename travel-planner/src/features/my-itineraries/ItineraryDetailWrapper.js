@@ -12,7 +12,7 @@ import { useParams } from "react-router";
 const useStyles = makeStyles((theme) => ({
 }));
 
-export default function ItineraryDetailWrapper() {
+export default function ItineraryDetailWrapper({ setParentAnimationKey }) {
     // styles
     const classes = useStyles();
 
@@ -25,7 +25,7 @@ export default function ItineraryDetailWrapper() {
             <div className={["contents"].join(" ")}>
                 {
                     itinerary ?
-                    <ItineraryDetail name={itineraryName} /> :
+                    <ItineraryDetail name={itineraryName} setParentAnimationKey={setParentAnimationKey} /> :
                     <WrongItineraryNameDetail name={itineraryName} />
                 }
             </div>

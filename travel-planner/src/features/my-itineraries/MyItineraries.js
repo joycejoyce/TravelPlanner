@@ -60,7 +60,7 @@ export default function MyItineraries({ setAnimationKey: setParentAnimationKey }
                     <Switch>
                         <Route
                             path={`${path}/:itineraryName`}
-                            render={() => (<ItineraryDetailWrapper />)}
+                            render={() => (<ItineraryDetailWrapper setParentAnimationKey={setParentAnimationKey} />)}
                         />
                         <Route
                             path={`${path}`}

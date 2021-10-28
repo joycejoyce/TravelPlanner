@@ -26,16 +26,21 @@ const useStyles = makeStyles((theme) => {
         home: {
         },
         contents: {
-            position: "relative",
+            position: "absolute",
+            top: "130px",
+            [theme.breakpoints.up('md')]: {
+                top: "150px",
+            },
+            left: "50%",
+            transform: "translateX(-50%)",
             width: "310px",
-            height: "600px",
-            margin: "5vh auto",
+            height: "520px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             [theme.breakpoints.up("md")]: {
                 width: "480px",
-                height: "800px"
+                height: "750px"
             }
         },
         highlightText: {
@@ -43,7 +48,6 @@ const useStyles = makeStyles((theme) => {
             fontFamily: secondaryFont
         },
         paragraph: {
-            marginTop: theme.spacing(8),
             alignSelf: "flex-start",
             [theme.breakpoints.up("md")]: {
                 marginTop: theme.spacing(12),

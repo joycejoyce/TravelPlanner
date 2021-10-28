@@ -7,10 +7,14 @@ import Logo from "../../common/components/Logo.js";
 import ViewItineraryPopper from "./ViewItineraryPopper.js";
 import Quota from "./quota/Quota.js";
 
+// React
+import { useState, useLayoutEffect } from "react";
+
 const useStyles = makeStyles((theme) => {
     return ({
         navbar: {
-            position: "relative",
+            position: "absolute",
+            top: theme.spacing(4),
             width: "100vw",
             zIndex: "9"
         },
@@ -23,22 +27,43 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            [theme.breakpoints.up('sm')]: {
+            [theme.breakpoints.up("sm")]: {
                 right: "30px"
             }
         }
     });
 });
 
+function useWindowSize() {
+    const [width, setWidth] = useState("60px");
+    useLayoutEffect(() => {
+        function updateSize() {
+            if (window.innerWidth >= 768) {
+                setWidth("75px");
+            }
+            else {
+                setWidth("60px");
+            }
+        }
+        window.addEventListener("resize", updateSize);
+        updateSize();
+        return () => window.removeEventListener("resize", updateSize);
+    }, []);
+
+    return width;
+}
+
 export default function Navbar() {
     const classes = useStyles();
+
+    const width = useWindowSize();
 
     return (
         <div className={["navbar", classes.navbar].join(" ")}>
             <Quota />
             <Logo
                 className="logo"
-                width="60px"
+                width={width}
                 margin="3vh auto"
                 isDarkMode={false}
             />

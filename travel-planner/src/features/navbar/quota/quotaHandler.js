@@ -15,6 +15,10 @@ export function checkIsExceedThreshold() {
     return getCurQuota() > DailyQuotaLimit * 0.9;
 }
 
+export function checkQuotaExceeded() {
+    return getCurQuota() >= DailyQuotaLimit;
+}
+
 export function getCurQuota() {
     const obj = getQuotaObj();
     const curQuota = obj[QuotaFieldName.curQuota];
@@ -52,15 +56,6 @@ function getInitObj() {
         [QuotaFieldName.timeStamp]: new Date()
     };
 }
-
-// export function useIncrementQuota(num = 1, source = "unknown") {
-//     const curQuota = getCurQuota();
-//     const newQuota = curQuota + num;
-//     changeQuota_inLocalStorage(newQuota, source);
-    
-//     const dispatch = useDispatch();
-//     dispatch(changeQuota(newQuota));
-// }
 
 export function changeQuota_inLocalStorage(newQuota, source) {
     const obj = getQuotaObj();

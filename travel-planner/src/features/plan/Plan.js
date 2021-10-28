@@ -10,6 +10,7 @@ import GetItinerary from "./get-itinerary/GetItinerary.js";
 import { StepInfos, StepNames } from "./PlanStepper.js";
 import { toStep } from "./stepSlice";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
+import useExceedQuotaNotification from "../navbar/quota/useExceedQuotaNotification.js";
 
 // React
 import {
@@ -23,6 +24,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import React, { useState } from "react";
 import Navbar from "../navbar/Navbar";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -72,8 +74,11 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
         )
     };
 
+    const history = useHistory();
+    const quotaExceeded = useExceedQuotaNotification(history);
+
     return (
-        <div id="plan" className={"plan " + classes.plan}>
+        quotaExceeded && (<div id="plan" className={"plan " + classes.plan}>
             <Navbar />
             {/* <h1>Plan</h1> */}
             <NavBar />
@@ -114,5 +119,5 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
                 </CSSTransition>
             </TransitionGroup>
         </div>
-    );
+    ));
 }

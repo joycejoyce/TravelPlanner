@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/styles";
 import ItineraryDetailWrapper from "./ItineraryDetailWrapper.js";
 import AllItineraryCards from "./AllItineraryCards.js";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
+import Navbar from "../navbar/Navbar.js";
+import useExceedQuotaNotification from "../navbar/quota/useExceedQuotaNotification.js";
 
 // React
 import {
@@ -12,7 +14,7 @@ import {
     Route,
     useRouteMatch
 } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -35,8 +37,11 @@ export default function MyItineraries() {
     // routing data
     const { path, url } = useRouteMatch();
 
+    const history = useHistory();
+    const quotaExceeded = useExceedQuotaNotification(history);
+
     return (
-        <div>
+        quotaExceeded && (<div>
             <Navbar />
             <div className={classes.animationPart}>
                 <Switch>
@@ -51,5 +56,5 @@ export default function MyItineraries() {
                 </Switch>
             </div>
         </div>
-    );
+    ));
 }

@@ -72,7 +72,6 @@ export default function ItineraryInfo() {
 
     // React
     const criteria = useSelector(selectAll);
-    // const criteria = mock_criteria;
 
     const getDefaultValue = () => {
         const { centerPoint, date } = criteria;
@@ -81,7 +80,7 @@ export default function ItineraryInfo() {
 
         const defaultValue = [desc].join(" - ");
         return defaultValue;
-    };    
+    };
 
     const src = getImgPath("like-this-itinarary.svg");
     const defaultValue = getDefaultValue();

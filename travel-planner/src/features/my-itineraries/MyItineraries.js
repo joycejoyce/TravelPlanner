@@ -8,6 +8,9 @@ import { getStyles_routingPage } from "../../common/styles/styles.js";
 import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
 import { RootURL } from "../../config.json";
 import { openModal } from "../navbar/quota/exceedQuotaSlice.js";
+import { changeIdx } from "../navbar/navSlice.js";
+import { NavItem } from "../navbar/ViewItineraryPopper.js";
+import { syncQuota } from "../navbar/quota/quotaSlice.js";
 
 // React
 import {
@@ -18,8 +21,6 @@ import {
 import { useHistory } from "react-router";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { changeIdx } from "../navbar/navSlice.js";
-import { NavItem } from "../navbar/ViewItineraryPopper.js";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -43,6 +44,9 @@ export default function MyItineraries({ setAnimationKey: setParentAnimationKey }
     const { path } = useRouteMatch();
 
     const dispatch = useDispatch();
+
+    dispatch(syncQuota());
+
     const history = useHistory();
     const quotaExceeded = checkQuotaExceeded();
     useEffect(() => {

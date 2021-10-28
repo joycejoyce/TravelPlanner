@@ -17,11 +17,15 @@ export const quotaSlice = createSlice({
             state.quota = newQuota;
 
             changeQuota_inLocalStorage(newQuota, source);
+        },
+        syncQuota: (state) => {
+            const curQuota = getCurQuota();
+            state.quota = curQuota;
         }
     }
 });
 
-export const { changeQuota } = quotaSlice.actions;
+export const { changeQuota, syncQuota } = quotaSlice.actions;
 
 export const selectQuota = (state) => state.quota.quota;
 

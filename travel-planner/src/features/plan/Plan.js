@@ -13,6 +13,9 @@ import { getStyles_routingPage } from "../../common/styles/styles.js";
 import { RootURL } from "../../config.json";
 import { NavItem } from "../navbar/ViewItineraryPopper.js";
 import { changeIdx } from "../navbar/navSlice.js";
+import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
+import { openModal } from "../navbar/quota/exceedQuotaSlice.js";
+import { syncQuota } from "../navbar/quota/quotaSlice.js";
 
 // React
 import {
@@ -26,8 +29,6 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { checkQuotaExceeded, getCurQuota } from "../navbar/quota/quotaHandler";
-import { openModal } from "../navbar/quota/exceedQuotaSlice";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -76,6 +77,8 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
             </div>
         )
     };
+
+    dispatch(syncQuota());
 
     const history = useHistory();
     const quotaExceeded = checkQuotaExceeded();

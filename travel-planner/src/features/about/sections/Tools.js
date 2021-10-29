@@ -4,6 +4,8 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 // my components
 import { selectLanguage } from "../languageSlice.js";
+import { darkColors } from "../../../common/styles/colors.json";
+import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 
 // React
 import { useSelector } from "react-redux";
@@ -12,11 +14,19 @@ import { SectionItem } from "./Sections";
 const useStyles = makeStyles((theme) => {
     return ({
         container: {
-            background: "white"
+            maxWidth: "585px",
+            background: darkColors.background,
+            borderRadius: "10px",
+            "& *": {
+                color: darkColors.primary
+            }
+            
         },
         head: {
             fontWeight: "bold",
-            // fontSize: "18px"
+            fontFamily: secondaryFont,
+            letterSpacing: ".9px",
+            fontSize: "20px"
         }
     });
 });
@@ -95,7 +105,7 @@ export default function AppIdea() {
 
     return (
         <div id={SectionItem.tools.ref} className={classes.tools}>
-            <TableContainer className={classes.container} component={Paper}>
+            <TableContainer className={classes.container}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>

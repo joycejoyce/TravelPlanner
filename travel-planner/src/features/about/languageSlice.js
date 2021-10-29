@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Language } from "./LanguageSelect.js";
 
 const initialState = {
-    value: Language.chinese.value
+    value: Language.english.value
 };
 
 export const languageSlice = createSlice({

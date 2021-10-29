@@ -10,10 +10,10 @@
         "navbarBlue": "#0027B2"
     },
     "darkColors": {
-        "primary": "#21B0ED",
+        "background": "#424242",
+        "primary": "#F2F2F2",
         "secondary": "#F5D789",
-        "text": "#F2F2F2",
-        "primaryBK": "#0E5E81"
+        "text": "#F2F2F2"
     },
     "err": "#F15353",
     "errBK": "#FDE7E7",

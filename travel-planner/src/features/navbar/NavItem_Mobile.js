@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => {
         paper: {
             background: "white",
             "& *": {
-                color: lightColors.text
+                color: lightColors.navbarBlue
             }
         },
         popper: {

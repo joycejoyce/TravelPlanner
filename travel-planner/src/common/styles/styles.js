@@ -27,6 +27,15 @@ export function getStyles_map(theme) {
     });
 }
 
+export function getStyles_rootSubPages(theme) {
+    return ({
+        top: "130px",
+        [theme.breakpoints.up('md')]: {
+            top: "150px"
+        }
+    });
+}
+
 export function getStyles_routingPage() {
     return ({
         position: "absolute",
@@ -45,6 +54,23 @@ export function getStyles_routingPage() {
             }
         }
     })
+}
+
+export function getStyles_pageTitle(theme) {
+    return (
+        {
+            fontSize: "28px",
+            [theme.breakpoints.up('md')]: {
+                fontSize: "32px"
+            },
+            [theme.breakpoints.up('lg')]: {
+                fontSize: "40px"
+            },
+            letterSpacing: ".9px",
+            fontWeight: "bold",
+            marginBottom: "40px"
+        }
+    );
 }
 
 export const deleteBtnTheme = createTheme({

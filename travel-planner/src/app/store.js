@@ -8,6 +8,7 @@ import itineraryInfoReducer from "../features/plan/confirm/itinerary-info/itiner
 import validateItineraryReducer from "../features/plan/confirm/validate-itinerary/validateItinerarySlice.js";
 import quotaReducer from "../features/navbar/quota/quotaSlice.js";
 import navReducer from "../features/navbar/navSlice.js";
+import languageReducer from "../features/about/languageSlice.js";
 
 //modal
 import modalReducer_centerPoint from "../features/plan/criteria/centerPoint/centerPointModalSlice.js";
@@ -24,6 +25,7 @@ export const store = configureStore({
         validateItinerary: validateItineraryReducer,
         quota: quotaReducer,
         nav: navReducer,
+        language: languageReducer,
         modal_centerPoint: modalReducer_centerPoint,
         modal_cancel: modalReducer_cancel,
         modal_exceedQuota: modalReducer_exceedQuota

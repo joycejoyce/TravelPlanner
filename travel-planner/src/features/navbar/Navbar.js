@@ -57,13 +57,13 @@ export const NavItem = {
     [RootURL.myItineraries]: {
         idx: 2,
         label: "My Itineraries",
-        url: `${RootURL.myItineraries}`,
+        url: `/${RootURL.myItineraries}`,
         icon: <ItinerariesIcon />
     },
     [RootURL.about]: {
         idx: 3,
         label: "About",
-        url: `${RootURL.about}`,
+        url: `/${RootURL.about}`,
         icon: <AboutIcon />
     }
 };

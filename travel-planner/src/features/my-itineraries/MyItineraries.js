@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 // my components
 import ItineraryDetailWrapper from "./ItineraryDetailWrapper.js";
 import AllItineraryCards from "./AllItineraryCards.js";
-import { getStyles_routingPage } from "../../common/styles/styles.js";
+import { getStyles_rootSubPages, getStyles_routingPage } from "../../common/styles/styles.js";
 import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
 import { RootURL } from "../../config.json";
 import { openModal } from "../navbar/quota/exceedQuotaModalSlice.js";
@@ -24,14 +24,12 @@ import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
+    const pageStyles = getStyles_rootSubPages(theme);
 
     return ({
         animationPart: {
             ...animationPartStyles,
-            top: "130px",
-            [theme.breakpoints.up('md')]: {
-                top: "150px"
-            }
+            ...pageStyles
         }
     });
 });

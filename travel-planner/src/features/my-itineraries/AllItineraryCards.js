@@ -1,12 +1,13 @@
 // MUI
 import { makeStyles } from "@material-ui/styles";
+import { getStyles_pageTitle } from "../../common/styles/styles.js";
 
 // my components
 import { getAllItineraries } from "./dataHandler.js";
 import ItineraryCard from "./ItineraryCard.js";
 
 const useStyles = makeStyles((theme) => {
-    console.log({theme});
+    const titleStyles = getStyles_pageTitle(theme);
 
     return ({
         allItiCards: {
@@ -15,16 +16,7 @@ const useStyles = makeStyles((theme) => {
             textAlign: "center",
         },
         title: {
-            fontSize: "28px",
-            [theme.breakpoints.up('md')]: {
-                fontSize: "32px"
-            },
-            [theme.breakpoints.up('lg')]: {
-                fontSize: "40px"
-            },
-            letterSpacing: ".9px",
-            fontWeight: "bold",
-            marginBottom: "40px"
+            ...titleStyles
         },
         cards: {
             display: "grid",

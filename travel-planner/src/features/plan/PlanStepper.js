@@ -37,7 +37,7 @@ export const StepInfos = {
         num: 1
     },
     [StepNames.getItinerary]: {
-        label: "Get Itinerary",
+        label: "Got Itinerary!",
         num: 2
     }
 };

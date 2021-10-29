@@ -18,12 +18,12 @@ const initialColor = lightGrey;
 const useStyles = makeStyles((theme) => {
     return ({
         quota: {
-            
+            position: "absolute",
+            top: theme.spacing(1),
+            right: theme.spacing(1),
+            zIndex: "100"
         },
         btn: {
-            position: "absolute",
-            left: "300px",
-            top: "-20px",
             width: "80px",
             border: ".5px solid black",
             borderColor: lightGrey,

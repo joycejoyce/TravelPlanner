@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ArrowForward as ArrowIcon } from "@material-ui/icons";
 
 // my components
-import { NavItem } from "../navbar/ViewItineraryPopper.js";
+import { NavItem } from "../navbar/Navbar.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 import { resetCriteria } from "../plan/criteria/criteriaSlice.js";
 import { RootURL } from "../../config.json";

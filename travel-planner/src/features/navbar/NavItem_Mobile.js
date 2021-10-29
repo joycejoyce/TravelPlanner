@@ -2,17 +2,13 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { Popper, Fade, Paper, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import {
-    Menu as MenuIcon,
-    Home as HomeIcon,
-    Edit as PlanIcon,
-    ViewModule as ItinerariesIcon,
-    Help as AboutIcon
+    Menu as MenuIcon
 } from "@material-ui/icons";
 
 // my components
 import { lightColors } from "../../common/styles/colors.json";
-import { RootURL } from "../../config.json";
 import { selectIdx, changeIdx } from "./navSlice.js";
+import { NavItem } from "./Navbar.js";
 
 // React
 import { useState } from "react";
@@ -26,7 +22,8 @@ const useStyles = makeStyles((theme) => {
         },
         btn: {
             color: lightColors.navbarBlue,
-            cursor: "pointer"
+            cursor: "pointer",
+            fontSize: "28px"
         },
         paper: {
             background: "white",
@@ -39,33 +36,6 @@ const useStyles = makeStyles((theme) => {
         }
     });
 });
-
-export const NavItem = {
-    [RootURL.home]: {
-        idx: 0,
-        label: "Home",
-        url: `/`,
-        icon: <HomeIcon />
-    },
-    [RootURL.plan]: {
-        idx: 1,
-        label: "Plan",
-        url: `/${RootURL.plan}`,
-        icon: <PlanIcon />
-    },
-    [RootURL.myItineraries]: {
-        idx: 2,
-        label: "My Itineraries",
-        url: `${RootURL.myItineraries}`,
-        icon: <ItinerariesIcon />
-    },
-    [RootURL.about]: {
-        idx: 3,
-        label: "About",
-        url: `${RootURL.about}`,
-        icon: <AboutIcon />
-    }
-};
 
 function Contents({ closePopper }) {
     const classes = useStyles();
@@ -101,7 +71,7 @@ function Contents({ closePopper }) {
     );
 }
 
-export default function ViewItineraryPopper() {
+export default function NavItem_Mobile() {
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -118,7 +88,7 @@ export default function ViewItineraryPopper() {
     };
 
     return (
-        <div className={["drawer", classes.root].join(" ")}>
+        <div className={["navItems", classes.root].join(" ")}>
             <Popper
                 className={classes.popper}
                 open={open}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function GetLogo({width, margin, isDarkMode}) {
+export default function GetLogo({width, margin, isDarkMode, className}) {
     margin = margin ? margin : "0";
     const Logo = (styled.img`
         width: ${width};
@@ -14,5 +14,5 @@ export default function GetLogo({width, margin, isDarkMode}) {
         alt: "logo"
     };
 
-    return (<Logo />);
+    return (<Logo className={className} />);
 }

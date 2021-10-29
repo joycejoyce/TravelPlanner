@@ -11,7 +11,7 @@ import { StepInfos, StepNames } from "./PlanStepper.js";
 import { toStep } from "./stepSlice";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
 import { RootURL } from "../../config.json";
-import { NavItem } from "../navbar/ViewItineraryPopper.js";
+import { NavItem } from "../navbar/Navbar.js";
 import { changeIdx } from "../navbar/navSlice.js";
 import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
 import { openModal } from "../navbar/quota/exceedQuotaSlice.js";

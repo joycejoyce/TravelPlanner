@@ -9,7 +9,7 @@ import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
 import { RootURL } from "../../config.json";
 import { openModal } from "../navbar/quota/exceedQuotaSlice.js";
 import { changeIdx } from "../navbar/navSlice.js";
-import { NavItem } from "../navbar/ViewItineraryPopper.js";
+import { NavItem } from "../navbar/Navbar.js";
 import { syncQuota } from "../navbar/quota/quotaSlice.js";
 
 // React

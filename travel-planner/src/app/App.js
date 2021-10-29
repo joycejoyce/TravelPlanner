@@ -3,6 +3,7 @@ import Loading from "../common/components/Logo.js";
 import InnerApp from "./InnerApp.js";
 import { lightColors, darkColors } from "../common/styles/colors.json";
 import { primary as primaryFont, secondary as secondaryFont } from "../common/styles/fonts.json";
+import Quota from "../features/navbar/quota/Quota.js";
 
 // MUI
 import { Paper } from "@material-ui/core";
@@ -98,6 +99,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Paper id="app" className={"app " + classes.root}>
         {/* <Loading /> */}
+        <Quota />
         <InnerApp />
       </Paper>
     </ThemeProvider>

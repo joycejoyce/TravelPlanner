@@ -1,6 +1,6 @@
 // my components
 import { changeIdx } from "../navbar/navSlice";
-import { NavItem } from "../navbar/ViewItineraryPopper";
+import { NavItem } from "../navbar/Navbar.js";
 import { RootURL } from "../../config.json";
 
 // React
@@ -14,7 +14,6 @@ export default function About() {
 
     return (
         <div className="about">
-            <h1>About</h1>
         </div>
     );
 }

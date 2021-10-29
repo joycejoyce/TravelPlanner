@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // my components
 import MyModal from "../../../common/components/MyModal.js";
-import { selectIsOpen, closeModal } from "./exceedQuotaSlice.js";
+import { selectIsOpen, closeModal } from "./exceedQuotaModalSlice.js";
 import Logo from "../../../common/components/Logo.js";
 
 // React

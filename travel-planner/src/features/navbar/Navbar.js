@@ -117,7 +117,8 @@ export default function Navbar() {
         return pathname.includes(RootURL.home) || pathname === "/";
     }
 
-    const width = useWindowSize();
+    // const width = useWindowSize();
+    const width = "60px";
     const isMobile = useMobile() || checkIsHome();
 
     return (

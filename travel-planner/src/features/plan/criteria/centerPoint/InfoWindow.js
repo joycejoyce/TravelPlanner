@@ -7,7 +7,7 @@ import { Edit as EditIcon } from '@material-ui/icons';
 import { lightColors } from "../../../../common/styles/colors.json";
 import { secondary as secondaryFont } from "../../../../common/styles/fonts.json";
 import { selectDesc, selectPosition } from "../criteriaSlice.js";
-import { openModal } from "./modalOpenSlice.js";
+import { openModal } from "./centerPointModalSlice.js";
 import { addClickDomListener } from "./mapHandler.js";
 
 // React

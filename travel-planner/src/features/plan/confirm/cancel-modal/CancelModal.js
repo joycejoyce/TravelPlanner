@@ -2,7 +2,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 // my components
-import { closeModal, selectIsOpen } from "./modalOpenSlice.js";
+import { closeModal, selectIsOpen } from "./cancelModalSlice.js";
 import MyModal from "../../../../common/components/MyModal.js";
 
 // React

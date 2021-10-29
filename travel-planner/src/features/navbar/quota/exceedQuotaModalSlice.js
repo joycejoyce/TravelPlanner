@@ -8,17 +8,17 @@ export const modalOpenSlice = createSlice({
     name: "modalOpen",
     initialState,
     reducers: {
-        openModal: (state) => {
+        openModal_exceedQuota: (state) => {
             state.isOpen = true;
         },
-        closeModal: (state) => {
+        closeModal_exceedQuota: (state) => {
             state.isOpen = false;
         }
     }
 });
 
-export const { openModal, closeModal } = modalOpenSlice.actions;
+export const { openModal_exceedQuota: openModal, closeModal_exceedQuota: closeModal } = modalOpenSlice.actions;
 
-export const selectIsOpen = (state) => state.modalOpen_exceedQuota.isOpen;
+export const selectIsOpen = (state) => state.modal_exceedQuota.isOpen;
 
 export default modalOpenSlice.reducer;

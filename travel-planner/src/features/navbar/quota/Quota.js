@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => {
         quota: {
             position: "absolute",
             top: theme.spacing(1),
-            right: theme.spacing(1),
+            right: theme.spacing(3),
             zIndex: "100"
         },
         btn: {

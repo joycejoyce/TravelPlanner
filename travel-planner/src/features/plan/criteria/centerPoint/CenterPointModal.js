@@ -12,7 +12,7 @@ import {
     hideInfoWindow,
     changeInfoWindowPosition
 } from "./mapHandler.js";
-import { closeModal, selectIsOpen } from "./modalOpenSlice";
+import { closeModal, selectIsOpen } from "./centerPointModalSlice";
 
 // my styles
 import { secondary as secondaryFont } from "../../../../common/styles/fonts.json";
@@ -26,8 +26,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "18px",
         color: theme.palette.text.primary,
         textAlign: "center",
-        width: "fit-content",
-        maxWidth: "305px"
+        width: "330px"
     },
     address: {
         color: theme.palette.primary.main,
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: secondaryFont
     },
     text: {
-        width: "296px",
+        width: "330px",
         margin: theme.spacing(2),
         "& .MuiOutlinedInput-root": {
             padding: theme.spacing(1)

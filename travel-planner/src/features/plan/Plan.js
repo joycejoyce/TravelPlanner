@@ -14,7 +14,7 @@ import { RootURL } from "../../config.json";
 import { NavItem } from "../navbar/Navbar.js";
 import { changeIdx } from "../navbar/navSlice.js";
 import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
-import { openModal } from "../navbar/quota/exceedQuotaSlice.js";
+import { openModal } from "../navbar/quota/exceedQuotaModalSlice.js";
 import { syncQuota } from "../navbar/quota/quotaSlice.js";
 
 // React
@@ -139,48 +139,4 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
     return (
         <></>
     );
-
-    // return (
-    //     !quotaExceeded &&
-    //     (<div id="plan" className={"plan " + classes.plan}>
-    //         <Navbar />
-    //         <NavBar />
-    //         <PlanStepper />
-    //         <TransitionGroup
-    //             className={"animationPart-plan " + classes.animationPart}
-    //         >
-    //             <CSSTransition
-    //                 timeout={300}
-    //                 classNames="swipe"
-    //                 key={key}
-    //             >
-    //                 <Switch
-    //                     location={location}
-    //                 >
-    //                     <Route
-    //                         path={`${path}/${URL.criteria}`}
-    //                         render={() => (<Criteria setAnimationKey={setKey} />)}
-    //                     />
-    //                     <Route
-    //                         path={`${path}/${URL.confirm}`}
-    //                         render={() => (<Confirm setAnimationKey={setKey} />)}
-    //                     />
-    //                     <Route
-    //                         path={`${path}/${URL.getItinerary}/:itineraryName`}
-    //                         render={() => (<GetItinerary setAnimationKey={setParentAnimationKey} />)}
-    //                     />
-    //                     <Route
-    //                         path={`${path}/${URL.getItinerary}`}
-    //                         render={() => (<GetItinerary setAnimationKey={setKey} />)}
-    //                     />
-    //                     <Route
-    //                         path={`${path}`}
-    //                         render={() => (<Criteria setAnimationKey={setKey} />)}
-    //                     // render={() => (<GenPOIs setAnimationKey={setKey} />)}
-    //                     />
-    //                 </Switch>
-    //             </CSSTransition>
-    //         </TransitionGroup>
-    //     </div>)
-    // );
 }

@@ -10,9 +10,9 @@ import quotaReducer from "../features/navbar/quota/quotaSlice.js";
 import navReducer from "../features/navbar/navSlice.js";
 
 //modal
-import modalOpenReducer from "../features/plan/criteria/centerPoint/modalOpenSlice.js";
-import modalOpenReducer_confirmPage from "../features/plan/confirm/cancel-modal/modalOpenSlice.js";
-import modalOpenReducer_exceedQuota from "../features/navbar/quota/exceedQuotaSlice.js";
+import modalReducer_centerPoint from "../features/plan/criteria/centerPoint/centerPointModalSlice.js";
+import modalReducer_cancel from "../features/plan/confirm/cancel-modal/cancelModalSlice.js";
+import modalReducer_exceedQuota from "../features/navbar/quota/exceedQuotaModalSlice.js";
 
 export const store = configureStore({
     reducer: {
@@ -24,8 +24,8 @@ export const store = configureStore({
         validateItinerary: validateItineraryReducer,
         quota: quotaReducer,
         nav: navReducer,
-        modalOpen: modalOpenReducer,
-        modalOpen_confirmPage: modalOpenReducer_confirmPage,
-        modalOpen_exceedQuota: modalOpenReducer_exceedQuota
+        modal_centerPoint: modalReducer_centerPoint,
+        modal_cancel: modalReducer_cancel,
+        modal_exceedQuota: modalReducer_exceedQuota
     }
 });

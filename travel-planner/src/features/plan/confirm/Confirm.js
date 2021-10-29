@@ -8,7 +8,7 @@ import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/st
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
 import { POIName } from "../criteria/POIs.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
-import { openModal } from "./cancel-modal/modalOpenSlice.js";
+import { openModal } from "./cancel-modal/cancelModalSlice.js";
 import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
 import ItineraryInfo from "./itinerary-info/ItineraryInfo.js";
 import CancelModal from "./cancel-modal/CancelModal.js";

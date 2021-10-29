@@ -31,7 +31,7 @@ export function getStyles_routingPage() {
     return ({
         position: "absolute",
         width: "100vw",
-        top: "22vh",
+        top: "220px",
         "& > *": { // Sub pages
             // animationPart cannot set translateX or it'll effect animation
             // therefore, to center the content, wrap up the contents in ".contents" and center it

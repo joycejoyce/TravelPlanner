@@ -65,7 +65,7 @@ function AnimationPart() {
 
     return (
         <>
-            <TempNavbar />
+            {/* <TempNavbar /> */}
             <Navbar />
             <ExceedQuotaModal />
             <TransitionGroup

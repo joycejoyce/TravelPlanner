@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => {
             transform: "translate(-50%, -50%)"
         },
         modalContent: {
-            width: "298px",
+            width: "330px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => {
         },
         btnSection: {
             display: "flex",
-            width: "297px",
+            width: "330px",
             height: "40px",
             marginTop: "10px",
             "& button": {

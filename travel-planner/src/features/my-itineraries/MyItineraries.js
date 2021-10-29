@@ -7,7 +7,7 @@ import AllItineraryCards from "./AllItineraryCards.js";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
 import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
 import { RootURL } from "../../config.json";
-import { openModal } from "../navbar/quota/exceedQuotaSlice.js";
+import { openModal } from "../navbar/quota/exceedQuotaModalSlice.js";
 import { changeIdx } from "../navbar/navSlice.js";
 import { NavItem } from "../navbar/Navbar.js";
 import { syncQuota } from "../navbar/quota/quotaSlice.js";
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => {
     return ({
         animationPart: {
             ...animationPartStyles,
-            top: "110px",
+            top: "130px",
             [theme.breakpoints.up('md')]: {
                 top: "150px"
             }
@@ -82,23 +82,4 @@ export default function MyItineraries({ setAnimationKey: setParentAnimationKey }
     return (
         <></>
     );
-
-    // return (
-    //     !quotaExceeded &&
-    //     (<div>
-    //         <Navbar />
-    //         <div className={classes.animationPart}>
-    //             <Switch>
-    //                 <Route
-    //                     path={`${path}/:itineraryName`}
-    //                     render={() => (<ItineraryDetailWrapper />)}
-    //                 />
-    //                 <Route
-    //                     path={`${path}`}
-    //                     render={() => (<AllItineraryCards />)}
-    //                 />
-    //             </Switch>
-    //         </div>
-    //     </div>)
-    // );
 }

@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // my components
 import { initMap, hideInfoWindow, setMapToReadOnly } from "./mapHandler.js";
-import ConfirmModal from "./ConfirmModal.js";
+import ConfirmModal from "./CenterPointModal.js";
 import { changePosition, selectDesc, selectPosition } from "../criteriaSlice.js";
-import { openModal } from "./modalOpenSlice.js";
+import { openModal } from "./centerPointModalSlice.js";
 import { places } from "../../../../common/map/place.js";
 import Explanation from "./Explanation.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../../common/styles/styles.js";

@@ -1,14 +1,7 @@
 // MUI
 import { makeStyles } from "@material-ui/styles";
-import {
-    IconButton,
-    TableContainer,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody
-} from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import { OpenInNew as OpenIcon } from '@material-ui/icons';
 
 // my components
 import { selectLanguage } from "../languageSlice.js";
@@ -22,12 +15,16 @@ import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => {
     return ({
         projMgt: {
-
+            marginTop: theme.spacing(3),
+            display: "flex",
+            flexDirection: "column",
+            gap: theme.spacing(3)
         },
         title: {
             display: "flex",
             gap: theme.spacing(1),
-            alignItems: "center"
+            alignItems: "center",
+            // marginBottom: theme.spacing(2)
         },
         titleCircle: {
             width: "14px",
@@ -42,9 +39,11 @@ const useStyles = makeStyles((theme) => {
             background: lightColors.navbarBlue
         },
         sectionWBS: {
-            display: "flex"
+            // display: "flex"
         },
         titleText: {
+            fontWeight: "bold",
+            color: lightColors.navbarBlue,
             fontSize: "18px"
         },
         subTitleText: {
@@ -61,7 +60,11 @@ const useStyles = makeStyles((theme) => {
         planActualContents: {
             marginTop: theme.spacing(1),
             display: "flex",
-            flexDirection: "column"
+            flexDirection: "column",
+            gap: theme.spacing(1)
+        },
+        space: {
+            height: "3px"
         }
     });
 });
@@ -117,9 +120,30 @@ function Title({ text, isSub }) {
 
     return (
         <div className={classes.title}>
-            <div className={circleStyles}></div>
+            {
+                isSub && (<div className={circleStyles}></div>)
+            }
+            {/* <div className={circleStyles}></div> */}
             <div className={titleTextStyles}>{text}</div>
         </div>
+    )
+}
+
+function WBSLink() {
+    // ctrl
+    const handleClickWBS = () => {
+        window.open("https://docs.google.com/spreadsheets/d/1BhTBcKYuWmtVdxlsT5XoDw2eepXQYq_i1ggXEC_5vHU/edit?usp=sharing", "_blank").focus();
+    };
+
+    return (
+        <Button
+            startIcon={<img src="/img/google-sheets.png" />}
+            endIcon={<OpenIcon />}
+            variant="outlined"
+            onClick={handleClickWBS}
+        >
+            WBS
+        </Button>
     )
 }
 
@@ -134,21 +158,11 @@ export default function ProjectManagement() {
     const { diff, likeness } = planActual;
     const { tableHead, rows } = diff;
 
-    // ctrl
-    const handleClickWBS = () => {
-        window.open("https://docs.google.com/spreadsheets/d/1BhTBcKYuWmtVdxlsT5XoDw2eepXQYq_i1ggXEC_5vHU/edit?usp=sharing", "_blank").focus();
-    };
-
     return (
         <div id={SectionItem.projectManagement.ref} className={classes.projMgt}>
             <div className={classes.sectionWBS}>
-                <Title text={contents.wbsTitle} />
-                <IconButton
-                    aria-label="open google sheets"
-                    onClick={handleClickWBS}
-                >
-                    <img src="/img/google-sheets.png" alt="google sheets" />
-                </IconButton>
+                {/* <Title text={contents.wbsTitle} /> */}
+                <WBSLink />
             </div>
             <div className={classes.sectionPlanActual}>
                 <Title text={planActual.title} />
@@ -159,6 +173,7 @@ export default function ProjectManagement() {
                     </div>
                     <div className={classes.diff}>
                         <Title text={diff.title} isSub={true} />
+                        <div className={classes.space}></div>
                         <MyTable
                             tableHead={tableHead}
                             rows={rows}

@@ -1,13 +1,21 @@
 // MUI
 import { makeStyles } from "@material-ui/styles";
-import { IconButton } from "@material-ui/core";
+import {
+    IconButton,
+    TableContainer,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody
+} from "@material-ui/core";
 
 // my components
 import { selectLanguage } from "../languageSlice.js";
+import { lightColors } from "../../../common/styles/colors.json";
 
 // React
 import { useSelector } from "react-redux";
-import { SectionItem } from "./Sections";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -25,8 +33,28 @@ const useStyles = makeStyles((theme) => {
             borderRadius: "50%",
             background: theme.palette.text.primary
         },
+        subTitleCircle: {
+            width: "10px",
+            height: "10px",
+            borderRadius: "50%",
+            background: lightColors.navbarBlue
+        },
         sectionWBS: {
             display: "flex"
+        },
+        titleText: {
+            fontSize: "18px"
+        },
+        subTitleText: {
+            fontSize: "16px",
+            color: lightColors.navbarBlue
+        },
+        tableHead: {
+            fontWeight: "bold",
+            color: lightColors.navbarBlue
+        },
+        rowHead: {
+            fontWeight: "bold"
         }
     });
 });
@@ -62,8 +90,8 @@ const Contents = {
                 rows: [
                     ["可行的開發時間", "將周末視為開發時間", "周末沒有時間可做程式開發"],
                     ["專案主要階段的時程安排", '"介面設計" 和 "程式開發" 被分開為兩階段', '"介面設計" 和 "程式開發" 必須平行執行 (一邊設計一邊開發)'],
-                    ["計畫時遺漏的重要階段", '遺漏了 "撰寫專案文件" 的階段'],
-                    ["未實作的項目", "深色模式"]
+                    ["計畫時遺漏的重要階段", '遺漏了 "撰寫專案文件" 的階段', ""],
+                    ["未實作的項目", "深色模式", ""]
                 ]
             },
             likeness: {
@@ -74,17 +102,51 @@ const Contents = {
     }
 };
 
-function Title({ text }) {
+function Title({ text, isSub }) {
+    // styles
+    const classes = useStyles();
+    const circleStyles = isSub ? classes.subTitleCircle : classes.titleCircle;
+    const titleTextStyles = isSub ? classes.subTitleText : classes.titleText;
+
+    return (
+        <div className={classes.title}>
+            <div className={circleStyles}></div>
+            <div className={titleTextStyles}>{text}</div>
+        </div>
+    )
+}
+
+function DiffTable({ tableHead, rows }) {
     // styles
     const classes = useStyles();
 
     return (
-        <div className={classes.title}>
-            <div className={classes.titleCircle}></div>
-            <div>{text}</div>
-        </div>
-    )
+        <TableContainer>
+            <Table className={classes.table}>
+                <TableHead>
+                    <TableRow>
+                        {
+                            tableHead.map(text => <TableCell className={classes.tableHead}>{text}</TableCell>)
+                        }
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows.map((row, idx) => (
+                        <TableRow key={idx}>
+                            <TableCell className={classes.rowHead} component="th" scope="row">
+                                {row[0]}
+                            </TableCell>
+                            {
+                                row.slice(1).map(text => <TableCell>{text}</TableCell>)
+                            }
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
 }
+
 
 export default function ProjectManagement() {
     // styles
@@ -93,17 +155,38 @@ export default function ProjectManagement() {
     // data
     const language = useSelector(selectLanguage);
     const contents = Contents[language];
+    const { planActual } = contents;
+    const { diff, likeness } = planActual;
+
+    // ctrl
+    const handleClickWBS = () => {
+        window.open("https://docs.google.com/spreadsheets/d/1BhTBcKYuWmtVdxlsT5XoDw2eepXQYq_i1ggXEC_5vHU/edit?usp=sharing", "_blank").focus();
+    };
 
     return (
         <div className={classes.projMgt}>
             <div className={classes.sectionWBS}>
                 <Title text={contents.wbsTitle} />
-                <IconButton aria-label="open google sheets">
+                <IconButton
+                    aria-label="open google sheets"
+                    onClick={handleClickWBS}
+                >
                     <img src="/img/google-sheets.png" alt="google sheets" />
                 </IconButton>
-                {/* <img src="/img/google-sheets.png" alt="google sheets" /> */}
             </div>
-
+            <div className={classes.sectionPlanActual}>
+                <Title text={planActual.title} />
+                <div className={classes.diff}>
+                    <Title text={diff.title} isSub={true} />
+                    <DiffTable
+                        tableHead={diff.tableHead}
+                        rows={diff.rows}
+                    />
+                </div>
+                <div className={classes.likeness}>
+                    <Title text={likeness.title} isSub={true} />
+                </div>
+            </div>
         </div>
     );
 }

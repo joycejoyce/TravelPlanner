@@ -1,5 +1,6 @@
 // MUI
 import { makeStyles } from "@material-ui/styles";
+import { IconButton } from "@material-ui/core";
 
 // my components
 import { selectLanguage } from "../languageSlice.js";
@@ -10,11 +11,27 @@ import { SectionItem } from "./Sections";
 
 const useStyles = makeStyles((theme) => {
     return ({
-        
+        projMgt: {
+
+        },
+        title: {
+            display: "flex",
+            gap: theme.spacing(1),
+            alignItems: "center"
+        },
+        titleCircle: {
+            width: "14px",
+            height: "14px",
+            borderRadius: "50%",
+            background: theme.palette.text.primary
+        },
+        sectionWBS: {
+            display: "flex"
+        }
     });
 });
 
-const contents = {
+const Contents = {
     english: {
         wbsTitle: "Work Breakdown Structure",
         planActual: {
@@ -57,15 +74,36 @@ const contents = {
     }
 };
 
+function Title({ text }) {
+    // styles
+    const classes = useStyles();
+
+    return (
+        <div className={classes.title}>
+            <div className={classes.titleCircle}></div>
+            <div>{text}</div>
+        </div>
+    )
+}
+
 export default function ProjectManagement() {
     // styles
     const classes = useStyles();
 
     // data
     const language = useSelector(selectLanguage);
-    const actualContents = contents[language];
+    const contents = Contents[language];
 
     return (
-        <div></div>
+        <div className={classes.projMgt}>
+            <div className={classes.sectionWBS}>
+                <Title text={contents.wbsTitle} />
+                <IconButton aria-label="open google sheets">
+                    <img src="/img/google-sheets.png" alt="google sheets" />
+                </IconButton>
+                {/* <img src="/img/google-sheets.png" alt="google sheets" /> */}
+            </div>
+
+        </div>
     );
 }

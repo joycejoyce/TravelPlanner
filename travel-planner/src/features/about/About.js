@@ -8,6 +8,7 @@ import { RootURL } from "../../config.json";
 import TableContents from "./TableContents.js";
 import LanguageSelect from "./LanguageSelect.js";
 import Sections from "./sections/Sections.js";
+import Line from "./Line.js";
 import GoTopButton from "./GoTopButton.js";
 import { getStyles_pageTitle, getStyles_rootSubPages, getStyles_routingPage } from "../../common/styles/styles.js";
 
@@ -51,6 +52,7 @@ export default function About() {
                     <div className={["contents", classes.contents].join(" ")}>
                         <div className={classes.title}>About “Itinerary”</div>
                         <TableContents />
+                        <Line />
                         <LanguageSelect />
                         <Sections />
                         <GoTopButton />

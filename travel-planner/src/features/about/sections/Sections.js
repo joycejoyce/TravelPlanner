@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 // my components
 import AppIdea from "./AppIdea.js";
 import Tools from "./Tools.js";
+import ProjectManagement from "./ProjectManagement.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { Language } from "../LanguageSelect.js";
 import { selectLanguage } from "../languageSlice.js";
@@ -16,7 +17,10 @@ const useStyles = makeStyles((theme) => {
         sections: {
             width: "80vw",
             minWidth: "380px",
-            textAlign: "left"
+            textAlign: "left",
+            display: "flex",
+            flexDirection: "column",
+            gap: theme.spacing(3)
         },
         sectionTitle: {
             fontFamily: secondaryFont,
@@ -43,6 +47,14 @@ export const SectionItem = {
         },
         ref: "tools",
         component: <Tools />
+    },
+    projectManagement: {
+        label: {
+            [Language.english.value]: "Project Management",
+            [Language.chinese.value]: "專案管理"
+        },
+        ref: "project-management",
+        component: <ProjectManagement />
     }
 };
 

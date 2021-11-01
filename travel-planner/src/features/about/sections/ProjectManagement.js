@@ -55,6 +55,16 @@ const useStyles = makeStyles((theme) => {
         },
         rowHead: {
             fontWeight: "bold"
+        },
+        likenessDesc: {
+            fontSize: "14px"
+        },
+        planActualContents: {
+            paddingLeft: theme.spacing(3),
+            marginTop: theme.spacing(1),
+            display: "flex",
+            flexDirection: "column",
+            gap: theme.spacing(1),
         }
     });
 });
@@ -70,8 +80,8 @@ const Contents = {
                 rows: [
                     ["Available development time", "Consider every weekend as available", "Consider every weekend as available"],
                     ["Planning for project phases", '"UI Design" and "Development" are separated as 2 phases', '"Design" and "Development" were running in parallel'],
-                    ["The missed project phase", 'Missed the phase of "writing documents"'],
-                    ["The unimplemented item", "Dark mode"]
+                    ["The missed project phase", 'Missed the phase of "writing documents"', ""],
+                    ["The unimplemented item", "Dark mode", ""]
                 ]
             },
             likeness: {
@@ -96,7 +106,7 @@ const Contents = {
             },
             likeness: {
                 title: "相同之處",
-                desc: "此專案的主要階段(1. 學習新技術 2. 介面設計 3. 程式開發)的實際執行時程，皆與專案計畫符合"
+                desc: "此專案的主要階段 (1. 學習新技術 2. 介面設計 3. 程式開發) 的實際執行時程，皆與專案計畫符合"
             }
         }
     }
@@ -121,7 +131,7 @@ function DiffTable({ tableHead, rows }) {
     const classes = useStyles();
 
     return (
-        <TableContainer>
+        <TableContainer className={classes.diffTbl}>
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
@@ -176,15 +186,18 @@ export default function ProjectManagement() {
             </div>
             <div className={classes.sectionPlanActual}>
                 <Title text={planActual.title} />
-                <div className={classes.diff}>
-                    <Title text={diff.title} isSub={true} />
-                    <DiffTable
-                        tableHead={diff.tableHead}
-                        rows={diff.rows}
-                    />
-                </div>
-                <div className={classes.likeness}>
-                    <Title text={likeness.title} isSub={true} />
+                <div className={classes.planActualContents}>
+                    <div className={classes.diff}>
+                        <Title text={diff.title} isSub={true} />
+                        <DiffTable
+                            tableHead={diff.tableHead}
+                            rows={diff.rows}
+                        />
+                    </div>
+                    <div className={classes.likeness}>
+                        <Title text={likeness.title} isSub={true} />
+                        <div className={classes.likenessDesc}>{likeness.desc}</div>
+                    </div>
                 </div>
             </div>
         </div>

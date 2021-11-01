@@ -1,11 +1,9 @@
 // MUI
 import { makeStyles } from "@material-ui/styles";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 
 // my components
+import MyTable from "./MyTable.js";
 import { selectLanguage } from "../languageSlice.js";
-import { darkColors } from "../../../common/styles/colors.json";
-import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 
 // React
 import { useSelector } from "react-redux";
@@ -13,37 +11,22 @@ import { SectionItem } from "./Sections";
 
 const useStyles = makeStyles((theme) => {
     return ({
-        container: {
-            maxWidth: "585px",
-            background: darkColors.background,
-            borderRadius: "10px",
-            "& *": {
-                color: darkColors.primary
-            }
-            
-        },
-        head: {
-            fontWeight: "bold",
-            fontFamily: secondaryFont,
-            letterSpacing: ".9px",
-            fontSize: "20px"
-        }
     });
 });
 
-const tableHead = {
+const TableHeadObj = {
     english: ["Item", "Tools"],
     chinese: ["項目", "工具"]
 };
 
-const rows = [
+const Rows = [
     {
         key: "ui-design",
         item: {
             english: "UI Design",
             chinese: "介面設計"
         },
-        tools: ["Figma", "XMind (for Functional Map & UI Flow Diagrams)"]
+        tools: [<ToolList toolList={["Figma", "XMind"]} />]
     },
     {
         key: "programming-languages",
@@ -51,7 +34,7 @@ const rows = [
             english: "Programming Languages",
             chinese: "程式語言"
         },
-        tools: ["HTML / JavaScript / CSS"]
+        tools: [<ToolList toolList={["HTML / JavaScript / CSS"]} />]
     },
     {
         key: "framework",
@@ -59,7 +42,7 @@ const rows = [
             english: "Framework",
             chinese: "開發框架"
         },
-        tools: ["React (with Redux)"]
+        tools: [<ToolList toolList={["React (with Redux)"]} />]
     },
     {
         key: "test-framework",
@@ -67,7 +50,7 @@ const rows = [
             english: "Test Framework",
             chinese: "測試框架"
         },
-        tools: ["Jest"]
+        tools: [<ToolList toolList={["Jest"]} />]
     },
     {
         key: "serverless-related",
@@ -75,7 +58,7 @@ const rows = [
             english: "Serverless-Related",
             chinese: "無伺服器運算技術"
         },
-        tools: ["Google Cloud Platform", "Google Maps API"]
+        tools: [<ToolList toolList={["Google Cloud Platform", "Google Maps API"]} />]
     },
     {
         key: "project-management",
@@ -83,7 +66,7 @@ const rows = [
             english: "Project Management",
             chinese: "專案管理"
         },
-        tools: ["Google Sheets"]
+        tools: [<ToolList toolList={["Google Sheets"]} />]
     },
     {
         key: "app-deployment",
@@ -91,9 +74,23 @@ const rows = [
             english: "App Deployment",
             chinese: "應用程式部署"
         },
-        tools: ["Heroku"]
+        tools: [<ToolList toolList={["Heroku"]} />]
     }
 ]
+
+function ToolList({ toolList }) {
+    return (
+        <>
+        {
+            toolList.map((text, idx) => {
+                return (
+                    <div key={idx}>．{text}</div>
+                );
+            })
+        }
+        </>
+    )
+}
 
 export default function AppIdea() {
     // styles
@@ -101,47 +98,18 @@ export default function AppIdea() {
 
     // data
     const language = useSelector(selectLanguage);
-    const actualTableHead = tableHead[language];
+    const tableHead = TableHeadObj[language];
+    const rows = Rows.map(row => {
+        const head = row.item[language];
+        return [head, ...row.tools];
+    });
 
     return (
         <div id={SectionItem.tools.ref} className={classes.tools}>
-            <TableContainer className={classes.container}>
-                <Table className={classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            {
-                                actualTableHead.map(text => (
-                                    <TableCell
-                                        key={text}
-                                        className={classes.head}
-                                    >
-                                        {text}
-                                    </TableCell>
-                                ))
-                            }
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            rows.map((row) => (
-                                <TableRow key={row.key}>
-                                    <TableCell component="th" scope="row">
-                                        {row.item[language]}
-                                    </TableCell>
-                                    <TableCell>
-                                        {
-                                            row.tools.map((tool, idx) => (
-                                                <div key={idx}>．{tool}</div>
-                                            ))
-                                        }
-                                    </TableCell>
-
-                                </TableRow>
-                            ))
-                        }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <MyTable
+                tableHead={tableHead}
+                rows={rows}
+            />
         </div>
     );
 }

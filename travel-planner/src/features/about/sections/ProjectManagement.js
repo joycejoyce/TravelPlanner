@@ -13,6 +13,8 @@ import {
 // my components
 import { selectLanguage } from "../languageSlice.js";
 import { lightColors } from "../../../common/styles/colors.json";
+import { SectionItem } from "./Sections.js";
+import MyTable from "./MyTable.js";
 
 // React
 import { useSelector } from "react-redux";
@@ -53,18 +55,13 @@ const useStyles = makeStyles((theme) => {
             fontWeight: "bold",
             color: lightColors.navbarBlue
         },
-        rowHead: {
-            fontWeight: "bold"
-        },
         likenessDesc: {
             fontSize: "14px"
         },
         planActualContents: {
-            paddingLeft: theme.spacing(3),
             marginTop: theme.spacing(1),
             display: "flex",
-            flexDirection: "column",
-            gap: theme.spacing(1),
+            flexDirection: "column"
         }
     });
 });
@@ -126,38 +123,6 @@ function Title({ text, isSub }) {
     )
 }
 
-function DiffTable({ tableHead, rows }) {
-    // styles
-    const classes = useStyles();
-
-    return (
-        <TableContainer className={classes.diffTbl}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        {
-                            tableHead.map(text => <TableCell className={classes.tableHead}>{text}</TableCell>)
-                        }
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row, idx) => (
-                        <TableRow key={idx}>
-                            <TableCell className={classes.rowHead} component="th" scope="row">
-                                {row[0]}
-                            </TableCell>
-                            {
-                                row.slice(1).map(text => <TableCell>{text}</TableCell>)
-                            }
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
-}
-
-
 export default function ProjectManagement() {
     // styles
     const classes = useStyles();
@@ -167,6 +132,7 @@ export default function ProjectManagement() {
     const contents = Contents[language];
     const { planActual } = contents;
     const { diff, likeness } = planActual;
+    const { tableHead, rows } = diff;
 
     // ctrl
     const handleClickWBS = () => {
@@ -174,7 +140,7 @@ export default function ProjectManagement() {
     };
 
     return (
-        <div className={classes.projMgt}>
+        <div id={SectionItem.projectManagement.ref} className={classes.projMgt}>
             <div className={classes.sectionWBS}>
                 <Title text={contents.wbsTitle} />
                 <IconButton
@@ -187,16 +153,16 @@ export default function ProjectManagement() {
             <div className={classes.sectionPlanActual}>
                 <Title text={planActual.title} />
                 <div className={classes.planActualContents}>
-                    <div className={classes.diff}>
-                        <Title text={diff.title} isSub={true} />
-                        <DiffTable
-                            tableHead={diff.tableHead}
-                            rows={diff.rows}
-                        />
-                    </div>
                     <div className={classes.likeness}>
                         <Title text={likeness.title} isSub={true} />
                         <div className={classes.likenessDesc}>{likeness.desc}</div>
+                    </div>
+                    <div className={classes.diff}>
+                        <Title text={diff.title} isSub={true} />
+                        <MyTable
+                            tableHead={tableHead}
+                            rows={rows}
+                        />
                     </div>
                 </div>
             </div>

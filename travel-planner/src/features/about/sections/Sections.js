@@ -2,7 +2,7 @@
 import { makeStyles } from "@material-ui/styles";
 
 // my components
-import AppIdea from "./AppIdea.js";
+import AppIdea from "./ProjectIdea.js";
 import Tools from "./Tools.js";
 import ProjectManagement from "./ProjectManagement.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => {
 export const SectionItem = {
     appIdea: {
         label: {
-            [Language.english.value]: "App Idea",
+            [Language.english.value]: "Project Idea",
             [Language.chinese.value]: "專案發想"
         },
         ref: "app-idea",

@@ -13,24 +13,24 @@ const useStyles = makeStyles((theme) => {
             marginBottom: theme.spacing(1)
         },
         circle: {
-            width: "10px",
-            height: "10px",
+            width: "8px",
+            height: "8px",
             borderRadius: "50%",
-            background: lightColors.navbarBlue
+            background: lightColors.text
         },
         text: {
             fontSize: "16px",
-            color: lightColors.navbarBlue
+            // color: lightColors.navbarBlue
         }
     });
 });
 
-export default function BulletPoint({ key, text }) {
+export default function SubBulletPoint({ text }) {
     // styles
     const classes = useStyles();
 
     return (
-        <div key={key} className={classes.bulletPoint}>
+        <div className={classes.bulletPoint}>
             <div className={classes.circle}></div>
             <div className={classes.text}>{text}</div>
         </div>

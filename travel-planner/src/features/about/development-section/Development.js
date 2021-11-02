@@ -2,7 +2,11 @@
 import { makeStyles } from "@material-ui/styles";
 
 // my components
-import { SectionItem } from "./Sections.js";
+import { SectionItem } from "../sections/Sections.js";
+import UtilizeGMap from "./UtilizeGMap.js";
+import UIDesign from "./UIDesign.js";
+import SoftwareArchitecture from "./SoftwareArchitecture.js";
+import PlanAlgorithm from "./PlanAlgorithm.js";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -15,20 +19,13 @@ const useStyles = makeStyles((theme) => {
 export default function Development() {
     // styles
     const classes = useStyles();
+
     return (
         <div id={SectionItem.development.ref} className={classes.development}>
-            <div className={classes.subSection}>
-
-            </div>
-            <div className={classes.subSection}>
-                
-            </div>
-            <div className={classes.subSection}>
-                
-            </div>
-            <div className={classes.subSection}>
-                
-            </div>
+            <UtilizeGMap />
+            <UIDesign />
+            <SoftwareArchitecture />
+            <PlanAlgorithm />
         </div>
     );
 }

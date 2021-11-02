@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 import AppIdea from "./ProjectIdea.js";
 import Tools from "./Tools.js";
 import ProjectManagement from "./ProjectManagement.js";
-import Development from "./Development.js";
+import Development from "../development-section/Development.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { Language } from "../LanguageSelect.js";
 import { selectLanguage } from "../languageSlice.js";

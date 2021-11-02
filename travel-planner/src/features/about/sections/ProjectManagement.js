@@ -5,7 +5,6 @@ import { OpenInNew as OpenIcon } from '@material-ui/icons';
 
 // my components
 import { selectLanguage } from "../languageSlice.js";
-// import { lightColors } from "../../../common/styles/colors.json";
 import { SectionItem } from "./Sections.js";
 import MyTable from "../components/MyTable.js";
 import BulletPoint from "../components/BulletPoint.js";
@@ -125,9 +124,9 @@ function WBSLink() {
             variant="outlined"
             onClick={handleClickWBS}
         >
-            WBS
+            Project Plan
         </Button>
-    )
+    );
 }
 
 export default function ProjectManagement() {

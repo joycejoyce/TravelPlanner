@@ -47,9 +47,17 @@ function FeatureTitle({ num, title }) {
     // styles
     const classes = useStyles();
 
+    // data
+    const language = useSelector(selectLanguage);
+    const FeatureText = {
+        english: "Feature",
+        chinese: "特色"
+    }
+    const featureText = FeatureText[language];
+
     const contents = (
         <div className={classes.featureTitle}>
-            <div className={classes.featureNum}>Feature #{num}</div>
+            <div className={classes.featureNum}>{featureText} #{num}</div>
             <div>{title}</div>
         </div>
     );
@@ -255,6 +263,69 @@ export default function SoftwareArchitecture() {
             }
         },
         chinese: {
+            title: "軟體架構",
+            feature1: {
+                title: "Logically-structured folder architecture",
+                tableHead: ["資料夾", "子資料夾", "用途"],
+                descriptions: [
+                    "程式進入點",
+                    "共用元件, 例如: CSS樣式, 小工具, React元件..., 等等",
+                    "主要頁面 和 導覽列",
+                    '"Home" 頁面',
+                    '"Plan" 頁面',
+                    '"My Itineraries" 頁面',
+                    '"About" 頁面',
+                    '導覽列'
+                ]
+            },
+            feature2: {
+                title: '分離 "使用者介面元件" 以及 "程式邏輯元件" 的程式碼',
+                subTitles: [
+                    <ComponentTitle title="使用者介面元件" desc="非下列程式邏輯元件之元件" />,
+                    <ComponentTitle title="程式邏輯元件" desc="" />
+                ],
+                tableData: {
+                    tableHead: ["處理範疇", "功能", "檔案"],
+                    tableRows: [
+                        {
+                            category: "地圖",
+                            functions: "處理地圖相關邏輯, 例如: 載入地圖、監聽地圖點擊事件..., 等等"
+                        },
+                        {
+                            category: "Google Map APIs 使用配額",
+                            functions: "計算並限制使用者發出的API次數"
+                        },
+                        {
+                            category: "行程規劃",
+                            functions: "使用Google Maps API取得資訊後, 產生行程規劃"
+                        }
+                    ]
+                }
+            },
+            feature3: {
+                title: "集中管理CSS樣式",
+                tableData: {
+                    tableHead: ["樣式類別", "描述", "檔案"],
+                    tableRows: [
+                        {
+                            category: "顏色",
+                            desc: "專案中用到的顏色"
+                        },
+                        {
+                            category: "字體",
+                            desc: "專案中用到的字體"
+                        },
+                        {
+                            category: "主題",
+                            desc: (
+                                <div>
+                                    用 <span className={classes.linkText} onClick={handleClickMUILink}>Material UI’s Theme Provider</span> 統一控制專案的使用者介面樣式
+                                </div>
+                            )
+                        }
+                    ]
+                }
+            }
 
         }
     };

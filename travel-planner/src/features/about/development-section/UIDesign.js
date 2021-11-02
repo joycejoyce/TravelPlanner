@@ -4,13 +4,14 @@ import { IconButton } from "@material-ui/core";
 import { OpenInNew as OpenIcon } from '@material-ui/icons';
 
 // my components
-import SubTitle from "../components/SubTitle";
-import { selectLanguage } from "../languageSlice";
+import SubTitle from "../components/SubTitle.js";
+import { selectLanguage } from "../languageSlice.js";
+import BulletPoint from "../components/BulletPoint.js";
+import MyTable from "../components/MyTable.js";
+import Padded from "../components/Padded.js";
 
 // React
 import { useSelector } from "react-redux";
-import BulletPoint from "../components/BulletPoint";
-import MyTable from "../components/MyTable";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -118,10 +119,12 @@ export default function UIDesign() {
         <div className={classes.uiDesign}>
             <SubTitle text={title} />
             <BulletPoint text={point} />
-            <MyTable
-                tableHead={tableHead}
-                rows={rows}
-            />
+            <Padded component={
+                <MyTable
+                    tableHead={tableHead}
+                    rows={rows}
+                />
+            } />
         </div>
     );
 }

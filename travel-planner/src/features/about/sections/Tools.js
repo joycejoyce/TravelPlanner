@@ -2,7 +2,7 @@
 import { makeStyles } from "@material-ui/styles";
 
 // my components
-import MyTable from "./MyTable.js";
+import MyTable from "../components/MyTable.js";
 import { selectLanguage } from "../languageSlice.js";
 
 // React

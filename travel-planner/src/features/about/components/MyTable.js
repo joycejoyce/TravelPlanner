@@ -9,7 +9,7 @@ import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 const useStyles = makeStyles((theme) => {
     return ({
         container: {
-            maxWidth: "585px",
+            maxWidth: "900px",
             background: darkColors.background,
             borderRadius: "10px",
             "& *": {

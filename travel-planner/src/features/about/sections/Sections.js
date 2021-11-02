@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 import AppIdea from "./ProjectIdea.js";
 import Tools from "./Tools.js";
 import ProjectManagement from "./ProjectManagement.js";
+import Development from "./Development.js";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { Language } from "../LanguageSelect.js";
 import { selectLanguage } from "../languageSlice.js";
@@ -26,7 +27,8 @@ const useStyles = makeStyles((theme) => {
             fontFamily: secondaryFont,
             fontSize: "28px",
             letterSpacing: ".9px",
-            fontWeight: "bold"
+            fontWeight: "bold",
+            marginBottom: "10px"
         }
     });
 });
@@ -55,6 +57,14 @@ export const SectionItem = {
         },
         ref: "project-management",
         component: <ProjectManagement />
+    },
+    development: {
+        label: {
+            [Language.english.value]: "Development",
+            [Language.chinese.value]: "開發"
+        },
+        ref: "development",
+        component: <Development />
     }
 };
 

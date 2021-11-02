@@ -13,7 +13,9 @@ const useStyles = makeStyles((theme) => {
             marginBottom: theme.spacing(1)
         },
         circle: {
+            minWidth: "10px",
             width: "10px",
+            minHeight: "10px",
             height: "10px",
             borderRadius: "50%",
             background: lightColors.navbarBlue

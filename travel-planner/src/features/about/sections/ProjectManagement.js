@@ -8,6 +8,8 @@ import { selectLanguage } from "../languageSlice.js";
 import { SectionItem } from "./Sections.js";
 import MyTable from "../components/MyTable.js";
 import BulletPoint from "../components/BulletPoint.js";
+import SubBulletPoint from "../components/SubBulletPoint.js";
+import Padded from "../components/Padded.js";
 
 // React
 import { useSelector } from "react-redux";
@@ -39,7 +41,7 @@ function MajorPhases() {
             {
                 majorPhases.map((phase, idx) => {
                     return (
-                        <div>{idx + 1}. {phase}</div>
+                        <SubBulletPoint key={idx} text={phase} />
                     );
                 })
             }
@@ -68,11 +70,11 @@ const Contents = {
         summary: [
             {
                 title: "The major phases of this project are on-schedule:",
-                contents: <MajorPhases />
+                contents: <Padded component={<MajorPhases />} />
             },
             {
                 title: "Some items are not executed as planned:",
-                contents: <ToBeImproved />
+                contents: <Padded component={<ToBeImproved />} />
             }
         ],
         majorPhases: ["Learning", "Development"],
@@ -91,11 +93,11 @@ const Contents = {
         summary: [
             {
                 title: "此專案的主要階段的實際執行時程，皆與專案計畫符合:",
-                contents: <MajorPhases />
+                contents: <Padded component={<MajorPhases />} />
             },
             {
                 title: "Some items are not executed as planned:",
-                contents: <ToBeImproved />
+                contents: <Padded component={<ToBeImproved />} />
             }
         ],
         majorPhases: ["學習", "開發"],

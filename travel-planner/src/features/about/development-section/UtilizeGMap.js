@@ -8,6 +8,7 @@ import { selectLanguage } from "../languageSlice";
 import SubTitle from "../components/SubTitle.js";
 import BulletPoint from "../components/BulletPoint.js";
 import SubBulletPoint from "../components/SubBulletPoint.js";
+import Padded from "../components/Padded";
 
 // React
 import { useSelector } from "react-redux";
@@ -26,9 +27,6 @@ const useStyles = makeStyles((theme) => {
             display: "grid",
             gridTemplateColumns: "3fr 1fr",
             alignItems: "center"
-        },
-        padded: {
-            paddingLeft: theme.spacing(2)
         }
     });
 });
@@ -58,7 +56,7 @@ function UsedAPIs() {
     ];
 
     return (
-        <div className={classes.padded}>
+        <div>
             {
                 apis.map((api, idx) => {
                     const { name, link } = api;
@@ -117,7 +115,18 @@ const Contents = {
         }
     },
     chinese: {
-        title: "使用Google Maps APIs"
+        title: "使用Google Maps APIs",
+        usedApis: {
+            title: "使用到的APIs"
+        },
+        costControl: {
+            title: "花費控制的機制",
+            methods: [
+                "用Google雲端平台控制使用配額",
+                "設計程式，用最少量的API呼叫次數取得所需資料",
+                "計算並限制每個使用者發出的API次數"
+            ]
+        }
     }
 };
 
@@ -137,11 +146,11 @@ export default function UtilizeGMap() {
             <div className={classes.sections}>
                 <div>
                     <BulletPoint text={usedApisTitle} />
-                    <UsedAPIs />
+                    <Padded component={<UsedAPIs />} />
                 </div>
                 <div>
                     <BulletPoint text={costControlMethodsTitle} />
-                    <CostControlMethods methods={methods} />
+                    <Padded component={<CostControlMethods methods={methods} />} />
                 </div>
             </div>
         </div>

@@ -13,14 +13,15 @@ const useStyles = makeStyles((theme) => {
             marginBottom: theme.spacing(1)
         },
         circle: {
+            minWidth: "8px",
             width: "8px",
             height: "8px",
+            minHeight: "8px",
             borderRadius: "50%",
             background: lightColors.text
         },
         text: {
-            fontSize: "16px",
-            // color: lightColors.navbarBlue
+            fontSize: "16px"
         }
     });
 });

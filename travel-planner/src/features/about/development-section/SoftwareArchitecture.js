@@ -1,6 +1,7 @@
 // MUI
 import { makeStyles } from "@material-ui/styles";
-import { Link } from "@material-ui/core";
+import { OpenInNew as OpenIcon } from "@material-ui/icons";
+import { Button } from "@material-ui/core";
 
 // my components
 import SubTitle from "../components/SubTitle.js";
@@ -17,8 +18,10 @@ import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     return ({
-        softwareArchitecture: {
-
+        contents: {
+            display: "flex",
+            flexDirection: "column",
+            gap: theme.spacing(2)
         },
         featureNum: {
             fontWeight: "bold",
@@ -39,6 +42,9 @@ const useStyles = makeStyles((theme) => {
         linkText: {
             color: lightColors.navbarLightBlue,
             cursor: "pointer"
+        },
+        githubLink: {
+            width: "220px"
         }
     });
 });
@@ -96,14 +102,17 @@ function Feature1({ data }) {
         const subFolder = SubFolders[idx];
         return [folder, subFolder, desc];
     });
+    const paddedContents = (
+        <MyTable
+            tableHead={tableHead}
+            rows={rows}
+        />
+    );
 
     return (
         <div>
             <FeatureTitle num={1} title={title} />
-            <MyTable
-                tableHead={tableHead}
-                rows={rows}
-            />
+            <Padded component={paddedContents} />
         </div>
     );
 }
@@ -165,7 +174,7 @@ function Feature3({ data }) {
             tableHead={tableHead}
             rows={rows}
         />
-    )
+    );
 
     return (
         <div>
@@ -173,6 +182,27 @@ function Feature3({ data }) {
             <Padded component={paddedContents} />
         </div>
     );
+}
+
+function GitHubLink() {
+    // styles
+    const classes = useStyles();
+
+    const handleClick = () => {
+        window.open("https://github.com/joycejoyce/TravelPlanner.git", "_blank").focus();
+    };
+
+    return (
+        <Button
+            className={classes.githubLink}
+            startIcon={<img src="/img/tools/github.png" />}
+            endIcon={<OpenIcon />}
+            variant="outlined"
+            onClick={handleClick}
+        >
+            GitHub source code
+        </Button>
+    )
 }
 
 export default function SoftwareArchitecture() {
@@ -336,9 +366,12 @@ export default function SoftwareArchitecture() {
     return (
         <div className={classes.softwareArchitecture}>
             <SubTitle text={title} />
-            <Feature1 data={feature1} />
-            <Feature2 data={feature2} />
-            <Feature3 data={feature3} />
+            <div className={classes.contents}>
+                <GitHubLink />
+                <Feature1 data={feature1} />
+                <Feature2 data={feature2} />
+                <Feature3 data={feature3} />
+            </div>
         </div>
     );
 }

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => {
     return ({
         algoImg: {
             width: "80vw",
-            minWidth: "600px",
+            minWidth: "380px",
             maxWidth: "900px"
         }
     });

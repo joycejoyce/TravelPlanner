@@ -15,7 +15,6 @@ import Padded from "../components/Padded.js";
 // React
 import { useSelector } from "react-redux";
 
-
 const useStyles = makeStyles((theme) => {
     return ({
         contents: {

@@ -4,7 +4,7 @@ import { IconButton } from "@material-ui/core";
 import { ArrowUpward as UpIcon } from '@material-ui/icons';
 
 // my components
-import { lightColors, lightGrey } from "../../common/styles/colors.json";
+import { lightColors } from "../../common/styles/colors.json";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => {
             zIndex: "200",
             background: lightColors.navbarBlue,
             color: theme.palette.background.paper,
+            boxShadow: "grey 1px 1px 6px",
             "&:hover": {
                 background: lightColors.navbarLightBlue
             }

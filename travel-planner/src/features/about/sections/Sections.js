@@ -6,12 +6,12 @@ import AppIdea from "./ProjectIdea.js";
 import Tools from "./Tools.js";
 import ProjectManagement from "./ProjectManagement.js";
 import Development from "../development-section/Development.js";
-import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { Language } from "../LanguageSelect.js";
 import { selectLanguage } from "../languageSlice.js";
 
 // React
 import { useSelector } from "react-redux";
+import { Title } from "../components/Title.js";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -22,13 +22,6 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             flexDirection: "column",
             gap: theme.spacing(3)
-        },
-        sectionTitle: {
-            fontFamily: secondaryFont,
-            fontSize: "28px",
-            letterSpacing: ".9px",
-            fontWeight: "bold",
-            marginBottom: "10px"
         }
     });
 });
@@ -79,12 +72,15 @@ export default function Sections() {
         <div className={classes.sections}>
             {
                 Object.values(SectionItem).map((item) => {
-                    const { label, component } = item;
+                    const { label, component, ref } = item;
                     const actualLabel = label[language];
 
                     return (
                         <div className={classes.section}>
-                            <div className={classes.sectionTitle}>{actualLabel}</div>
+                            <Title
+                                id={ref}
+                                text={actualLabel}
+                            />
                             {component}
                         </div>
                     );

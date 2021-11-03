@@ -9,6 +9,7 @@ import { selectLanguage } from "../languageSlice.js";
 import BulletPoint from "../components/BulletPoint.js";
 import MyTable from "../components/MyTable.js";
 import Padded from "../components/Padded.js";
+import { DevSections } from "./Development.js";
 
 // React
 import { useSelector } from "react-redux";
@@ -83,7 +84,6 @@ function Tool({ idx }) {
 
 const Contents = {
     english: {
-        title: "UI Design",
         point: "Follow UI design flow:",
         tableData: {
             tableHead: ["Order", "Diagram", "Tool", "Link"],
@@ -91,7 +91,6 @@ const Contents = {
         }
     },
     chinese: {
-        title: "介面設計",
         point: "依照介面設計流程:",
         tableData: {
             tableHead: ["順序", "設計圖種類", "繪圖工具", "連結"],
@@ -106,7 +105,12 @@ export default function UIDesign() {
 
     // data
     const language = useSelector(selectLanguage);
-    const { title, point, tableData } = Contents[language];
+
+    const sectionData = DevSections.uiDesign;
+    const title = sectionData.label[language];
+    const id = sectionData.ref;
+
+    const { point, tableData } = Contents[language];
     const { tableHead, steps } = tableData;
     const rows = steps.map((step, idx) => {
         const number = idx + 1;
@@ -116,7 +120,7 @@ export default function UIDesign() {
     })
 
     return (
-        <div className={classes.uiDesign}>
+        <div id={id} className={classes.uiDesign}>
             <SubTitle text={title} />
             <BulletPoint text={point} />
             <Padded component={

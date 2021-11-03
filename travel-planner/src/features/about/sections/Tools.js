@@ -7,10 +7,12 @@ import { selectLanguage } from "../languageSlice.js";
 
 // React
 import { useSelector } from "react-redux";
-import { SectionItem } from "./Sections";
 
 const useStyles = makeStyles((theme) => {
     return ({
+        tools: {
+            marginBottom: "10vh"
+        }
     });
 });
 
@@ -105,7 +107,7 @@ export default function AppIdea() {
     });
 
     return (
-        <div id={SectionItem.tools.ref} className={classes.tools}>
+        <div className={classes.tools}>
             <MyTable
                 tableHead={tableHead}
                 rows={rows}

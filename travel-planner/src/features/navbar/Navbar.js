@@ -119,7 +119,7 @@ export default function Navbar() {
 
     // const width = useWindowSize();
     const width = "60px";
-    const isMobile = useMobile() || checkIsHome();
+    const isMobile = useMobile();
 
     return (
         <div className={["navbar", classes.navbar].join(" ")}>

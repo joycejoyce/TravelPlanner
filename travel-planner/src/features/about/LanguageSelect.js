@@ -12,9 +12,13 @@ import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => {
     return ({
         formControl: {
-            position: "absolute",
-            top: "56px",
-            right: "0"
+            marginBottom: theme.spacing(1),
+            "& .MuiInputBase-root": {
+                lineHeight: "0.3rem"
+            },
+            "& .MuiSelect-selectMenu": {
+                minHeight: "0.3rem"
+            }
         }
     });
 });

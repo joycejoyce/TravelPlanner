@@ -2,8 +2,9 @@
 import { makeStyles } from "@material-ui/styles";
 
 // my components
-import SubTitle from "../components/SubTitle";
-import { selectLanguage } from "../languageSlice";
+import SubTitle from "../components/SubTitle.js";
+import { selectLanguage } from "../languageSlice.js";
+import { DevSections } from "./Development.js";
 
 // React
 import { useSelector } from "react-redux";
@@ -23,20 +24,14 @@ export default function PlanAlgorithm() {
     const classes = useStyles();
 
     // data
-    const Contents = {
-        english: {
-            title: "Trip Planning Algorithm"
-        },
-        chinese: {
-            title: "旅程規劃演算法"
-        }
-    }
     const language = useSelector(selectLanguage);
-    const contents = Contents[language];
-    const { title } = contents;
+
+    const sectionData = DevSections.planAlgorithm;
+    const title = sectionData.label[language];
+    const id = sectionData.ref;
 
     return (
-        <div className={classes.planAlgorithm}>
+        <div id={id} className={classes.planAlgorithm}>
             <SubTitle text={title} />
             <img
                 className={classes.algoImg}

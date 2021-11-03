@@ -6,7 +6,6 @@ import { selectLanguage } from "../languageSlice.js";
 
 // React
 import { useSelector } from "react-redux";
-import { SectionItem } from "./Sections";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -27,7 +26,7 @@ export default function AppIdea() {
     const language = useSelector(selectLanguage);
 
     return (
-        <div id={SectionItem.appIdea.ref} className={classes.appIdea}>
+        <div className={classes.appIdea}>
             {contents[language]}
         </div>
     );

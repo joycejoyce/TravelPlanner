@@ -11,6 +11,7 @@ import BulletPoint from "../components/BulletPoint.js";
 import MyTable from "../components/MyTable.js";
 import SubBulletPoint from "../components/SubBulletPoint";
 import Padded from "../components/Padded.js";
+import { DevSections } from "./Development.js";
 
 // React
 import { useSelector } from "react-redux";
@@ -233,7 +234,6 @@ export default function SoftwareArchitecture() {
     };
     const Contents = {
         english: {
-            title: "Software Architecture",
             feature1: {
                 title: "Logically-structured folder architecture",
                 tableHead: ["Folder", "Sub Folder", "Description"],
@@ -298,7 +298,6 @@ export default function SoftwareArchitecture() {
             }
         },
         chinese: {
-            title: "軟體架構",
             feature1: {
                 title: "邏輯分明的資料夾結構",
                 tableHead: ["資料夾", "子資料夾", "用途"],
@@ -365,11 +364,16 @@ export default function SoftwareArchitecture() {
         }
     };
     const language = useSelector(selectLanguage);
+
+    const sectionData = DevSections.softwareArchitecture;
+    const title = sectionData.label[language];
+    const id = sectionData.ref;
+
     const contents = Contents[language];
-    const { title, feature1, feature2, feature3 } = contents;
+    const { feature1, feature2, feature3 } = contents;
 
     return (
-        <div className={classes.softwareArchitecture}>
+        <div id={id} className={classes.softwareArchitecture}>
             <SubTitle text={title} />
             <div className={classes.contents}>
                 <GitHubLink />

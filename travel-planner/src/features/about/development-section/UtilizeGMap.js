@@ -9,6 +9,7 @@ import SubTitle from "../components/SubTitle.js";
 import BulletPoint from "../components/BulletPoint.js";
 import SubBulletPoint from "../components/SubBulletPoint.js";
 import Padded from "../components/Padded";
+import { DevSections } from "./Development";
 
 // React
 import { useSelector } from "react-redux";
@@ -101,7 +102,6 @@ function CostControlMethods({ methods }) {
 
 const Contents = {
     english: {
-        title: "Utilize Google Maps APIs",
         usedApis: {
             title: "Used APIs"
         },
@@ -115,7 +115,6 @@ const Contents = {
         }
     },
     chinese: {
-        title: "使用Google Maps APIs",
         usedApis: {
             title: "使用到的APIs"
         },
@@ -136,12 +135,16 @@ export default function UtilizeGMap() {
 
     // data
     const language = useSelector(selectLanguage);
-    const { title } = Contents[language];
+
+    const sectionData = DevSections.utilizeGMap;
+    const title = sectionData.label[language];
+    const id = sectionData.ref;
+
     const { title: usedApisTitle } = Contents[language].usedApis;
     const { title: costControlMethodsTitle, methods } = Contents[language].costControl;
 
     return (
-        <div className={classes.utilizeGMap}>
+        <div id={id} className={classes.utilizeGMap}>
             <SubTitle text={title} />
             <div className={classes.sections}>
                 <div>

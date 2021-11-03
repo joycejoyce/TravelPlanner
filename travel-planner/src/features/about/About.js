@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
     return ({
         animationPart: {
             ...animationPartStyles,
-            ...pageStyles
+            ...pageStyles,
         },
         contents: {
             textAlign: "center"
@@ -47,15 +47,15 @@ export default function About() {
 
     return (
         <div>
+            <GoTopButton />
             <div className={classes.animationPart}>
                 <div className={classes.about}>
                     <div className={["contents", classes.contents].join(" ")}>
                         <div className={classes.title}>About “Itinerary”</div>
+                        <LanguageSelect />
                         <TableContents />
                         <Line />
-                        <LanguageSelect />
                         <Sections />
-                        <GoTopButton />
                     </div>
                 </div>
             </div>

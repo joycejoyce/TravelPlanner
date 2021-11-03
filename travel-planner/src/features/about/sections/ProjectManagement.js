@@ -5,7 +5,6 @@ import { OpenInNew as OpenIcon } from '@material-ui/icons';
 
 // my components
 import { selectLanguage } from "../languageSlice.js";
-import { SectionItem } from "./Sections.js";
 import MyTable from "../components/MyTable.js";
 import BulletPoint from "../components/BulletPoint.js";
 import SubBulletPoint from "../components/SubBulletPoint.js";
@@ -141,7 +140,7 @@ export default function ProjectManagement() {
     const { summary } = contents;
 
     return (
-        <div id={SectionItem.projectManagement.ref} className={classes.projMgt}>
+        <div className={classes.projMgt}>
             <div className={classes.sectionWBS}>
                 <WBSLink />
             </div>

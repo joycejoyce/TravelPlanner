@@ -3,23 +3,26 @@ import { makeStyles } from "@material-ui/styles";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 
 // my components
-import { darkColors } from "../../../common/styles/colors.json";
+import { lightColors, darkColors } from "../../../common/styles/colors.json";
 import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 
 const useStyles = makeStyles((theme) => {
     return ({
         container: {
             maxWidth: "900px",
-            background: darkColors.background,
+            // background: darkColors.background,
             borderRadius: "10px",
             "& *": {
-                color: darkColors.primary
+                // color: darkColors.primary
             }
         },
         rowHead: {
-            color: theme.palette.secondary.main
+            // color: theme.palette.secondary.main
+            color: lightColors.navbarBlue,
+            // textAlign: "center"
         },
         head: {
+            // textAlign: "center",
             fontWeight: "bold",
             fontFamily: secondaryFont,
             letterSpacing: ".9px",

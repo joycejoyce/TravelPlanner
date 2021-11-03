@@ -42,14 +42,6 @@ export const SectionItem = {
         ref: "app-idea",
         component: <AppIdea />
     },
-    tools: {
-        label: {
-            [Language.english.value]: "Tools",
-            [Language.chinese.value]: "開發工具"
-        },
-        ref: "tools",
-        component: <Tools />
-    },
     projectManagement: {
         label: {
             [Language.english.value]: "Project Management",
@@ -65,6 +57,14 @@ export const SectionItem = {
         },
         ref: "development",
         component: <Development />
+    },
+    tools: {
+        label: {
+            [Language.english.value]: "Tools",
+            [Language.chinese.value]: "開發工具"
+        },
+        ref: "tools",
+        component: <Tools />
     }
 };
 

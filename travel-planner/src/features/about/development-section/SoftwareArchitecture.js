@@ -122,9 +122,12 @@ function Feature2({ data }) {
 
     // data
     const Files = [
-        "~/src/features/plan/criteria/centerPoint/mapHandler.js",
-        "~/src/features/navbar/quota/quotaHandler.js",
-        "~/src/features/plan/confirm/poiDataHandler.js"
+        "mapHandler.js",
+        "quotaHandler.js",
+        "poiDataHandler.js"
+        // "~/src/features/plan/criteria/centerPoint/mapHandler.js",
+        // "~/src/features/navbar/quota/quotaHandler.js",
+        // "~/src/features/plan/confirm/poiDataHandler.js"
     ];
     const { title, subTitles, tableData } = data;
     const { tableHead, tableRows } = tableData;
@@ -157,9 +160,12 @@ function Feature2({ data }) {
 function Feature3({ data }) {
     // data
     const Files = [
-        "~/src/common/styles/colors.json",
-        "~/src/common/styles/fonts.json",
-        "~/src/app/App.js"
+        "colors.json",
+        "fonts.json",
+        "App.js"
+        // "~/src/common/styles/colors.json",
+        // "~/src/common/styles/fonts.json",
+        // "~/src/app/App.js"
     ];
     const { title, tableData } = data;
     const { tableHead, tableRows } = tableData;

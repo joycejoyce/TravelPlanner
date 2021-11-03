@@ -96,7 +96,7 @@ const Contents = {
                 contents: <Padded component={<MajorPhases />} />
             },
             {
-                title: "Some items are not executed as planned:",
+                title: "計畫不完善之處:",
                 contents: <Padded component={<ToBeImproved />} />
             }
         ],

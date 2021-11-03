@@ -205,7 +205,7 @@ function GitHubLink() {
             variant="outlined"
             onClick={handleClick}
         >
-            GitHub source code
+            GitHub Source Codes
         </Button>
     )
 }
@@ -300,7 +300,7 @@ export default function SoftwareArchitecture() {
         chinese: {
             title: "軟體架構",
             feature1: {
-                title: "Logically-structured folder architecture",
+                title: "邏輯分明的資料夾結構",
                 tableHead: ["資料夾", "子資料夾", "用途"],
                 descriptions: [
                     "程式進入點",

@@ -52,8 +52,8 @@ export const SectionItem = {
     },
     development: {
         label: {
-            [Language.english.value]: "Development",
-            [Language.chinese.value]: "開發"
+            [Language.english.value]: "Development Details",
+            [Language.chinese.value]: "開發細節"
         },
         ref: "development",
         component: <Development />

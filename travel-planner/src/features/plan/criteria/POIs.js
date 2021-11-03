@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => {
     return ({
         contents: {
             display: "grid",
-            gridTemplateColumns: "1.8fr 1fr",
+            gridTemplateColumns: "1.6fr 1fr",
             alignItems: "center",
             letterSpacing: ".5px"
         },

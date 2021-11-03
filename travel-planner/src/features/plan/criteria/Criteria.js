@@ -66,13 +66,13 @@ export const CriteriaInfo = {
     [CriteriaName.pois]: {
         name: CriteriaName.pois,
         num: 4,
-        summary: "Set point-of-interst",
+        summary: "Set points-of-interest",
         detail: <POIs />
     },
     // [CriteriaName.poiTypes]: {
     //     name: CriteriaName.poiTypes,
     //     num: 5,
-    //     summary: "Set Point-of-interest types (at most 3)",
+    //     summary: "Set points-of-interest types (at most 3)",
     //     detail: <POITypes />
     // }
 };

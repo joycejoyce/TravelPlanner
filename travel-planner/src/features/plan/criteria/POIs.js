@@ -12,6 +12,7 @@ import { changePOIs, selectPOIs } from "./criteriaSlice";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -23,11 +24,16 @@ const useStyles = makeStyles((theme) => {
         },
         ctrlLabel: {
             height: "42px"
+        },
+        selectAll: {
+            "& .MuiFormControlLabel-label": {
+                color: theme.palette.primary.main
+            }
         }
     });
 });
 
-function Contents({poiName}) {
+function Contents({ poiName }) {
     const classes = useStyles();
     const { label, timeStart, timeEnd } = POIInfo[poiName];
 
@@ -74,21 +80,21 @@ export const POIInfo = {
     },
     [POIName.poi1]: {
         name: POIName.poi1,
-        label: "Point-of-Interst #1",
+        label: "Point-of-Interest #1",
         shortLabel: "POI #1",
         timeStart: "09:00",
         timeEnd: "12:00"
     },
     [POIName.poi2]: {
         name: POIName.poi2,
-        label: "Point-of-Interst #2",
+        label: "Point-of-Interest #2",
         shortLabel: "POI #2",
         timeStart: "13:00",
         timeEnd: "15:00"
     },
     [POIName.poi3]: {
         name: POIName.poi3,
-        label: "Point-of-Interst #3",
+        label: "Point-of-Interest #3",
         shortLabel: "POI #3",
         timeStart: "15:00",
         timeEnd: "18:00"
@@ -97,31 +103,53 @@ export const POIInfo = {
 
 export default function Radius() {
     const classes = useStyles();
-    const dispatch = useDispatch();
+    
+    // data
+    const [selectAll, setSelectAll] = useState(true);
     const selectedPOIs = useSelector(selectPOIs);
 
+    // ctrl
+    const dispatch = useDispatch();
     const handleChange = (e) => {
         const { name, checked } = e.target;
         dispatch(changePOIs({ name, checked }));
-    }
+    };
+    const handleClickSelectAll = (e) => {
+        const { checked } = e.target;
+        setSelectAll(checked);
+        Object.values(POIInfo).forEach((poiInfo) => {
+            const { name } = poiInfo;
+            dispatch(changePOIs({ name, checked }));
+        });
+    };
 
     return (
         <FormControl
             className={classes.pois}
             component="fieldset"
         >
-            {/* <FormLabel component="legend">Assign responsibility</FormLabel> */}
             <FormGroup>
+                <FormControlLabel
+                    className={classes.selectAll}
+                    control={
+                        <Checkbox
+                            checked={selectAll}
+                            onChange={handleClickSelectAll}
+                            color="primary"
+                        />
+                    }
+                    label="Select All"
+                />
                 {
                     Object.keys(POIInfo).map(poiName => {
                         return (
                             <FormControlLabel
                                 className={classes.ctrlLabel}
                                 control={<Checkbox
-                                            checked={selectedPOIs[poiName]}
-                                            onChange={handleChange}
-                                            name={poiName}
-                                        />}
+                                    checked={selectedPOIs[poiName]}
+                                    onChange={handleChange}
+                                    name={poiName}
+                                />}
                                 label={<Contents poiName={poiName} />}
                             />
                         );

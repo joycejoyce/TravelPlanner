@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => {
             left: "50%",
             transform: "translateX(-50%)",
             width: "310px",
-            height: "520px",
+            height: "460px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

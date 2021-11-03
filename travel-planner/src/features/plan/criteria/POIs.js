@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => {
             "& .MuiFormControlLabel-label": {
                 color: theme.palette.primary.main
             }
+        },
+        time: {
+            minWidth: "100px"
         }
     });
 });

@@ -6,6 +6,7 @@ import AppIdea from "./ProjectIdea.js";
 import Tools from "./Tools.js";
 import ProjectManagement from "./ProjectManagement.js";
 import Development from "../development-section/Development.js";
+import DemoVideo from "./DemoVideo.js";
 import { Language } from "../LanguageSelect.js";
 import { selectLanguage } from "../languageSlice.js";
 
@@ -34,6 +35,14 @@ export const SectionItem = {
         },
         ref: "app-idea",
         component: <AppIdea />
+    },
+    demoVideo: {
+        label: {
+            [Language.english.value]: "Demo Video",
+            [Language.chinese.value]: "展示影片"
+        },
+        ref: "demo-video",
+        component: <DemoVideo />
     },
     projectManagement: {
         label: {

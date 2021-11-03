@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => {
         techLink: {
             position: "absolute",
             bottom: "0",
+            cursor: "pointer",
             fontFamily: theme.typography.fontFamily,
             letterSpacing: ".5px",
             fontSize: "14px",
@@ -104,7 +105,6 @@ export default function Home({ setAnimationKey }) {
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
-    const TechLink = props => <RouterLink to="/tech" {...props} />
 
     const handleClickGo = () => {
         dispatch(resetCriteria());
@@ -114,6 +114,11 @@ export default function Home({ setAnimationKey }) {
 
     const navIdx = NavItem[RootURL.home].idx;
     dispatch(changeIdx(navIdx));
+
+    const handleClickTechBehind = () => {
+        setAnimationKey();
+        history.push(`/${RootURL.about}`);
+    };
 
     return (
         <div className={"home " + classes.home}>
@@ -128,7 +133,11 @@ export default function Home({ setAnimationKey }) {
                 >
                     Go
                 </Button>
-                <Link className={classes.techLink} color="textPrimary" component={TechLink}>
+                <Link
+                    className={classes.techLink}
+                    color="textPrimary"
+                    onClick={handleClickTechBehind}
+                >
                     technologies<br />behind the scenes
                 </Link>
             </div>

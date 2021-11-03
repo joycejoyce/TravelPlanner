@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // my components
 import MyModal from "../../../common/components/MyModal.js";
+import { DailyQuotaLimit } from "./quotaHandler.js";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -34,7 +35,7 @@ function ModalContent({ quotaLimit }) {
                 Due to using Google Maps APIs is costly,<br/>the daily quota of using them is:
             </div>
             <div className={classes.limitDesc}>
-                <span className={classes.limitNum}>90</span> requests per IP
+                <span className={classes.limitNum}>{DailyQuotaLimit}</span> requests per IP
             </div>
         </div>
     );

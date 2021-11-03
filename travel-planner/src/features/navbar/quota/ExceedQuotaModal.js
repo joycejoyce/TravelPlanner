@@ -5,9 +5,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import MyModal from "../../../common/components/MyModal.js";
 import { selectIsOpen, closeModal } from "./exceedQuotaModalSlice.js";
 import Logo from "../../../common/components/Logo.js";
+import { SectionItem } from "../../about/sections/Sections.js";
+import { RootURL } from "../../../config.json";
 
 // React
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -36,9 +39,9 @@ function ModalContent() {
     return (
         <div className={classes.modalContent}>
             <div className={classes.desc}>
-            The daily quota of using<br />
-            <span className={classes.google}>Google Maps APIs</span><br />
-            is exceeded
+                The daily quota of using<br />
+                <span className={classes.google}>Google Maps APIs</span><br />
+                is exceeded
             </div>
             <div className={classes.instruction}>
                 You may use
@@ -55,10 +58,22 @@ function ModalContent() {
 
 export default function ExceedQuotaModal() {
     const isOpen = useSelector(selectIsOpen);
-    const dispatch = useDispatch();
 
+    // ctrl
+    const history = useHistory();
+    const dispatch = useDispatch();
     const doCloseModal = () => {
         dispatch(closeModal());
+    };
+    const goWatchDemoVideo = () => {
+        const refUrl = SectionItem.demoVideo.ref
+        const url = `/${RootURL.about}#${refUrl}`;
+
+        history.push(url);
+        const demoElem = document.getElementById(refUrl);
+        if (demoElem) {
+            demoElem.scrollIntoView();
+        }
     };
 
     const getBtnSetting = () => {
@@ -68,7 +83,7 @@ export default function ExceedQuotaModal() {
                 text: "Close"
             },
             rightBtn: {
-                callback: null,
+                callback: goWatchDemoVideo,
                 text: "Watch demo video"
             }
         });

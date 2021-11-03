@@ -96,7 +96,7 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
     if (!quotaExceeded) {
         return (
             <div id="plan" className={"plan " + classes.plan}>
-                <TempNavbar />
+                {/* <TempNavbar /> */}
                 <PlanStepper />
                 <TransitionGroup
                     className={"animationPart-plan " + classes.animationPart}

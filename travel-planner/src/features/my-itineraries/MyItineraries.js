@@ -5,12 +5,9 @@ import { makeStyles } from "@material-ui/styles";
 import ItineraryDetailWrapper from "./ItineraryDetailWrapper.js";
 import AllItineraryCards from "./AllItineraryCards.js";
 import { getStyles_rootSubPages, getStyles_routingPage } from "../../common/styles/styles.js";
-import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
 import { RootURL } from "../../config.json";
-import { openModal } from "../navbar/quota/exceedQuotaModalSlice.js";
-import { changeIdx } from "../navbar/navSlice.js";
-import { NavItem } from "../navbar/Navbar.js";
-import { syncQuota } from "../navbar/quota/quotaSlice.js";
+import useChangeNavIdx from "../../common/util/useChangeNavIdx.js";
+import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
 
 // React
 import {
@@ -18,9 +15,6 @@ import {
     Route,
     useRouteMatch
 } from "react-router-dom";
-import { useHistory } from "react-router";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -38,25 +32,12 @@ export default function MyItineraries({ setAnimationKey: setParentAnimationKey }
     // styles
     const classes = useStyles();
 
-    // routing data
+    // data
     const { path } = useRouteMatch();
 
-    const dispatch = useDispatch();
-
-    dispatch(syncQuota());
-
-    const history = useHistory();
-    const quotaExceeded = checkQuotaExceeded();
-    useEffect(() => {
-        if (quotaExceeded) {
-            history.push(`/${RootURL.about}`);
-            setParentAnimationKey();
-            dispatch(openModal());
-        }
-    }, [quotaExceeded]);
-
-    const navIdx = NavItem[RootURL.myItineraries].idx;
-    dispatch(changeIdx(navIdx));
+    // init
+    useChangeNavIdx(RootURL.myItineraries);
+    const quotaExceeded = useQuotaExceeded(true, setParentAnimationKey);
 
     if (!quotaExceeded) {
         return (

@@ -4,24 +4,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ArrowForward as ArrowIcon } from "@material-ui/icons";
 
 // my components
-import { NavItem } from "../navbar/Navbar.js";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 import { resetCriteria } from "../plan/criteria/criteriaSlice.js";
 import { RootURL } from "../../config.json";
-import { changeIdx } from "../navbar/navSlice.js";
+import useChangeNavIdx from "../../common/util/useChangeNavIdx.js";
+import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
 
 // React
 import { useDispatch } from "react-redux";
-import {
-    Link as RouterLink,
-    useHistory
-} from "react-router-dom";
-
-let isDarkMode = false;
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
-    isDarkMode = theme.palette.type === "dark";
-
     return({
         home: {
         },
@@ -102,23 +95,27 @@ const Paragraph = () => {
 };
 
 export default function Home({ setAnimationKey }) {
+    // styles
     const classes = useStyles();
+
+    // tool
     const history = useHistory();
     const dispatch = useDispatch();
 
+    // ctrl
     const handleClickGo = () => {
         dispatch(resetCriteria());
         setAnimationKey();
-        history.push("/plan");
+        history.push(`/${RootURL.plan}`);
     }
-
-    const navIdx = NavItem[RootURL.home].idx;
-    dispatch(changeIdx(navIdx));
-
     const handleClickTechBehind = () => {
         setAnimationKey();
         history.push(`/${RootURL.about}`);
     };
+    
+    // initialize
+    useChangeNavIdx(RootURL.home);
+    useQuotaExceeded(false, setAnimationKey);
 
     return (
         <div className={"home " + classes.home}>

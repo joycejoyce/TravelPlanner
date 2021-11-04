@@ -93,7 +93,7 @@ function AnimationPart() {
                         />
                         <Route
                             path={`/${RootURL.about}`}
-                            render={() => <About />}
+                            render={() => <About setAnimationKey={setKey} />}
                         />
                         <Route
                             path="/"

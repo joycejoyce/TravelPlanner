@@ -11,11 +11,8 @@ import { StepInfos, StepNames } from "./PlanStepper.js";
 import { toStep } from "./stepSlice";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
 import { RootURL } from "../../config.json";
-import { NavItem } from "../navbar/Navbar.js";
-import { changeIdx } from "../navbar/navSlice.js";
-import { checkQuotaExceeded } from "../navbar/quota/quotaHandler.js";
-import { openModal } from "../navbar/quota/exceedQuotaModalSlice.js";
-import { syncQuota } from "../navbar/quota/quotaSlice.js";
+import useChangeNavIdx from "../../common/util/useChangeNavIdx.js";
+import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
 
 // React
 import {
@@ -26,9 +23,8 @@ import {
     useLocation
 } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -54,12 +50,18 @@ export const URL = {
 };
 
 export default function Plan({ setAnimationKey: setParentAnimationKey }) {
+    // styles
     const classes = useStyles();
+
+    // data
     const [key, setKey] = useState(0);
     const location = useLocation();
     const { path, url } = useRouteMatch();
+
+    // tool
     const dispatch = useDispatch();
 
+    // components
     const TempNavbar = () => {
         const handleClick = (stepName) => {
             setKey(Math.random);
@@ -78,20 +80,9 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
         )
     };
 
-    dispatch(syncQuota());
-
-    const history = useHistory();
-    const quotaExceeded = checkQuotaExceeded();
-    useEffect(() => {
-        if (quotaExceeded) {
-            history.push(`/${RootURL.about}`);
-            setParentAnimationKey();
-            dispatch(openModal());
-        }
-    }, [quotaExceeded]);
-
-    const navIdx = NavItem[RootURL.plan].idx;
-    dispatch(changeIdx(navIdx));
+    // init
+    useChangeNavIdx(RootURL.plan);
+    const quotaExceeded = useQuotaExceeded(true, setParentAnimationKey);
 
     if (!quotaExceeded) {
         return (

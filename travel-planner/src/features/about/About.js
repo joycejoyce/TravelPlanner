@@ -2,8 +2,6 @@
 import { makeStyles } from "@material-ui/styles";
 
 // my components
-import { changeIdx } from "../navbar/navSlice";
-import { NavItem } from "../navbar/Navbar.js";
 import { RootURL } from "../../config.json";
 import TableContents from "./TableContents.js";
 import LanguageSelect from "./LanguageSelect.js";
@@ -11,9 +9,8 @@ import Sections from "./sections/Sections.js";
 import Line from "./Line.js";
 import GoTopButton from "./GoTopButton.js";
 import { getStyles_pageTitle, getStyles_rootSubPages, getStyles_routingPage } from "../../common/styles/styles.js";
-
-// React
-import { useDispatch } from "react-redux";
+import useChangeNavIdx from "../../common/util/useChangeNavIdx.js";
+import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -34,16 +31,13 @@ const useStyles = makeStyles((theme) => {
     });
 });
 
-export default function About() {
+export default function About({ setAnimationKey }) {
     // styles
     const classes = useStyles();
 
-    // ctrl
-    const dispatch = useDispatch();
-
     // initial actions
-    const navIdx = NavItem[RootURL.about].idx;
-    dispatch(changeIdx(navIdx));
+    useChangeNavIdx(RootURL.about);
+    useQuotaExceeded(false, setAnimationKey);
 
     return (
         <div>

@@ -145,7 +145,10 @@ export default function Confirm({ setAnimationKey }) {
 
     useEffect(() => {
         async function doGetPOIData() {
-            document.getElementById("app").scrollTo(0,0);
+            const appElem = document.getElementById("app");
+            if (appElem) {
+                appElem.scrollTo(0,0);
+            }
 
             let poiData = null;
             const reduxCtrl = {

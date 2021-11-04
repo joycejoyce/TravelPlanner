@@ -37,7 +37,7 @@ export default function MyItineraries({ setAnimationKey: setParentAnimationKey }
 
     // init
     useChangeNavIdx(RootURL.myItineraries);
-    const quotaExceeded = useQuotaExceeded(true, setParentAnimationKey);
+    const quotaExceeded = useQuotaExceeded(true);
 
     if (!quotaExceeded) {
         return (

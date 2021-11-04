@@ -11,6 +11,11 @@ import GoTopButton from "./GoTopButton.js";
 import { getStyles_pageTitle, getStyles_rootSubPages, getStyles_routingPage } from "../../common/styles/styles.js";
 import useChangeNavIdx from "../../common/util/useChangeNavIdx.js";
 import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectIdx } from "../navbar/navSlice";
+import { NavItem } from "../navbar/Navbar";
+import { useRouteMatch } from "react-router";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -35,9 +40,12 @@ export default function About({ setAnimationKey }) {
     // styles
     const classes = useStyles();
 
+    // data
+    const { path } = useRouteMatch();
+
     // initial actions
     useChangeNavIdx(RootURL.about);
-    useQuotaExceeded(false, setAnimationKey);
+    useQuotaExceeded(false);
 
     return (
         <div>

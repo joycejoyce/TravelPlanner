@@ -1,5 +1,6 @@
 // MUI
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "@material-ui/core";
 
 // my components
 import MyModal from "../../../common/components/MyModal.js";
@@ -11,6 +12,7 @@ import { RootURL } from "../../../config.json";
 // React
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { HashLink as RouteLink } from 'react-router-hash-link';
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -29,6 +31,14 @@ const useStyles = makeStyles((theme) => {
             marginBottom: theme.spacing(4),
             display: "flex",
             alignItems: "center"
+        },
+        learnMore: {
+            marginTop: theme.spacing(2),
+            cursor: "pointer"
+        },
+        watchVideo: {
+            color: theme.palette.background.paper,
+            textDecoration: "none"
         }
     });
 });
@@ -56,6 +66,49 @@ function ModalContent() {
     )
 }
 
+function LearnMoreLink() {
+    // styles
+    const classes = useStyles();
+
+    // tool
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    // ctrl
+    const goAboutPage = () => {
+        const url = `/${RootURL.about}`;
+        history.push(url);
+        dispatch(closeModal());
+    };
+
+    return (
+        <Link
+            className={classes.learnMore}
+            onClick={goAboutPage}
+        >
+            Learn more about this app
+        </Link>
+    );
+}
+
+function DemoVideoLink() {
+    // styles
+    const classes = useStyles();
+
+    // data;
+    const refUrl = SectionItem.demoVideo.ref
+    const url = `/${RootURL.about}#${refUrl}`;
+
+    return (
+        <RouteLink
+            className={classes.watchVideo}
+            to={url}
+        >
+            Watch demo video
+        </RouteLink>
+    );
+}
+
 export default function ExceedQuotaModal() {
     const isOpen = useSelector(selectIsOpen);
 
@@ -65,26 +118,12 @@ export default function ExceedQuotaModal() {
     const doCloseModal = () => {
         dispatch(closeModal());
     };
-    const goWatchDemoVideo = () => {
-        const refUrl = SectionItem.demoVideo.ref
-        const url = `/${RootURL.about}#${refUrl}`;
-
-        history.push(url);
-        const demoElem = document.getElementById(refUrl);
-        if (demoElem) {
-            demoElem.scrollIntoView();
-        }
-    };
 
     const getBtnSetting = () => {
         return ({
-            leftBtn: {
-                callback: null,
-                text: "Close"
-            },
             rightBtn: {
-                callback: goWatchDemoVideo,
-                text: "Watch demo video"
+                callback: null,
+                text: <DemoVideoLink />
             }
         });
     };
@@ -95,7 +134,7 @@ export default function ExceedQuotaModal() {
             content={<ModalContent />}
             btnSettings={getBtnSetting()}
             closeModal={doCloseModal}
-            otherComponents={null}
+            otherComponents={<LearnMoreLink />}
             modalBodyStyles={null}
             modalContentStyles={null}
         />

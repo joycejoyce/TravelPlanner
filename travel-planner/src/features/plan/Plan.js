@@ -82,7 +82,7 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
 
     // init
     useChangeNavIdx(RootURL.plan);
-    const quotaExceeded = useQuotaExceeded(true, setParentAnimationKey);
+    const quotaExceeded = useQuotaExceeded(true);
 
     if (!quotaExceeded) {
         return (

@@ -115,7 +115,7 @@ export default function Home({ setAnimationKey }) {
     
     // initialize
     useChangeNavIdx(RootURL.home);
-    useQuotaExceeded(false, setAnimationKey);
+    useQuotaExceeded(false);
 
     return (
         <div className={"home " + classes.home}>

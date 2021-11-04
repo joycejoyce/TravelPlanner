@@ -8,7 +8,7 @@ import { syncQuota } from "../../features/navbar/quota/quotaSlice.js";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
-export default function useQuotaExceeded(toOpenQuotaExceedMoal, setParentAnimationKey) {
+export default function useQuotaExceeded(toOpenQuotaExceedMoal) {
     // tools
     const dispatch = useDispatch();
     const history = useHistory();
@@ -20,8 +20,6 @@ export default function useQuotaExceeded(toOpenQuotaExceedMoal, setParentAnimati
     const doCheckQuotaExceeded = () => {
         const quotaExceeded = checkQuotaExceeded();
         if (quotaExceeded) {
-            history.push(`/${RootURL.about}`);
-            setParentAnimationKey();
             dispatch(openModal());
         }
         return quotaExceeded;

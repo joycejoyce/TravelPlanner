@@ -1,123 +1,160 @@
 // MUI
-import { Typography, Link, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
+import { Button, Link as MUILink } from "@material-ui/core";
 import { ArrowForward as ArrowIcon } from "@material-ui/icons";
 
 // my components
-import { secondary as secondaryFont } from "../../common/styles/fonts.json";
+import { selectIdx, changeIdx } from "../navbar/navSlice.js";
 import { resetCriteria } from "../plan/criteria/criteriaSlice.js";
 import { RootURL } from "../../config.json";
-import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
-import { changeIdx, selectIdx } from "../navbar/navSlice.js";
 import { NavItem } from "../navbar/Navbar.js";
+import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
+import { SectionItem } from "../about/sections/Sections.js";
 
 // React
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { HashLink as RouteLink } from "react-router-hash-link";
 
 const useStyles = makeStyles((theme) => {
-    return({
-        home: {
-        },
+    return ({
         contents: {
             position: "absolute",
-            top: "130px",
-            [theme.breakpoints.up('md')]: {
-                top: "150px",
-            },
             left: "50%",
             transform: "translateX(-50%)",
-            width: "310px",
-            height: "460px",
+            top: "210px",
+            "& button": {
+                display: "flex"
+            },
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            [theme.breakpoints.up("md")]: {
-                width: "480px",
-                height: "750px"
-            }
+            alignItems: "center"
         },
-        highlightText: {
-            color: theme.palette.secondary.main,
-            fontFamily: secondaryFont
+        title: {
+            minWidth: "242px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0",
+            alignItems: "center"
         },
-        paragraph: {
-            alignSelf: "flex-start",
-            [theme.breakpoints.up("md")]: {
-                marginTop: theme.spacing(12),
-                "& h5": {
-                    fontSize: "36px"
-                },
-                "& h3": {
-                    fontSize: "75px"
-                }
-            }
+        titleSmall: {
+            fontSize: theme.spacing(4)
+        },
+        titleLarge: {
+            fontSize: theme.spacing(6)
+        },
+        goBtn: {
+            marginTop: theme.spacing(4),
+            marginBottom: theme.spacing(10),
+            width: "100px",
+            height: "50px",
+            borderRadius: "25px",
+            fontSize: theme.spacing(3)
+        },
+        watchDemoLink: {
+            color: theme.palette.text.primary,
+            textDecoration: "none"
         },
         techLink: {
-            position: "absolute",
-            bottom: "0",
-            cursor: "pointer",
-            fontFamily: theme.typography.fontFamily,
-            letterSpacing: ".5px",
-            fontSize: "14px",
-            alignSelf: "flex-start",
-            [theme.breakpoints.up("md")]: {
-                fontSize: "16px"
-            }
-        },
-        btn: {
-            width: "127px",
-            height: "60px",
-            borderRadius: "30px",
-            fontSize: "30px",
-            "& .MuiSvgIcon-root": {
-                fontSize: "24px"
-            },
-            marginTop: theme.spacing(12),
-            textTransform: "none",
-            letterSpacing: "1px",
-            color: theme.palette.type === "dark" ? theme.palette.text.primary : theme.palette.background.paper
+            alignSelf: "start",
+            marginTop: theme.spacing(8),
+            cursor: "pointer"
         }
     });
 });
 
-const Paragraph = () => {
+function Title() {
+    // styles
     const classes = useStyles();
 
     return (
-        <div className={classes.paragraph}>
-            <Typography variant="h5">Choose a center point and...</Typography>
-            <br />
-            <br />
-            <Typography variant="h3" className={classes.highlightText}>Voila!</Typography>
-            <Typography variant="h5">An itinerary is generated!</Typography>
+        <div className={classes.title}>
+            <div className={classes.titleSmall}>2 steps to get an</div>
+            <div className={classes.titleLarge}>itinerary</div>
         </div>
-    )
-};
+    );
+}
+
+function GoButton({ setAnimationKey }) {
+    // styles
+    const classes = useStyles();
+
+    // tools
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(resetCriteria());
+        setAnimationKey();
+        history.push(`/${RootURL.plan}`);
+    };
+
+    return (
+        <Button
+            variant="contained"
+            color="primary"
+            className={classes.goBtn}
+            endIcon={<ArrowIcon />}
+            onClick={handleClick}
+        >
+            Go
+        </Button>
+    );
+}
+
+function WatchDemoButton() {
+    // styles
+    const classes = useStyles();
+
+    // data
+    const refUrl = SectionItem.demoVideo.ref
+    const url = `/${RootURL.about}#${refUrl}`;
+
+    return (
+        <Button>
+            <RouteLink
+                className={classes.watchDemoLink}
+                to={url}
+            >
+                Watch demo video
+            </RouteLink>
+        </Button>
+    );
+}
+
+function TechBehindLink({ setAnimationKey }) {
+    // styles
+    const classes = useStyles();
+
+    const history = useHistory();
+
+    const handleClick = () => {
+        setAnimationKey();
+        history.push(`/${RootURL.about}`);
+    };
+
+    return (
+        <MUILink
+            className={classes.techLink}
+            color="textPrimary"
+            onClick={handleClick}
+        >
+            technologies<br />behind the scenes
+        </MUILink>
+    );
+}
 
 export default function Home({ setAnimationKey }) {
     // styles
     const classes = useStyles();
 
     // tool
-    const history = useHistory();
     const dispatch = useDispatch();
 
     // data
     const curNavIdx = useSelector(selectIdx);
 
-    // ctrl
-    const handleClickGo = () => {
-        dispatch(resetCriteria());
-        setAnimationKey();
-        history.push(`/${RootURL.plan}`);
-    }
-    const handleClickTechBehind = () => {
-        setAnimationKey();
-        history.push(`/${RootURL.about}`);
-    };
-    
     // initialize
     useEffect(() => {
         const pageNavIdx = NavItem[RootURL.home].idx;
@@ -128,25 +165,12 @@ export default function Home({ setAnimationKey }) {
     useQuotaExceeded(false);
 
     return (
-        <div className={"home " + classes.home}>
-            <div className={"contents " + classes.contents}>
-                <Paragraph className="paragraph" />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.btn}
-                    endIcon={<ArrowIcon />}
-                    onClick={handleClickGo}
-                >
-                    Go
-                </Button>
-                <Link
-                    className={classes.techLink}
-                    color="textPrimary"
-                    onClick={handleClickTechBehind}
-                >
-                    technologies<br />behind the scenes
-                </Link>
+        <div className={classes.home}>
+            <div className={classes.contents}>
+                <Title />
+                <GoButton setAnimationKey={setAnimationKey} />
+                <WatchDemoButton setAnimationKey={setAnimationKey} />
+                <TechBehindLink setAnimationKey={setAnimationKey} />
             </div>
         </div>
     );

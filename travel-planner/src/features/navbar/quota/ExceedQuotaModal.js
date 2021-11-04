@@ -12,7 +12,7 @@ import { RootURL } from "../../../config.json";
 // React
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { HashLink as RouteLink } from 'react-router-hash-link';
+import { HashLink as RouteLink } from "react-router-hash-link";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -95,7 +95,7 @@ function DemoVideoLink() {
     // styles
     const classes = useStyles();
 
-    // data;
+    // data
     const refUrl = SectionItem.demoVideo.ref
     const url = `/${RootURL.about}#${refUrl}`;
 

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
             position: "absolute",
             left: "50%",
             transform: "translateX(-50%)",
-            top: "210px",
+            top: "200px",
             "& button": {
                 display: "flex"
             },
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => {
         },
         goBtn: {
             marginTop: theme.spacing(4),
-            marginBottom: theme.spacing(10),
+            marginBottom: theme.spacing(8),
             width: "100px",
             height: "50px",
             borderRadius: "25px",
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => {
         },
         techLink: {
             alignSelf: "start",
-            marginTop: theme.spacing(10),
+            marginTop: theme.spacing(8),
             cursor: "pointer"
         }
     });

@@ -6,12 +6,10 @@ import { syncQuota } from "../../features/navbar/quota/quotaSlice.js";
 
 // React
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
 
 export default function useQuotaExceeded(toOpenQuotaExceedMoal) {
     // tools
     const dispatch = useDispatch();
-    const history = useHistory();
 
     // func
     const loadQuotaUsage = () => {

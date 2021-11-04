@@ -7,12 +7,14 @@ import { ArrowForward as ArrowIcon } from "@material-ui/icons";
 import { secondary as secondaryFont } from "../../common/styles/fonts.json";
 import { resetCriteria } from "../plan/criteria/criteriaSlice.js";
 import { RootURL } from "../../config.json";
-import useChangeNavIdx from "../../common/util/useChangeNavIdx.js";
 import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
+import { changeIdx, selectIdx } from "../navbar/navSlice.js";
+import { NavItem } from "../navbar/Navbar.js";
 
 // React
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => {
     return({
@@ -102,6 +104,9 @@ export default function Home({ setAnimationKey }) {
     const history = useHistory();
     const dispatch = useDispatch();
 
+    // data
+    const curNavIdx = useSelector(selectIdx);
+
     // ctrl
     const handleClickGo = () => {
         dispatch(resetCriteria());
@@ -114,7 +119,12 @@ export default function Home({ setAnimationKey }) {
     };
     
     // initialize
-    useChangeNavIdx(RootURL.home);
+    useEffect(() => {
+        const pageNavIdx = NavItem[RootURL.home].idx;
+        if (curNavIdx !== pageNavIdx) {
+            dispatch(changeIdx(pageNavIdx));
+        }
+    }, []);
     useQuotaExceeded(false);
 
     return (

@@ -8,11 +8,11 @@ import { secondary as secondaryFont } from "../styles/fonts.json";
 export function getStyles_mapContainer(theme) {
     return ({
         "& > *:not(.MuiButtonBase-root)": {
-            width: "85vw",
+            width: "60vw",
             [theme.breakpoints.up('md')]: {
                 width: "70vw"
             },
-            minWidth: "380px",
+            minWidth: "350px",
             maxWidth: "900px"
         },
     });
@@ -20,7 +20,7 @@ export function getStyles_mapContainer(theme) {
 
 export function getStyles_map(theme) {
     return ({
-        height: "450px",
+        height: "300px",
         [theme.breakpoints.up('md')]: {
             height: "515px"
         }

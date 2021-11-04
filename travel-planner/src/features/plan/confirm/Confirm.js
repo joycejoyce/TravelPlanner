@@ -6,15 +6,13 @@ import getPOIData, { getPOIData_mock, addMarkers, initMap, resetMap } from "./po
 import { CriteriaName, selectAll, resetCriteria, changePOIs } from "../criteria/criteriaSlice.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../common/styles/styles.js";
 import { changePOI, selectPOIData } from "./poiDataSlice.js";
-import { POIName } from "../criteria/POIs.js";
-import { secondary as secondaryFont } from "../../../common/styles/fonts.json";
 import { openModal } from "./cancel-modal/cancelModalSlice.js";
 import GenPOIInfo from "./gen-poi-info/GenPOIInfo.js";
 import ItineraryInfo from "./itinerary-info/ItineraryInfo.js";
 import CancelModal from "./cancel-modal/CancelModal.js";
 import { StepNames } from "../PlanStepper.js";
 import useStep from "../../../common/util/useStep.js";
-import { getAllItineraries, getItinerary, save, checkItiNumOverLimit, getFirstItiName, changeItineraries } from "../../my-itineraries/dataHandler.js";
+import { getAllItineraries, save, checkItiNumOverLimit, getFirstItiName, changeItineraries } from "../../my-itineraries/dataHandler.js";
 import ButtonSection from "../buttonSection/ButtonSection.js";
 import { mock_criteria } from "./mockData.js";
 import { URL } from "../Plan.js";
@@ -116,9 +114,6 @@ export default function Confirm({ setAnimationKey }) {
         if (!hasError) {
             save(itineraryInfo, criteria, poiData);
             goToNextPage();
-            // setAnimationKey();
-            // const itineraryName = itineraryInfo[ItineraryInfoFieldName.name];
-            // history.push(`/plan/${URL.getItinerary}/${itineraryName}`);
         }
     };
     const handleClickCancel = () => {
@@ -185,7 +180,6 @@ export default function Confirm({ setAnimationKey }) {
     return (
         <div id="confirm" className={rootClassName}>
             <div className={["contents", classes.contents].join(" ")}>
-                {/* <h1>Confirm</h1> */}
                 <div className={"mapSection " + classes.mapSection}>
                     <div id={mapProps.id} className={classes.map}></div>
                     {

@@ -23,7 +23,10 @@ const useStyles = makeStyles((theme) => {
             justifyContent: "center",
             gap: "5px",
             color: palette.primary,
-            background: palette.primaryBK
+            background: palette.primaryBK,
+            "& .expText": {
+                fontSize: "14px"
+            }
         },
         editIcon: {
             color: palette.secondary,

@@ -54,11 +54,12 @@ const useStyles = makeStyles((theme) => {
         },
         watchDemoLink: {
             color: theme.palette.text.primary,
-            textDecoration: "none"
+            textDecoration: "none",
+            fontSize: "16px"
         },
         techLink: {
             alignSelf: "start",
-            marginTop: theme.spacing(8),
+            marginTop: theme.spacing(10),
             cursor: "pointer"
         }
     });
@@ -112,7 +113,9 @@ function WatchDemoButton() {
     const url = `/${RootURL.about}#${refUrl}`;
 
     return (
-        <Button>
+        <Button
+            variant="outlined"
+        >
             <RouteLink
                 className={classes.watchDemoLink}
                 to={url}

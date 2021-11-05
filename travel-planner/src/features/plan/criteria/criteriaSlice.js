@@ -21,7 +21,12 @@ const initialState = {
     [CriteriaName.date]: new Date(),
     [CriteriaName.radius]: 10,
     [CriteriaName.pois]: Object.keys(POIName).reduce((accu, name) => {
-        accu[name] = true;
+        if ([POIName.breakfast, POIName.poi1].includes(name)) {
+            accu[name] = true;
+        }
+        else {
+            accu[name] = false;
+        }
         return accu;
     }, {}),
     [CriteriaName.poiTypes]: Object.keys(POITypeName).reduce((accu, type) => {

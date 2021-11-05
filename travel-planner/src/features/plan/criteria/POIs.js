@@ -108,7 +108,7 @@ export default function Radius() {
     const classes = useStyles();
     
     // data
-    const [selectAll, setSelectAll] = useState(true);
+    const [selectAll, setSelectAll] = useState(false);
     const selectedPOIs = useSelector(selectPOIs);
 
     // ctrl

@@ -51,13 +51,19 @@ export default function AllItineraryCards() {
     const dispatch = useDispatch();
     useEffect(() => {
         function checkIsGMapAvailable() {
-            const imgUrl = getTestUrl();
-            axios.get(imgUrl)
-                .then((res) => { console.table(res.data) })
-                .catch((error) => {
-                    dispatch(openModal());
-                })
-                .finally(() => { /* 不論失敗成功皆會執行 */ })
+            const urls = getTestUrl();
+            let count = 0;
+            urls.forEach(url => {
+                axios.get(url)
+                    .then((res) => {})
+                    .catch((error) => {
+                        count ++;
+                    })
+                    .finally(() => {})
+            })
+            if (count === urls.length) {
+                dispatch(openModal());
+            }
         }
         checkIsGMapAvailable();
     });

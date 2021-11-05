@@ -185,12 +185,11 @@ export function getRadius(criteria) {
 }
 
 export function getTestUrl() {
-    const curIti = getAllItineraries();
-    if (!curIti || Object.keys(curIti).length === 0) {
+    const curItis = getAllItineraries();
+    if (!curItis || Object.keys(curItis).length === 0) {
         return null;
     }
 
-    const iti = Object.values(curIti)[0];
-    const { staticMapUrl } = iti;
-    return staticMapUrl;
+    const allUrls = Object.values(curItis).map(iti => iti.staticMapUrl);
+    return allUrls;
 }

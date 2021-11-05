@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme) => {
             alignItems: "center"
         },
         title: {
-            minWidth: "242px",
+            minWidth: "300px",
             display: "flex",
             flexDirection: "column",
             gap: "0",
             alignItems: "center"
         },
         titleSmall: {
-            fontSize: theme.spacing(4)
+            fontSize: theme.spacing(3)
         },
         titleLarge: {
             fontSize: theme.spacing(6)
@@ -71,8 +71,8 @@ function Title() {
 
     return (
         <div className={classes.title}>
-            <div className={classes.titleSmall}>2 steps to get an</div>
-            <div className={classes.titleLarge}>itinerary</div>
+            <div className={classes.titleSmall}>Take only 2 steps to get an</div>
+            <div className={classes.titleLarge}>itinerary !</div>
         </div>
     );
 }

@@ -183,3 +183,14 @@ export function getRadius(criteria) {
     const radius = criteria[CriteriaName.radius];
     return radius;
 }
+
+export function getTestUrl() {
+    const curIti = getAllItineraries();
+    if (!curIti || Object.keys(curIti).length === 0) {
+        return null;
+    }
+
+    const iti = Object.values(curIti)[0];
+    const { staticMapUrl } = iti;
+    return staticMapUrl;
+}

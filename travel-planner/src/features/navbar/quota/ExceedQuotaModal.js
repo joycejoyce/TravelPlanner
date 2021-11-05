@@ -49,12 +49,12 @@ function ModalContent() {
     return (
         <div className={classes.modalContent}>
             <div className={classes.desc}>
-                The daily quota of using<br />
+                The quota of using<br />
                 <span className={classes.google}>Google Maps APIs</span><br />
-                is exceeded
+                within 24 hours is exceeded
             </div>
             <div className={classes.instruction}>
-                You may use
+                You may try using
                 <Logo
                     className={classes.logo}
                     width="55px"
@@ -113,7 +113,6 @@ export default function ExceedQuotaModal() {
     const isOpen = useSelector(selectIsOpen);
 
     // ctrl
-    const history = useHistory();
     const dispatch = useDispatch();
     const doCloseModal = () => {
         dispatch(closeModal());

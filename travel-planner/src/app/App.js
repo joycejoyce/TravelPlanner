@@ -99,7 +99,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Paper id="app" className={"app " + classes.root}>
         {/* <Loading /> */}
-        <Quota />
+        {/* <Quota /> */}
         <InnerApp />
       </Paper>
     </ThemeProvider>

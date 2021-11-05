@@ -1,10 +1,16 @@
 // MUI
 import { makeStyles } from "@material-ui/styles";
+import { useEffect } from "react";
 import { getStyles_pageTitle } from "../../common/styles/styles.js";
 
 // my components
-import { getAllItineraries } from "./dataHandler.js";
+import { getAllItineraries, getTestUrl } from "./dataHandler.js";
 import ItineraryCard from "./ItineraryCard.js";
+import { openModal } from "../navbar/quota/exceedQuotaModalSlice.js";
+
+// others
+import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     const titleStyles = getStyles_pageTitle(theme);
@@ -40,6 +46,21 @@ export default function AllItineraryCards() {
 
     // data
     const itineraries = getAllItineraries();
+
+    // init
+    const dispatch = useDispatch();
+    useEffect(() => {
+        function checkIsGMapAvailable() {
+            const imgUrl = getTestUrl();
+            axios.get(imgUrl)
+                .then((res) => { console.table(res.data) })
+                .catch((error) => {
+                    dispatch(openModal());
+                })
+                .finally(() => { /* 不論失敗成功皆會執行 */ })
+        }
+        checkIsGMapAvailable();
+    });
 
     return (
         <div className={classes.allItiCards}>

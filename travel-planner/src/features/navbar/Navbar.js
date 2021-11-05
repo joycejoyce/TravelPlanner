@@ -15,7 +15,7 @@ import { RootURL } from "../../config.json";
 
 // React
 import { useState, useLayoutEffect } from "react";
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -108,24 +108,34 @@ function useMobile() {
     return isMobile;
 }
 
-export default function Navbar() {
+export default function Navbar({ setAnimationKey }) {
     const classes = useStyles();
 
+    // tools
     const location = useLocation();
-    const { pathname } = location;
-    const checkIsHome = () => {
-        return pathname.includes(RootURL.home) || pathname === "/";
-    }
+    const history = useHistory();
 
+    // data
+    const { pathname } = location;
     // const width = useWindowSize();
     const width = "60px";
     const isMobile = useMobile();
+
+    // ctrl
+    const handleClickLogo = () => {
+        setAnimationKey();
+        history.push(`${RootURL.home}`);
+    };
+    const checkIsHome = () => {
+        return pathname.includes(RootURL.home) || pathname === "/";
+    };
 
     return (
         <div className={["navbar", classes.navbar].join(" ")}>
             <Logo
                 className={classes.logo}
                 width={width}
+                handleClick={handleClickLogo}
             />
             {
                 isMobile ? <NavItem_Mobile /> : <NavItem_Desktop />

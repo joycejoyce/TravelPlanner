@@ -66,7 +66,7 @@ function AnimationPart() {
     return (
         <>
             {/* <TempNavbar /> */}
-            <Navbar />
+            <Navbar setAnimationKey={setKey} />
             <ExceedQuotaModal />
             <TransitionGroup
                 className={"animationPart-innerApp " + classes.animationPart}

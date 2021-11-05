@@ -6,6 +6,7 @@ import { initMap, hideInfoWindow, setMapToReadOnly } from "./mapHandler.js";
 import ConfirmModal from "./CenterPointModal.js";
 import { changePosition, selectDesc, selectPosition } from "../criteriaSlice.js";
 import { openModal } from "./centerPointModalSlice.js";
+import { openModal as openModal_exceedQuota } from "../../../navbar/quota/exceedQuotaModalSlice.js";
 import { places } from "../../../../common/map/place.js";
 import Explanation from "./Explanation.js";
 import { getStyles_mapContainer, getStyles_map } from "../../../../common/styles/styles.js";
@@ -81,6 +82,17 @@ export default function CenterPoint() {
     };
 
     useEffect(() => {
+        function checkIsGMapAvailable() {
+            const imgElems = document.getElementsByTagName("img");
+            if (imgElems) {
+                for (let elem of imgElems) {
+                    const { src } = elem;
+                    if (src.includes("google_gray.svg")) {
+                        dispatch(openModal_exceedQuota());
+                    }
+                }
+            }
+        }
         async function doInitMap() {
             console.log("doInitMap_CenterPoint");
             const reduxCtrl = {
@@ -95,8 +107,12 @@ export default function CenterPoint() {
             else {
                 hideInfoWindow();
             }
+            setTimeout(() => {
+                checkIsGMapAvailable();
+            }, 1000);
         }
         doInitMap();
+
     }, []);
 
     return (
@@ -104,10 +120,10 @@ export default function CenterPoint() {
             <Explanation />
             <Map id={mapProps.id} />
             {/* <div id={mapProps.id} className={classes.map}></div> */}
-            <div 
+            <div
                 id={infoWindowProps.id}
                 className={classes.popupContainer}
-                style={{display: "none"}}
+                style={{ display: "none" }}
             ></div>
             <ConfirmModal />
         </div>

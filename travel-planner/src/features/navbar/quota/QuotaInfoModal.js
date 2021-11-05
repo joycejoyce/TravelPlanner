@@ -32,10 +32,10 @@ function ModalContent({ quotaLimit }) {
     return (
         <div className={classes.modalContent}>
             <div className={classes.desc}>
-                Due to using Google Maps APIs is costly,<br/>the daily quota of using them is:
+                Due to using Google Maps APIs is costly,<br/>the quota of using them within 24 hours is:
             </div>
             <div className={classes.limitDesc}>
-                <span className={classes.limitNum}>{DailyQuotaLimit}</span> requests per IP
+                <span className={classes.limitNum}>{DailyQuotaLimit}</span> requests per user
             </div>
         </div>
     );

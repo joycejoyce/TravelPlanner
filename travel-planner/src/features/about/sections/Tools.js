@@ -46,14 +46,14 @@ const Rows = [
         },
         tools: [<ToolList toolList={["React (with Redux)"]} />]
     },
-    {
-        key: "test-framework",
-        item: {
-            english: "Test Framework",
-            chinese: "測試框架"
-        },
-        tools: [<ToolList toolList={["Jest"]} />]
-    },
+    // {
+    //     key: "test-framework",
+    //     item: {
+    //         english: "Test Framework",
+    //         chinese: "測試框架"
+    //     },
+    //     tools: [<ToolList toolList={["Jest"]} />]
+    // },
     {
         key: "serverless-related",
         item: {

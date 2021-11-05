@@ -124,7 +124,7 @@ export default function Navbar({ setAnimationKey }) {
     // ctrl
     const handleClickLogo = () => {
         setAnimationKey();
-        history.push(`${RootURL.home}`);
+        history.push(`/${RootURL.home}`);
     };
     const checkIsHome = () => {
         return pathname.includes(RootURL.home) || pathname === "/";

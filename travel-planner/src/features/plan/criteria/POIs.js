@@ -108,8 +108,12 @@ export default function Radius() {
     const classes = useStyles();
     
     // data
-    const [selectAll, setSelectAll] = useState(false);
     const selectedPOIs = useSelector(selectPOIs);
+    const shouldBeSelectAll = Object.values(POIName).reduce((accu, name) => {
+        accu = accu && selectedPOIs[name];
+        return accu;
+    }, true);
+    const [selectAll, setSelectAll] = useState(shouldBeSelectAll);
 
     // ctrl
     const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-export const DailyQuotaLimit = 80;
+export const DailyQuotaLimit = 180;
 const FieldName = "quota";
 const QuotaFieldName = {
     curQuota: "curQuota",

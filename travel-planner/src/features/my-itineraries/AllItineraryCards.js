@@ -59,7 +59,7 @@ export default function AllItineraryCards() {
                         console.log(`get OK: ${url}`);
                     })
                     .catch((error) => {
-                        console.log(`get failed: ${url}`);
+                        console.log(`get failed: ${url}`, error);
                         count++;
                         if (count >= urls.length) {
                             dispatch(openModal());

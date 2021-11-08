@@ -11,8 +11,9 @@ import { StepInfos, StepNames } from "./PlanStepper.js";
 import { toStep } from "./stepSlice";
 import { getStyles_routingPage } from "../../common/styles/styles.js";
 import { RootURL } from "../../config.json";
-import useChangeNavIdx from "../../common/util/useChangeNavIdx.js";
 import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
+import { selectIdx, changeIdx } from "../navbar/navSlice.js";
+import { NavItem } from "../navbar/Navbar.js";
 
 // React
 import {
@@ -23,8 +24,8 @@ import {
     useLocation
 } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -57,6 +58,7 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
     const [key, setKey] = useState(0);
     const location = useLocation();
     const { path, url } = useRouteMatch();
+    const curNavIdx = useSelector(selectIdx);
 
     // tool
     const dispatch = useDispatch();
@@ -79,9 +81,14 @@ export default function Plan({ setAnimationKey: setParentAnimationKey }) {
             </div>
         )
     };
-
-    // init
-    useChangeNavIdx(RootURL.plan);
+    
+    // initialize
+    useEffect(() => {
+        const pageNavIdx = NavItem[RootURL.plan].idx;
+        if (curNavIdx !== pageNavIdx) {
+            dispatch(changeIdx(pageNavIdx));
+        }
+    }, []);
     const quotaExceeded = useQuotaExceeded(true);
 
     if (!quotaExceeded) {

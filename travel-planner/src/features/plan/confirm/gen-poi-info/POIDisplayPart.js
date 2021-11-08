@@ -23,13 +23,14 @@ export default function POIDisplayPart({ poiDatas, poiCriteria }) {
     let got1Expanded = false;
     const [expanded, setExpanded] = useState(
         Object.entries(poiCriteria).reduce((accu, [poiName, checked]) => {
-            if (!got1Expanded && checked && poiDatas[poiName]) {
-                got1Expanded = true;
-                accu[poiName] = true;
-            }
-            else {
-                accu[poiName] = false;
-            }
+            // if (!got1Expanded && checked && poiDatas[poiName]) {
+            //     got1Expanded = true;
+            //     accu[poiName] = true;
+            // }
+            // else {
+            //     accu[poiName] = false;
+            // }
+            accu[poiName] = true;
             return accu;
         }, {})
     );

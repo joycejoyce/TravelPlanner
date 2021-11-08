@@ -81,14 +81,16 @@ export default function CenterPoint() {
         id: [mapName, "infoWindow"].join("_")
     };
 
+    let modalOpened_exceedQuota = false;
     useEffect(() => {
         function checkIsGMapAvailable() {
             const imgElems = document.getElementsByTagName("img");
             if (imgElems) {
                 for (let elem of imgElems) {
                     const { src } = elem;
-                    if (src.includes("google_gray.svg")) {
+                    if (src.includes("google_gray.svg") && !modalOpened_exceedQuota) {
                         dispatch(openModal_exceedQuota());
+                        modalOpened_exceedQuota = true;
                     }
                 }
             }
@@ -107,9 +109,21 @@ export default function CenterPoint() {
             else {
                 hideInfoWindow();
             }
-            setTimeout(() => {
-                checkIsGMapAvailable();
-            }, 1000);
+            let checkCount = 0;
+            const CheckNum = 10;
+            const intervalID = setInterval(() => {
+                // console.log("checkCount", checkCount);
+                // console.log("modalOpened_exceedQuota", modalOpened_exceedQuota);
+                if (!modalOpened_exceedQuota) {
+                    checkIsGMapAvailable();
+                }
+                
+                checkCount ++;
+                if (checkCount === CheckNum || modalOpened_exceedQuota) {
+                    clearInterval(intervalID);
+                    // console.log("clearInterval");
+                }
+            }, 1500);
         }
         doInitMap();
 

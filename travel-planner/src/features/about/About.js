@@ -9,9 +9,14 @@ import Sections from "./sections/Sections.js";
 import Line from "./Line.js";
 import GoTopButton from "./GoTopButton.js";
 import { getStyles_pageTitle, getStyles_rootSubPages, getStyles_routingPage } from "../../common/styles/styles.js";
-import useChangeNavIdx from "../../common/util/useChangeNavIdx.js";
+import { selectIdx, changeIdx } from "../navbar/navSlice.js";
 import useQuotaExceeded from "../../common/util/useQuotaExceeded.js";
+import { NavItem } from "../navbar/Navbar.js";
+
+// React
+import { useEffect } from "react";
 import { useRouteMatch } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => {
     const animationPartStyles = getStyles_routingPage();
@@ -36,11 +41,20 @@ export default function About({ setAnimationKey }) {
     // styles
     const classes = useStyles();
 
+    // tool
+    const dispatch = useDispatch();
+
     // data
     const { path } = useRouteMatch();
+    const curNavIdx = useSelector(selectIdx);
 
-    // initial actions
-    useChangeNavIdx(RootURL.about);
+    // initialize
+    useEffect(() => {
+        const pageNavIdx = NavItem[RootURL.about].idx;
+        if (curNavIdx !== pageNavIdx) {
+            dispatch(changeIdx(pageNavIdx));
+        }
+    }, []);
     useQuotaExceeded(false);
 
     return (

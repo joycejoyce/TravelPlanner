@@ -55,15 +55,17 @@ export default function AllItineraryCards() {
             let count = 0;
             urls.forEach(url => {
                 axios.get(url)
-                    .then((res) => {})
-                    .catch((error) => {
-                        count ++;
+                    .then((res) => {
+                        console.log(`get ${url.slice(0, 20)}... OK!`);
                     })
-                    .finally(() => {})
-            })
-            if (count === urls.length) {
-                dispatch(openModal());
-            }
+                    .catch((error) => {
+                        count++;
+                        if (count >= urls.length) {
+                            dispatch(openModal());
+                        }
+                    })
+                    .finally(() => { })
+            });
         }
         checkIsGMapAvailable();
     });

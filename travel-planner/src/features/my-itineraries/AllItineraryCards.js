@@ -52,6 +52,9 @@ export default function AllItineraryCards() {
     useEffect(() => {
         function checkIsGMapAvailable() {
             const urls = getTestUrl();
+            if (!urls) {
+                return;
+            }
             let count = 0;
             urls.forEach(url => {
                 url = url.replace("http", "https");

@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => {
 
 function Link({ idx }) {
     const URLs = [
-        "https://drive.google.com/file/d/1yVXM9wYNRxmsgTFZB2-ys3r8o9En9MAd/view?usp=sharing",
-        "https://drive.google.com/file/d/1FW16qPShDdoufIYVN7ehJNo4V_BLBPcv/view?usp=sharing",
+        "https://drive.google.com/file/d/1-V9gX1zOXjEC9BXg6cCpPR60kcizBLvC/view?usp=sharing",
+        "https://drive.google.com/file/d/1O_a4PhY8oKISuvSx5dGSuSWmnZl-YmrM/view?usp=sharing",
         "https://www.figma.com/file/R1JlrLlFoNHxtAVNqpVZ7H/Wireframe-TravelPlanner",
         "https://www.figma.com/file/W3AaQptvz06kD075GzUS01/Mockup-(TravelPlanner)"
     ];

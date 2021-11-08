@@ -34,11 +34,11 @@ export default function DemoVideo() {
     const Contents = {
         english: {
             btnText: "English Version",
-            videoUrl: "https://youtu.be/HC-GEth0nVM"
+            videoUrl: "https://youtu.be/0KunYPXrV5Y"
         },
         chinese: {
             btnText: "中文版",
-            videoUrl: "https://youtu.be/ScRjfb5qnOY"
+            videoUrl: "https://youtu.be/CLKCVrrEFbo"
         }
     };
     const handleClick = (videoUrl) => {

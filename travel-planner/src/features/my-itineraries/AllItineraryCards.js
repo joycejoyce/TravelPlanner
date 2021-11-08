@@ -54,6 +54,7 @@ export default function AllItineraryCards() {
             const urls = getTestUrl();
             let count = 0;
             urls.forEach(url => {
+                url = url.replace("http", "https");
                 axios.get(url)
                     .then((res) => {
                         console.log(`get OK: ${url}`);

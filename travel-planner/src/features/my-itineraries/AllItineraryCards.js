@@ -56,9 +56,10 @@ export default function AllItineraryCards() {
             urls.forEach(url => {
                 axios.get(url)
                     .then((res) => {
-                        console.log(`get ${url.slice(0, 20)}... OK!`);
+                        console.log(`get OK: ${url}`);
                     })
                     .catch((error) => {
+                        console.log(`get failed: ${url}`);
                         count++;
                         if (count >= urls.length) {
                             dispatch(openModal());
